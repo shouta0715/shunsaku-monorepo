@@ -13,11 +13,9 @@
     "typescriptreact"
   ],
   "eslint.format.enable": false,
-  "eslint.workingDirectories": ["."],
+  "eslint.workingDirectories": ["./apps/**", "./packages/**"],
   "eslint.lintTask.enable": true,
   "eslint.run": "onType",
-  "typescript.preferences.organizeImportsCollation": "ordinal",
-  "typescript.preferences.organizeImportsNumericCollation": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
