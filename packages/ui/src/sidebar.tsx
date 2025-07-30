@@ -28,7 +28,7 @@ export function SidebarHeader({
       {...props}
       className={clsx(
         className,
-        "flex flex-col border-b border-zinc-950/5 p-4 dark:border-white/5 [&>[data-slot=section]+[data-slot=section]]:mt-2.5",
+        "flex flex-col border-b border-zinc-950/5 p-4 dark:border-white/5 [&>[data-slot=section]+[data-slot=section]]:mt-2.5"
       )}
     />
   );
@@ -43,7 +43,7 @@ export function SidebarBody({
       {...props}
       className={clsx(
         className,
-        "flex flex-1 flex-col overflow-y-auto p-4 [&>[data-slot=section]+[data-slot=section]]:mt-8",
+        "flex flex-1 flex-col overflow-y-auto p-4 [&>[data-slot=section]+[data-slot=section]]:mt-8"
       )}
     />
   );
@@ -58,7 +58,7 @@ export function SidebarFooter({
       {...props}
       className={clsx(
         className,
-        "flex flex-col border-t border-zinc-950/5 p-4 dark:border-white/5 [&>[data-slot=section]+[data-slot=section]]:mt-2.5",
+        "flex flex-col border-t border-zinc-950/5 p-4 dark:border-white/5 [&>[data-slot=section]+[data-slot=section]]:mt-2.5"
       )}
     />
   );
@@ -74,8 +74,8 @@ export function SidebarSection({
     <LayoutGroup id={id}>
       <div
         {...props}
-        data-slot="section"
         className={clsx(className, "flex flex-col gap-0.5")}
+        data-slot="section"
       />
     </LayoutGroup>
   );
@@ -90,7 +90,7 @@ export function SidebarDivider({
       {...props}
       className={clsx(
         className,
-        "my-4 border-t border-zinc-950/5 lg:-mx-4 dark:border-white/5",
+        "my-4 border-t border-zinc-950/5 lg:-mx-4 dark:border-white/5"
       )}
     />
   );
@@ -111,16 +111,19 @@ export function SidebarSpacer({
 
 export function SidebarHeading({
   className,
+  children,
   ...props
-}: React.ComponentPropsWithoutRef<"h3">) {
+}: React.ComponentPropsWithoutRef<"h3"> & { children: React.ReactNode }) {
   return (
     <h3
       {...props}
       className={clsx(
         className,
-        "mb-1 px-2 text-xs/6 font-medium text-zinc-500 dark:text-zinc-400",
+        "mb-1 px-2 text-xs/6 font-medium text-zinc-500 dark:text-zinc-400"
       )}
-    />
+    >
+      {children}
+    </h3>
   );
 }
 
@@ -134,7 +137,7 @@ export const SidebarItem = forwardRef(function SidebarItem(
     | Omit<Headless.ButtonProps, "as" | "className">
     | Omit<Headless.ButtonProps<typeof Link>, "as" | "className">
   ),
-  ref: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>,
+  ref: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>
 ) {
   const classes = clsx(
     // Base
@@ -155,33 +158,33 @@ export const SidebarItem = forwardRef(function SidebarItem(
     "dark:text-white dark:*:data-[slot=icon]:fill-zinc-400",
     "dark:data-hover:bg-white/5 dark:data-hover:*:data-[slot=icon]:fill-white",
     "dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white",
-    "dark:data-current:*:data-[slot=icon]:fill-white",
+    "dark:data-current:*:data-[slot=icon]:fill-white"
   );
 
   return (
     <span className={clsx(className, "relative")}>
       {current && (
         <motion.span
-          layoutId="current-indicator"
           className="absolute inset-y-2 -left-4 w-0.5 rounded-full bg-zinc-950 dark:bg-white"
+          layoutId="current-indicator"
         />
       )}
       {"href" in props ? (
         <Headless.CloseButton
           as={Link}
           {...props}
+          ref={ref}
           className={classes}
           data-current={current ? "true" : undefined}
-          ref={ref}
         >
           <TouchTarget>{children}</TouchTarget>
         </Headless.CloseButton>
       ) : (
         <Headless.Button
           {...props}
+          ref={ref}
           className={clsx("cursor-default", classes)}
           data-current={current ? "true" : undefined}
-          ref={ref}
         >
           <TouchTarget>{children}</TouchTarget>
         </Headless.Button>

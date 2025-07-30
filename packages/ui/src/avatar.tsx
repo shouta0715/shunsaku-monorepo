@@ -32,29 +32,29 @@ export function Avatar({
         // Border radius
         square
           ? "rounded-(--avatar-radius) *:rounded-(--avatar-radius)"
-          : "rounded-full *:rounded-full",
+          : "rounded-full *:rounded-full"
       )}
     >
       {initials && (
         <svg
+          aria-hidden={alt ? undefined : "true"}
           className="size-full fill-current p-[5%] text-[48px] font-medium uppercase select-none"
           viewBox="0 0 100 100"
-          aria-hidden={alt ? undefined : "true"}
         >
           {alt && <title>{alt}</title>}
           <text
-            x="50%"
-            y="50%"
             alignmentBaseline="middle"
             dominantBaseline="middle"
-            textAnchor="middle"
             dy=".125em"
+            textAnchor="middle"
+            x="50%"
+            y="50%"
           >
             {initials}
           </text>
         </svg>
       )}
-      {src && <img className="size-full" src={src} alt={alt} />}
+      {src && <img alt={alt} className="size-full" src={src} />}
     </span>
   );
 }
@@ -72,28 +72,28 @@ export const AvatarButton = forwardRef(function AvatarButton(
       | Omit<Headless.ButtonProps, "as" | "className">
       | Omit<React.ComponentPropsWithoutRef<typeof Link>, "className">
     ),
-  ref: React.ForwardedRef<HTMLElement>,
+  ref: React.ForwardedRef<HTMLElement>
 ) {
   const classes = clsx(
     className,
     square ? "rounded-[20%]" : "rounded-full",
-    "relative inline-grid focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500",
+    "relative inline-grid focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500"
   );
 
   return "href" in props ? (
     <Link
       {...props}
-      className={classes}
       ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+      className={classes}
     >
       <TouchTarget>
-        <Avatar src={src} square={square} initials={initials} alt={alt} />
+        <Avatar alt={alt} initials={initials} square={square} src={src} />
       </TouchTarget>
     </Link>
   ) : (
-    <Headless.Button {...props} className={classes} ref={ref}>
+    <Headless.Button {...props} ref={ref} className={classes}>
       <TouchTarget>
-        <Avatar src={src} square={square} initials={initials} alt={alt} />
+        <Avatar alt={alt} initials={initials} square={square} src={src} />
       </TouchTarget>
     </Headless.Button>
   );

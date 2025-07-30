@@ -7,7 +7,6 @@ import { Fragment } from "react";
 export function Listbox<T>({
   className,
   placeholder,
-  autoFocus,
   "aria-label": ariaLabel,
   children: options,
   ...props
@@ -21,8 +20,6 @@ export function Listbox<T>({
   return (
     <Headless.Listbox {...props} multiple={false}>
       <Headless.ListboxButton
-        autoFocus={autoFocus}
-        data-slot="control"
         aria-label={ariaLabel}
         className={clsx([
           className,
@@ -39,17 +36,10 @@ export function Listbox<T>({
           // Disabled state
           "data-disabled:opacity-50 data-disabled:before:bg-zinc-950/5 data-disabled:before:shadow-none",
         ])}
+        data-slot="control"
       >
         <Headless.ListboxSelectedOption
           as="span"
-          options={options}
-          placeholder={
-            placeholder && (
-              <span className="block truncate text-zinc-500">
-                {placeholder}
-              </span>
-            )
-          }
           className={clsx([
             // Basic layout
             "relative block w-full appearance-none rounded-lg py-[calc(--spacing(2.5)-1px)] sm:py-[calc(--spacing(1.5)-1px)]",
@@ -68,25 +58,33 @@ export function Listbox<T>({
             // Disabled state
             "group-data-disabled:border-zinc-950/20 group-data-disabled:opacity-100 dark:group-data-disabled:border-white/15 dark:group-data-disabled:bg-white/2.5 dark:group-data-disabled:data-hover:border-white/15",
           ])}
+          options={options}
+          placeholder={
+            placeholder && (
+              <span className="block truncate text-zinc-500">
+                {placeholder}
+              </span>
+            )
+          }
         />
         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
           <svg
-            className="size-5 stroke-zinc-500 group-data-disabled:stroke-zinc-600 sm:size-4 dark:stroke-zinc-400 forced-colors:stroke-[CanvasText]"
-            viewBox="0 0 16 16"
             aria-hidden="true"
+            className="size-5 stroke-zinc-500 group-data-disabled:stroke-zinc-600 sm:size-4 dark:stroke-zinc-400 forced-colors:stroke-[CanvasText]"
             fill="none"
+            viewBox="0 0 16 16"
           >
             <path
               d="M5.75 10.75L8 13L10.25 10.75"
-              strokeWidth={1.5}
               strokeLinecap="round"
               strokeLinejoin="round"
+              strokeWidth={1.5}
             />
             <path
               d="M10.25 5.25L8 3L5.75 5.25"
-              strokeWidth={1.5}
               strokeLinecap="round"
               strokeLinejoin="round"
+              strokeWidth={1.5}
             />
           </svg>
         </span>
@@ -108,7 +106,7 @@ export function Listbox<T>({
           // Shadows
           "shadow-lg ring-1 ring-zinc-950/10 dark:ring-white/10 dark:ring-inset",
           // Transitions
-          "transition-opacity duration-100 ease-in data-closed:data-leave:opacity-0 data-transition:pointer-events-none",
+          "transition-opacity duration-100 ease-in data-closed:data-leave:opacity-0 data-transition:pointer-events-none"
         )}
       >
         {options}
@@ -133,7 +131,7 @@ export function ListboxOption<T>({
     "*:data-[slot=icon]:text-zinc-500 group-data-focus/option:*:data-[slot=icon]:text-white dark:*:data-[slot=icon]:text-zinc-400",
     "forced-colors:*:data-[slot=icon]:text-[CanvasText] forced-colors:group-data-focus/option:*:data-[slot=icon]:text-[Canvas]",
     // Avatars
-    "*:data-[slot=avatar]:-mx-0.5 *:data-[slot=avatar]:size-6 sm:*:data-[slot=avatar]:size-5",
+    "*:data-[slot=avatar]:-mx-0.5 *:data-[slot=avatar]:size-6 sm:*:data-[slot=avatar]:size-5"
   );
 
   return (
@@ -157,20 +155,20 @@ export function ListboxOption<T>({
               // Forced colors mode
               "forced-color-adjust-none forced-colors:data-focus:bg-[Highlight] forced-colors:data-focus:text-[HighlightText]",
               // Disabled
-              "data-disabled:opacity-50",
+              "data-disabled:opacity-50"
             )}
           >
             <svg
-              className="relative hidden size-5 self-center stroke-current group-data-selected/option:inline sm:size-4"
-              viewBox="0 0 16 16"
-              fill="none"
               aria-hidden="true"
+              className="relative hidden size-5 self-center stroke-current group-data-selected/option:inline sm:size-4"
+              fill="none"
+              viewBox="0 0 16 16"
             >
               <path
                 d="M4 8.5l3 3L12 4"
-                strokeWidth={1.5}
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                strokeWidth={1.5}
               />
             </svg>
             <span className={clsx(className, sharedClasses, "col-start-2")}>
@@ -192,7 +190,7 @@ export function ListboxLabel({
       {...props}
       className={clsx(
         className,
-        "ml-2.5 truncate first:ml-0 sm:ml-2 sm:first:ml-0",
+        "ml-2.5 truncate first:ml-0 sm:ml-2 sm:first:ml-0"
       )}
     />
   );
@@ -208,7 +206,7 @@ export function ListboxDescription({
       {...props}
       className={clsx(
         className,
-        "flex flex-1 overflow-hidden text-zinc-500 group-data-focus/option:text-white before:w-2 before:min-w-0 before:shrink dark:text-zinc-400",
+        "flex flex-1 overflow-hidden text-zinc-500 group-data-focus/option:text-white before:w-2 before:min-w-0 before:shrink dark:text-zinc-400"
       )}
     >
       <span className="flex-1 truncate">{children}</span>

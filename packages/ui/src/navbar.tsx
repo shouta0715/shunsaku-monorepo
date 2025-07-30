@@ -68,7 +68,7 @@ export const NavbarItem = forwardRef(function NavbarItem(
     | Omit<Headless.ButtonProps, "as" | "className">
     | Omit<React.ComponentPropsWithoutRef<typeof Link>, "className">
   ),
-  ref: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>,
+  ref: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>
 ) {
   const classes = clsx(
     // Base
@@ -86,32 +86,32 @@ export const NavbarItem = forwardRef(function NavbarItem(
     // Dark mode
     "dark:text-white dark:*:data-[slot=icon]:fill-zinc-400",
     "dark:data-hover:bg-white/5 dark:data-hover:*:data-[slot=icon]:fill-white",
-    "dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white",
+    "dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white"
   );
 
   return (
     <span className={clsx(className, "relative")}>
       {current && (
         <motion.span
-          layoutId="current-indicator"
           className="absolute inset-x-2 -bottom-2.5 h-0.5 rounded-full bg-zinc-950 dark:bg-white"
+          layoutId="current-indicator"
         />
       )}
       {"href" in props ? (
         <Link
           {...props}
+          ref={ref as React.ForwardedRef<HTMLAnchorElement>}
           className={classes}
           data-current={current ? "true" : undefined}
-          ref={ref as React.ForwardedRef<HTMLAnchorElement>}
         >
           <TouchTarget>{children}</TouchTarget>
         </Link>
       ) : (
         <Headless.Button
           {...props}
+          ref={ref}
           className={clsx("cursor-default", classes)}
           data-current={current ? "true" : undefined}
-          ref={ref}
         >
           <TouchTarget>{children}</TouchTarget>
         </Headless.Button>

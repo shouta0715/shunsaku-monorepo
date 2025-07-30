@@ -11,11 +11,10 @@ export const Textarea = forwardRef(function Textarea(
     Headless.TextareaProps,
     "as" | "className"
   >,
-  ref: React.ForwardedRef<HTMLTextAreaElement>,
+  ref: React.ForwardedRef<HTMLTextAreaElement>
 ) {
   return (
     <span
-      data-slot="control"
       className={clsx([
         className,
         // Basic layout
@@ -29,6 +28,7 @@ export const Textarea = forwardRef(function Textarea(
         // Disabled state
         "has-data-disabled:opacity-50 has-data-disabled:before:bg-zinc-950/5 has-data-disabled:before:shadow-none",
       ])}
+      data-slot="control"
     >
       <Headless.Textarea
         ref={ref}
