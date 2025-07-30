@@ -17,7 +17,10 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9.25.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "tailwindcss": "^4",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11"
   },
   "peerDependencies": {
     "@headlessui/react": "^2.2.0",
