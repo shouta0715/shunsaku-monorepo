@@ -1,1 +1,2 @@
-@import "@package/tailwind-config/styles.css";
+@import "tailwindcss";
+@import "@package/ui/styles.css";

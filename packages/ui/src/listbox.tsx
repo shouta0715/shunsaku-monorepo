@@ -1,8 +1,8 @@
 "use client";
 
 import * as Headless from "@headlessui/react";
-import { clsx } from "clsx";
 import { Fragment } from "react";
+import { cn } from "./cn";
 
 export function Listbox<T>({
   className,
@@ -21,7 +21,7 @@ export function Listbox<T>({
     <Headless.Listbox {...props} multiple={false}>
       <Headless.ListboxButton
         aria-label={ariaLabel}
-        className={clsx([
+        className={cn([
           className,
           // Basic layout
           "group relative block w-full",
@@ -40,7 +40,7 @@ export function Listbox<T>({
       >
         <Headless.ListboxSelectedOption
           as="span"
-          className={clsx([
+          className={cn([
             // Basic layout
             "relative block w-full appearance-none rounded-lg py-[calc(--spacing(2.5)-1px)] sm:py-[calc(--spacing(1.5)-1px)]",
             // Set minimum height for when no value is selected
@@ -92,7 +92,7 @@ export function Listbox<T>({
       <Headless.ListboxOptions
         transition
         anchor="selection start"
-        className={clsx(
+        className={cn(
           // Anchor positioning
           "[--anchor-offset:-1.625rem] [--anchor-padding:--spacing(4)] sm:[--anchor-offset:-1.375rem]",
           // Base styles
@@ -106,7 +106,7 @@ export function Listbox<T>({
           // Shadows
           "shadow-lg ring-1 ring-zinc-950/10 dark:ring-white/10 dark:ring-inset",
           // Transitions
-          "transition-opacity duration-100 ease-in data-closed:data-leave:opacity-0 data-transition:pointer-events-none"
+          "transition-opacity duration-100 ease-in data-closed:data-leave:opacity-0 data-transition:pointer-events-none",
         )}
       >
         {options}
@@ -123,7 +123,7 @@ export function ListboxOption<T>({
   Headless.ListboxOptionProps<"div", T>,
   "as" | "className"
 >) {
-  const sharedClasses = clsx(
+  const sharedClasses = cn(
     // Base
     "flex min-w-0 items-center",
     // Icons
@@ -131,21 +131,19 @@ export function ListboxOption<T>({
     "*:data-[slot=icon]:text-zinc-500 group-data-focus/option:*:data-[slot=icon]:text-white dark:*:data-[slot=icon]:text-zinc-400",
     "forced-colors:*:data-[slot=icon]:text-[CanvasText] forced-colors:group-data-focus/option:*:data-[slot=icon]:text-[Canvas]",
     // Avatars
-    "*:data-[slot=avatar]:-mx-0.5 *:data-[slot=avatar]:size-6 sm:*:data-[slot=avatar]:size-5"
+    "*:data-[slot=avatar]:-mx-0.5 *:data-[slot=avatar]:size-6 sm:*:data-[slot=avatar]:size-5",
   );
 
   return (
     <Headless.ListboxOption as={Fragment} {...props}>
       {({ selectedOption }) => {
         if (selectedOption) {
-          return (
-            <div className={clsx(className, sharedClasses)}>{children}</div>
-          );
+          return <div className={cn(className, sharedClasses)}>{children}</div>;
         }
 
         return (
           <div
-            className={clsx(
+            className={cn(
               // Basic layout
               "group/option grid cursor-default grid-cols-[--spacing(5)_1fr] items-baseline gap-x-2 rounded-lg py-2.5 pr-3.5 pl-2 sm:grid-cols-[--spacing(4)_1fr] sm:py-1.5 sm:pr-3 sm:pl-1.5",
               // Typography
@@ -155,7 +153,7 @@ export function ListboxOption<T>({
               // Forced colors mode
               "forced-color-adjust-none forced-colors:data-focus:bg-[Highlight] forced-colors:data-focus:text-[HighlightText]",
               // Disabled
-              "data-disabled:opacity-50"
+              "data-disabled:opacity-50",
             )}
           >
             <svg
@@ -171,7 +169,7 @@ export function ListboxOption<T>({
                 strokeWidth={1.5}
               />
             </svg>
-            <span className={clsx(className, sharedClasses, "col-start-2")}>
+            <span className={cn(className, sharedClasses, "col-start-2")}>
               {children}
             </span>
           </div>
@@ -188,9 +186,9 @@ export function ListboxLabel({
   return (
     <span
       {...props}
-      className={clsx(
+      className={cn(
         className,
-        "ml-2.5 truncate first:ml-0 sm:ml-2 sm:first:ml-0"
+        "ml-2.5 truncate first:ml-0 sm:ml-2 sm:first:ml-0",
       )}
     />
   );
@@ -204,9 +202,9 @@ export function ListboxDescription({
   return (
     <span
       {...props}
-      className={clsx(
+      className={cn(
         className,
-        "flex flex-1 overflow-hidden text-zinc-500 group-data-focus/option:text-white before:w-2 before:min-w-0 before:shrink dark:text-zinc-400"
+        "flex flex-1 overflow-hidden text-zinc-500 group-data-focus/option:text-white before:w-2 before:min-w-0 before:shrink dark:text-zinc-400",
       )}
     >
       <span className="flex-1 truncate">{children}</span>

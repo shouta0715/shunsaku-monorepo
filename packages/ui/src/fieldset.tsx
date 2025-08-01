@@ -1,6 +1,6 @@
 import * as Headless from "@headlessui/react";
-import { clsx } from "clsx";
 import type React from "react";
+import { cn } from "./cn";
 
 export function Fieldset({
   className,
@@ -9,9 +9,9 @@ export function Fieldset({
   return (
     <Headless.Fieldset
       {...props}
-      className={clsx(
+      className={cn(
         className,
-        "*:data-[slot=text]:mt-1 [&>*+[data-slot=control]]:mt-6"
+        "*:data-[slot=text]:mt-1 [&>*+[data-slot=control]]:mt-6",
       )}
     />
   );
@@ -25,9 +25,9 @@ export function Legend({
     <Headless.Legend
       data-slot="legend"
       {...props}
-      className={clsx(
+      className={cn(
+        "text-base/6 font-semibold text-zinc-950 data-disabled:opacity-50 sm:text-sm/6 dark:text-white",
         className,
-        "text-base/6 font-semibold text-zinc-950 data-disabled:opacity-50 sm:text-sm/6 dark:text-white"
       )}
     />
   );
@@ -41,7 +41,7 @@ export function FieldGroup({
     <div
       data-slot="control"
       {...props}
-      className={clsx(className, "space-y-8")}
+      className={cn("space-y-8", className)}
     />
   );
 }
@@ -53,14 +53,14 @@ export function Field({
   return (
     <Headless.Field
       {...props}
-      className={clsx(
-        className,
+      className={cn(
         "[&>[data-slot=label]+[data-slot=control]]:mt-3",
         "[&>[data-slot=label]+[data-slot=description]]:mt-1",
         "[&>[data-slot=description]+[data-slot=control]]:mt-3",
         "[&>[data-slot=control]+[data-slot=description]]:mt-3",
         "[&>[data-slot=control]+[data-slot=error]]:mt-3",
-        "*:data-[slot=label]:font-medium"
+        "*:data-[slot=label]:font-medium",
+        className,
       )}
     />
   );
@@ -74,9 +74,9 @@ export function Label({
     <Headless.Label
       data-slot="label"
       {...props}
-      className={clsx(
+      className={cn(
+        "text-base/6 text-zinc-950 select-none data-disabled:opacity-50 sm:text-sm/6 dark:text-white",
         className,
-        "text-base/6 text-zinc-950 select-none data-disabled:opacity-50 sm:text-sm/6 dark:text-white"
       )}
     />
   );
@@ -93,9 +93,9 @@ export function Description({
     <Headless.Description
       data-slot="description"
       {...props}
-      className={clsx(
+      className={cn(
+        "text-base/6 text-zinc-500 data-disabled:opacity-50 sm:text-sm/6 dark:text-zinc-400",
         className,
-        "text-base/6 text-zinc-500 data-disabled:opacity-50 sm:text-sm/6 dark:text-zinc-400"
       )}
     />
   );
@@ -112,9 +112,9 @@ export function ErrorMessage({
     <Headless.Description
       data-slot="error"
       {...props}
-      className={clsx(
+      className={cn(
+        "text-base/6 text-red-600 data-disabled:opacity-50 sm:text-sm/6 dark:text-red-500",
         className,
-        "text-base/6 text-red-600 data-disabled:opacity-50 sm:text-sm/6 dark:text-red-500"
       )}
     />
   );
