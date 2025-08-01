@@ -9,18 +9,32 @@ description: Step 1: ビジネス要件・スコープ・ステークホルダ�
 
 ## Your task
 
-### 1. Analyze project structure and determine target directory
+### 1. Detect project directory and setup
 
-- Analyze the current working directory to determine the target project
-- Check if currently in `apps/*/` or `packages/*/` directory
-- If not in a specific project directory, determine target from task context
-- Create `{project_dir}/.tmp` directory if it doesn't exist
+**Step 1: Determine current project context**
 
-**Project Detection Logic:**
-- If `pwd` contains `apps/[project]/` → Use `apps/[project]/.tmp/`
-- If `pwd` contains `packages/[package]/` → Use `packages/[package]/.tmp/`
-- If in monorepo root, analyze task to determine target project
-- Default to `apps/web/.tmp/` if unclear
+```bash
+pwd
+```
+
+**Step 2: Apply project detection logic**
+
+- If current path contains `apps/[project-name]/` → Set PROJECT_DIR to `apps/[project-name]`
+- If current path contains `packages/[package-name]/` → Set PROJECT_DIR to `packages/[package-name]`
+- If in monorepo root, analyze task description:
+  - Web application features → Set PROJECT_DIR to `apps/web`
+  - Shared UI components → Set PROJECT_DIR to `packages/ui`
+  - If unclear, default to `apps/web`
+
+**Step 3: Create .tmp directory**
+
+```bash
+mkdir -p $PROJECT_DIR/.tmp
+```
+
+**Step 4: Confirm project context**
+
+Inform user: "Creating specification for project: `$PROJECT_DIR`"
 
 ### 2. Analyze the user's request
 
@@ -33,7 +47,7 @@ Carefully analyze the provided task description and extract:
 
 ### 3. Create Specification Document
 
-Create `{project_dir}/.tmp/step-1-specification.md` with the following sections:
+**Use the Write tool to create `$PROJECT_DIR/.tmp/step-1-specification.md` with the following content:**
 
 ```markdown
 # 仕様書 - [プロジェクト/機能名]

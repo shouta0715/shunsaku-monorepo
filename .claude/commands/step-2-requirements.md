@@ -6,15 +6,32 @@ description: Step 2: 機能要件・非機能要件・制約事項を詳細化�
 ## Context
 
 - Task description: $ARGUMENTS
-- Specification document: @{project_dir}/.tmp/step-1-specification.md
+- Specification document: Will be detected from project directory
 
 ## Your task
 
-### 1. Verify prerequisites and determine project directory
+### 1. Detect project directory and verify prerequisites
 
-- Determine the target project directory using the same logic as Step 1
-- Check that `{project_dir}/.tmp/step-1-specification.md` exists from Step 1
+**Step 1: Determine current project context**
+
+```bash
+pwd
+```
+
+**Step 2: Apply project detection logic (same as Step 1)**
+
+- If current path contains `apps/[project-name]/` → Set PROJECT_DIR to `apps/[project-name]`
+- If current path contains `packages/[package-name]/` → Set PROJECT_DIR to `packages/[package-name]`
+- If in monorepo root, analyze task description:
+  - Web application features → Set PROJECT_DIR to `apps/web`
+  - Shared UI components → Set PROJECT_DIR to `packages/ui`
+  - If unclear, default to `apps/web`
+
+**Step 3: Verify prerequisite documents exist**
+
+- Check that `$PROJECT_DIR/.tmp/step-1-specification.md` exists from Step 1
 - If not, inform user to run `/step-1-specification` first
+- Confirm project context: "Creating requirements for project: `$PROJECT_DIR`"
 
 ### 2. Analyze the user's request and specification
 
@@ -27,7 +44,7 @@ Carefully analyze the provided task description and specification document to ex
 
 ### 3. Create Requirements Document
 
-Create `{project_dir}/.tmp/step-2-requirements.md` with the following sections:
+**Use the Write tool to create `$PROJECT_DIR/.tmp/step-2-requirements.md` with the following content:**
 
 ```markdown
 # 要件定義書 - [タスク名]
@@ -114,7 +131,7 @@ Use TodoWrite to add "要件定義の完了とレビュー" as a task
 
 #### 5.1 Create/Update README.md
 
-Create or update `{project_dir}/README.md` with the following structure:
+**Use the Write tool to create or update `$PROJECT_DIR/README.md` with the following content:**
 
 ````markdown
 # [プロジェクト名]
@@ -184,7 +201,12 @@ pnpm dev    # アプリケーション固有のコマンド
 
 #### 5.2 Create/Update CLAUDE.md
 
-Create or update `{project_dir}/.claude/CLAUDE.md` with project-specific rules:
+**First create the .claude directory if it doesn't exist:**
+```bash
+mkdir -p $PROJECT_DIR/.claude
+```
+
+**Then use the Write tool to create or update `$PROJECT_DIR/.claude/CLAUDE.md` with the following content:**
 
 ```markdown
 # プロジェクトガイドライン

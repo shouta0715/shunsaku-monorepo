@@ -5,17 +5,36 @@ description: Step 4: コンポーネント設計・デザインシステム・�
 
 ## Context
 
-- Specification document: @{project_dir}/.tmp/step-1-specification.md
-- Requirements document: @{project_dir}/.tmp/step-2-requirements.md
-- System design document: @{project_dir}/.tmp/step-3-system-design.md
+- Specification document: Will be detected from project directory
+- Requirements document: Will be detected from project directory
+- System design document: Will be detected from project directory
 
 ## Your task
 
-### 1. Verify prerequisites and determine project directory
+### 1. Detect project directory and verify prerequisites
 
-- Determine the target project directory using the same logic as Step 1
-- Check that `{project_dir}/.tmp/step-1-specification.md`, `{project_dir}/.tmp/step-2-requirements.md`, and `{project_dir}/.tmp/step-3-system-design.md` exist
-- If not, inform user to complete previous steps first
+**Step 1: Determine current project context**
+
+```bash
+pwd
+```
+
+**Step 2: Apply project detection logic (same as previous steps)**
+
+- If current path contains `apps/[project-name]/` → Set PROJECT_DIR to `apps/[project-name]`
+- If current path contains `packages/[package-name]/` → Set PROJECT_DIR to `packages/[package-name]`
+- If in monorepo root, analyze task description:
+  - Web application features → Set PROJECT_DIR to `apps/web`
+  - Shared UI components → Set PROJECT_DIR to `packages/ui`
+  - If unclear, default to `apps/web`
+
+**Step 3: Verify prerequisite documents exist**
+
+- Check that `$PROJECT_DIR/.tmp/step-1-specification.md` exists
+- Check that `$PROJECT_DIR/.tmp/step-2-requirements.md` exists
+- Check that `$PROJECT_DIR/.tmp/step-3-system-design.md` exists
+- If any missing, inform user to complete previous steps first
+- Confirm project context: "Creating UI design for project: `$PROJECT_DIR`"
 
 ### 2. Analyze requirements and system design
 
@@ -38,7 +57,7 @@ Read and understand all previous documents to align UI design with system archit
 
 ### 4. Create UI Design Document
 
-Create `{project_dir}/.tmp/step-4-ui-design.md` with the following sections:
+**Use the Write tool to create `$PROJECT_DIR/.tmp/step-4-ui-design.md` with the following content:**
 
 ````markdown
 # UI/UX 設計書 - [タスク名]

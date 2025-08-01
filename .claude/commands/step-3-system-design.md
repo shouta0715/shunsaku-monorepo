@@ -5,16 +5,34 @@ description: Step 3: アーキテクチャ・API・データ設計を含むシ�
 
 ## Context
 
-- Specification document: @{project_dir}/.tmp/step-1-specification.md
-- Requirements document: @{project_dir}/.tmp/step-2-requirements.md
+- Specification document: Will be detected from project directory
+- Requirements document: Will be detected from project directory
 
 ## Your task
 
-### 1. Verify prerequisites and determine project directory
+### 1. Detect project directory and verify prerequisites
 
-- Determine the target project directory using the same logic as Step 1
-- Check that `{project_dir}/.tmp/step-1-specification.md` and `{project_dir}/.tmp/step-2-requirements.md` exist
-- If not, inform user to complete previous steps first
+**Step 1: Determine current project context**
+
+```bash
+pwd
+```
+
+**Step 2: Apply project detection logic (same as previous steps)**
+
+- If current path contains `apps/[project-name]/` → Set PROJECT_DIR to `apps/[project-name]`
+- If current path contains `packages/[package-name]/` → Set PROJECT_DIR to `packages/[package-name]`
+- If in monorepo root, analyze task description:
+  - Web application features → Set PROJECT_DIR to `apps/web`
+  - Shared UI components → Set PROJECT_DIR to `packages/ui`
+  - If unclear, default to `apps/web`
+
+**Step 3: Verify prerequisite documents exist**
+
+- Check that `$PROJECT_DIR/.tmp/step-1-specification.md` exists
+- Check that `$PROJECT_DIR/.tmp/step-2-requirements.md` exists
+- If either missing, inform user to complete previous steps first
+- Confirm project context: "Creating system design for project: `$PROJECT_DIR`"
 
 ### 2. Analyze requirements
 
@@ -37,7 +55,7 @@ Read and understand the specification and requirements documents thoroughly
 
 ### 4. Create System Design Document
 
-Create `{project_dir}/.tmp/step-3-system-design.md` with the following sections:
+**Use the Write tool to create `$PROJECT_DIR/.tmp/step-3-system-design.md` with the following content:**
 
 ````markdown
 # システム設計書 - [タスク名]
