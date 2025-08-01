@@ -11,7 +11,9 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "start": "turbo start",
-    "lint": "turbo lint"
+    "lint": "turbo lint",
+    "format": "turbo format",
+    "lint:fix": "turbo lint:fix"
   },
   "devDependencies": {
     "turbo": "^2.3.5"
