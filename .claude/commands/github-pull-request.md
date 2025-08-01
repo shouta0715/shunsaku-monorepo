@@ -1,5 +1,5 @@
 ---
-allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(git:*), Bash(find:*), Bash(ls:*)
+allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(git:*), Bash(find:*), Bash(ls:*), Bash(gh:*)
 description: 実装完了後に適切なブランチ名・コミット・PRタイトル・説明文を自動生成してプルリクエストを作成
 ---
 
@@ -231,12 +231,14 @@ Create `.tmp/github-pull-request.md` with:
 
 {Log of git commands that were run}
 
-## Next Steps
+## Execution Summary
 
-1. Push branch to GitHub: `git push origin {branch-name}`
-2. Create PR on GitHub with generated title and description
-3. Add appropriate labels and reviewers
-4. Link to related issues if any
+This document contains the complete information for the automatically created PR:
+
+- Branch name and commit history
+- PR title and description
+- Applied labels, assignees, and reviewers
+- GitHub PR URL and status
 ```
 
 ### 8. Execute git operations
@@ -251,14 +253,52 @@ Create `.tmp/github-pull-request.md` with:
 - Execute the planned commits in logical order
 - Verify each commit with appropriate message
 
-### 9. Provide summary and next steps
+### 9. Push to GitHub and create PR
+
+#### 9.1 Push branch to GitHub
+
+```bash
+git push origin {generated-branch-name}
+```
+
+#### 9.2 Create Pull Request using GitHub CLI
+
+```bash
+gh pr create \
+  --title "{generated-pr-title}" \
+  --body "{generated-pr-description}" \
+  --base main \
+  --head {generated-branch-name}
+```
+
+#### 9.3 Set PR metadata
+
+```bash
+# Add labels
+gh pr edit {pr-number} --add-label "{suggested-labels}"
+
+# Add assignees
+gh pr edit {pr-number} --add-assignee "{current-user}"
+
+# Add reviewers
+gh pr edit {pr-number} --add-reviewer "{suggested-reviewers}"
+```
+
+### 10. Verify PR creation
+
+- Confirm PR was created successfully
+- Display PR URL
+- Verify all metadata is correctly set
+
+### 11. Provide summary and next steps
 
 Show user:
 
 - Created branch name and rationale
 - List of commits created
-- Generated PR title and description
-- Instructions for pushing to GitHub and creating the PR
+- **GitHub PR URL and number**
+- Confirmation of applied labels, assignees, and reviewers
+- Instructions for any manual follow-up if needed
 
 ## Important Notes
 
@@ -278,3 +318,5 @@ Show user:
 - All planned tasks from step-5-task-division should be finished
 - Code should pass all quality checks
 - Working directory should be clean except for intended changes
+- **GitHub CLI (gh) must be installed and authenticated**
+- Repository must be connected to a GitHub remote origin

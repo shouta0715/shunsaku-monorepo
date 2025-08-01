@@ -30,6 +30,7 @@ shunsaku-monorepo/
 - Node.js 18.0 以上
 - pnpm 8.0 以上
 - Claude Code IDE 拡張機能
+- GitHub CLI (gh) - PR 自動作成用
 
 ### インストール
 
@@ -40,6 +41,9 @@ cd shunsaku-monorepo
 
 # 依存関係のインストール
 pnpm install
+
+# GitHub CLI認証（PR自動作成用）
+gh auth login
 
 # 開発サーバーの起動
 pnpm dev
