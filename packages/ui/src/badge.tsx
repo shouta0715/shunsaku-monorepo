@@ -1,7 +1,7 @@
 import * as Headless from "@headlessui/react";
-import { clsx } from "clsx";
 import React, { forwardRef } from "react";
 import { TouchTarget } from "./button";
+import { cn } from "./cn";
 import { Link } from "./link";
 
 const colors = {
@@ -44,10 +44,10 @@ export function Badge({
   return (
     <span
       {...props}
-      className={clsx(
-        className,
+      className={cn(
         "inline-flex items-center gap-x-1.5 rounded-md px-1.5 py-0.5 text-sm/5 font-medium sm:text-xs/5 forced-colors:outline",
-        colors[color]
+        colors[color],
+        className,
       )}
     />
   );
@@ -63,11 +63,11 @@ export const BadgeButton = forwardRef(function BadgeButton(
       | Omit<Headless.ButtonProps, "as" | "className">
       | Omit<React.ComponentPropsWithoutRef<typeof Link>, "className">
     ),
-  ref: React.ForwardedRef<HTMLElement>
+  ref: React.ForwardedRef<HTMLElement>,
 ) {
-  const classes = clsx(
+  const classes = cn(
+    "group relative inline-flex rounded-md focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500",
     className,
-    "group relative inline-flex rounded-md focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500"
   );
 
   return "href" in props ? (

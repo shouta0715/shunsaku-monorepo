@@ -1,18 +1,18 @@
 import * as Headless from "@headlessui/react";
-import { clsx } from "clsx";
 import React, { forwardRef } from "react";
+import { cn } from "./cn";
 
 export function InputGroup({
   children,
 }: React.ComponentPropsWithoutRef<"span">) {
   return (
     <span
-      className={clsx(
+      className={cn(
         "relative isolate block",
         "has-[[data-slot=icon]:first-child]:[&_input]:pl-10 has-[[data-slot=icon]:last-child]:[&_input]:pr-10 sm:has-[[data-slot=icon]:first-child]:[&_input]:pl-8 sm:has-[[data-slot=icon]:last-child]:[&_input]:pr-8",
         "*:data-[slot=icon]:pointer-events-none *:data-[slot=icon]:absolute *:data-[slot=icon]:top-3 *:data-[slot=icon]:z-10 *:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:top-2.5 sm:*:data-[slot=icon]:size-4",
         "[&>[data-slot=icon]:first-child]:left-3 sm:[&>[data-slot=icon]:first-child]:left-2.5 [&>[data-slot=icon]:last-child]:right-3 sm:[&>[data-slot=icon]:last-child]:right-2.5",
-        "*:data-[slot=icon]:text-zinc-500 dark:*:data-[slot=icon]:text-zinc-400"
+        "*:data-[slot=icon]:text-zinc-500 dark:*:data-[slot=icon]:text-zinc-400",
       )}
       data-slot="control"
     >
@@ -40,11 +40,11 @@ export const Input = forwardRef(function Input(
       | "url"
       | DateType;
   } & Omit<Headless.InputProps, "as" | "className">,
-  ref: React.ForwardedRef<HTMLInputElement>
+  ref: React.ForwardedRef<HTMLInputElement>,
 ) {
   return (
     <span
-      className={clsx([
+      className={cn([
         className,
         // Basic layout
         "relative block w-full",
@@ -64,7 +64,7 @@ export const Input = forwardRef(function Input(
       <Headless.Input
         ref={ref}
         {...props}
-        className={clsx([
+        className={cn([
           // Date classes
           props.type &&
             dateTypes.includes(props.type) && [

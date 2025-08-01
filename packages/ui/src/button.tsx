@@ -1,6 +1,6 @@
 import * as Headless from "@headlessui/react";
-import { clsx } from "clsx";
 import React, { forwardRef } from "react";
+import { cn } from "./cn";
 import { Link } from "./link";
 
 const styles = {
@@ -169,16 +169,16 @@ type ButtonProps = (
 
 export const Button = forwardRef(function Button(
   { color, outline, plain, className, children, ...props }: ButtonProps,
-  ref: React.ForwardedRef<HTMLElement>
+  ref: React.ForwardedRef<HTMLElement>,
 ) {
-  const classes = clsx(
-    className,
+  const classes = cn(
     styles.base,
     outline
       ? styles.outline
       : plain
         ? styles.plain
-        : clsx(styles.solid, styles.colors[color ?? "dark/zinc"])
+        : cn(styles.solid, styles.colors[color ?? "dark/zinc"]),
+    className,
   );
 
   return "href" in props ? (
@@ -193,7 +193,7 @@ export const Button = forwardRef(function Button(
     <Headless.Button
       {...props}
       ref={ref}
-      className={clsx(classes, "cursor-default")}
+      className={cn(classes, "cursor-default")}
     >
       <TouchTarget>{children}</TouchTarget>
     </Headless.Button>
