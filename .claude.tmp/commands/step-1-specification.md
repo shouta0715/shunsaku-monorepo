@@ -1,6 +1,6 @@
 ---
 allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(mkdir:*), Bash(ls:*), Bash(find:*)
-description: Step 1: ビジネス要件・スコープ・ステークホルダーを整理した仕様書を作成
+description: Step 1 ビジネス要件・スコープ・ステークホルダーを整理した仕様書を作成
 ---
 
 ## Context
@@ -19,8 +19,16 @@ pwd
 
 **Step 2: Apply project detection logic**
 
-- If current path contains `apps/[project-name]/` → Set PROJECT_DIR to `apps/[project-name]`
-- If current path contains `packages/[package-name]/` → Set PROJECT_DIR to `packages/[package-name]`
+```bash
+# Get absolute path and normalize
+REALPATH=$(realpath .)
+echo "Current absolute path: $REALPATH"
+```
+
+- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to `apps/[project-name]`
+- If current directory path contains `/packages/[package-name]` → Set PROJECT_DIR to `packages/[package-name]`
+- If current directory basename is an app name under apps/ → Set PROJECT_DIR to `apps/[basename]`
+- If current directory basename is a package name under packages/ → Set PROJECT_DIR to `packages/[basename]`
 - If in monorepo root, analyze task description:
   - Web application features → Set PROJECT_DIR to `apps/web`
   - Shared UI components → Set PROJECT_DIR to `packages/ui`

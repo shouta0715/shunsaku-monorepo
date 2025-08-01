@@ -23,12 +23,22 @@ pwd
 
 **Step 2: Apply project detection logic**
 
-- If current directory contains `apps/[project-name]/` → Set target to `apps/[project-name]`
-- If current directory contains `packages/[package-name]/` → Set target to `packages/[package-name]`
+- If current directory path contains `/apps/[project-name]` → Set target to `apps/[project-name]`
+- If current directory path contains `/packages/[package-name]` → Set target to `packages/[package-name]`
+- If current directory basename is an app name under apps/ → Set target to `apps/[basename]`
+- If current directory basename is a package name under packages/ → Set target to `packages/[basename]`
 - If in monorepo root, analyze task description to determine target:
   - Web application features → `apps/web`
   - Shared UI components → `packages/ui`
   - If unclear, default to `apps/web`
+
+**Step 2.1: Normalize project directory path**
+
+```bash
+# Get absolute path and extract project directory
+REALPATH=$(realpath .)
+echo "Current absolute path: $REALPATH"
+```
 
 **Step 3: Create project-specific .tmp directory**
 

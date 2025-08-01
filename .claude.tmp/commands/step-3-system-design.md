@@ -1,6 +1,6 @@
 ---
 allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(find:*), Bash(ls:*), Bash(grep:*)
-description: Step 3: アーキテクチャ・API・データ設計を含むシステム設計書を作成
+description: Step 3 アーキテクチャ・API・データ設計を含むシステム設計書を作成
 ---
 
 ## Context
@@ -20,8 +20,16 @@ pwd
 
 **Step 2: Apply project detection logic (same as previous steps)**
 
-- If current path contains `apps/[project-name]/` → Set PROJECT_DIR to `apps/[project-name]`
-- If current path contains `packages/[package-name]/` → Set PROJECT_DIR to `packages/[package-name]`
+```bash
+# Get absolute path and normalize
+REALPATH=$(realpath .)
+echo "Current absolute path: $REALPATH"
+```
+
+- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to `apps/[project-name]`
+- If current directory path contains `/packages/[package-name]` → Set PROJECT_DIR to `packages/[package-name]`
+- If current directory basename is an app name under apps/ → Set PROJECT_DIR to `apps/[basename]`
+- If current directory basename is a package name under packages/ → Set PROJECT_DIR to `packages/[basename]`
 - If in monorepo root, analyze task description:
   - Web application features → Set PROJECT_DIR to `apps/web`
   - Shared UI components → Set PROJECT_DIR to `packages/ui`
