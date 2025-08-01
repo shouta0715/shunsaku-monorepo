@@ -194,10 +194,10 @@ pnpm dev    # アプリケーション固有のコマンド
 ### monorepo 構造
 
 - `apps/**/` - Next.js アプリケーション
-- `packages/ui/` - 共有 UI コンポーネント
-- `packages/eslint-config/` - ESLint 設定
-- `packages/prettier-config/` - Prettier 設定
-- `packages/typescript-config/` - TypeScript 設定
+- `../../packages/ui/` - 共有 UI コンポーネント
+- `../../packages/eslint-config/` - ESLint 設定
+- `../../packages/prettier-config/` - Prettier 設定
+- `../../packages/typescript-config/` - TypeScript 設定
 
 ### コンポーネント
 

@@ -32,7 +32,7 @@ Read and understand all previous documents to align UI design with system archit
 
 #### 3.1 Check existing components
 
-- Use file_search to find components in `packages/ui/src/`
+- Use file_search to find components in `../../packages/ui/src/`
 - Use read_file to read key components to understand their interfaces and usage patterns
 - Document available UI components for reuse in monorepo structure
 
