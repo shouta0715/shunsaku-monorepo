@@ -1,6 +1,6 @@
 ---
-allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(mkdir:*), Bash(ls:*), Bash(find:*)
-description: Step 2 機能要件・非機能要件・制約事項を詳細化した要件定義書を作成
+allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(mkdir:*), Bash(ls:*), Bash(find:*), Bash(pnpm lint:*)
+description: Step 2 機能要件・非機能要件・制約事項を詳細化した要件定義書を作成（ディレクトリ自動作成）
 ---
 
 ## Context
@@ -10,10 +10,15 @@ description: Step 2 機能要件・非機能要件・制約事項を詳細化し
 
 ## Your task
 
-### 1. Verify prerequisites
+### 1. Setup and verify prerequisites
 
+- **Execute**: `mkdir -p .tmp` to create the temporary directory if it doesn't exist
 - Check that `.tmp/step-1-specification.md` exists
-- If not, inform user to run `/step-1-specification` first
+- If specification doesn't exist, inform user to run `/step-1-specification` first
+
+```bash
+mkdir -p .tmp
+```
 
 ### 2. Analyze specification
 
@@ -42,7 +47,7 @@ Read and understand the specification document thoroughly
 
 ### 4. Create Requirements Document
 
-Create `.tmp/step-2-requirements.md` with the following sections:
+**Use the Write tool to create `.tmp/step-2-requirements.md` with the following content:**
 
 ```markdown
 # 要件定義書 - [タスク名]
@@ -213,6 +218,7 @@ pnpm dev    # アプリケーション固有のコマンド
 **First create the .claude directory if it doesn't exist:**
 ```bash
 mkdir -p .claude
+mkdir -p .claude/commands
 ```
 
 **Then use the Write tool to create or update `.claude/CLAUDE.md` with the following content:**

@@ -1,6 +1,6 @@
 ---
-allowed-tools: TodoWrite, Read, Write, MultiEdit
-description: Step 3 システムアーキテクチャと技術設計を作成
+allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(mkdir:*), Bash(pnpm lint:*)
+description: Step 3 システムアーキテクチャと技術設計を作成（ディレクトリ自動作成）
 ---
 
 ## Context
@@ -11,11 +11,16 @@ description: Step 3 システムアーキテクチャと技術設計を作成
 
 ## Your task
 
-### 1. Verify prerequisites
+### 1. Setup and verify prerequisites
 
+- **Execute**: `mkdir -p .tmp` to create the temporary directory if it doesn't exist
 - Check that `.tmp/step-1-specification.md` exists
 - Check that `.tmp/step-2-requirements.md` exists
 - If either missing, inform user to complete previous steps first
+
+```bash
+mkdir -p .tmp
+```
 
 ### 2. Analyze requirements
 
@@ -57,7 +62,7 @@ Read and understand the specification and requirements documents thoroughly
 
 ### 4. Create System Design Document
 
-Create `.tmp/step-3-system-design.md` with the following sections:
+**Use the Write tool to create `.tmp/step-3-system-design.md` with the following content:**
 
 ````markdown
 # システム設計書 - [タスク名]

@@ -1,6 +1,6 @@
 ---
-allowed-tools: TodoWrite, Read, Write, MultiEdit
-description: Step 4 UI/UX設計とコンポーネントアーキテクチャを作成
+allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(mkdir:*)
+description: Step 4 UI/UX設計とコンポーネントアーキテクチャを作成（ディレクトリ自動作成）
 ---
 
 ## Context
@@ -12,12 +12,17 @@ description: Step 4 UI/UX設計とコンポーネントアーキテクチャを�
 
 ## Your task
 
-### 1. Verify prerequisites
+### 1. Setup and verify prerequisites
 
+- **Execute**: `mkdir -p .tmp` to create the temporary directory if it doesn't exist
 - Check that `.tmp/step-1-specification.md` exists
 - Check that `.tmp/step-2-requirements.md` exists
 - Check that `.tmp/step-3-system-design.md` exists
 - If any missing, inform user to complete previous steps first
+
+```bash
+mkdir -p .tmp
+```
 
 ### 2. Analyze requirements and system design
 
@@ -39,7 +44,7 @@ Read and understand all previous documents to align UI design with system archit
 
 ### 4. Create UI Design Document
 
-Create `.tmp/step-4-ui-design.md` with the following sections:
+**Use the Write tool to create `.tmp/step-4-ui-design.md` with the following content:**
 
 ````markdown
 # UI/UX 設計書 - [タスク名]

@@ -1,6 +1,6 @@
 ---
-allowed-tools: TodoWrite, Read, Write, MultiEdit
-description: Step 5 設計を実装可能なタスクに分解
+allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*)
+description: Step 5 設計を実装可能なタスクに分解（ディレクトリ自動作成）
 ---
 
 ## Context
@@ -13,26 +13,26 @@ description: Step 5 設計を実装可能なタスクに分解
 
 ## Your task
 
-### 1. Verify prerequisites
+### 1. Setup and verify prerequisites
 
+- **Execute**: `mkdir -p .tmp` to create the temporary directory if it doesn't exist
 - Check that `.tmp/step-1-specification.md` exists
 - Check that `.tmp/step-2-requirements.md` exists
 - Check that `.tmp/step-3-system-design.md` exists
 - Check that `.tmp/step-4-ui-design.md` exists
 - If any missing, inform user to complete previous steps first
 
+```bash
+mkdir -p .tmp
+```
+
 ### 2. Analyze all design documents
 
-Read and understand all design documents thoroughly to identify all implementation tasks:
-
-- Business requirements from specification
-- Functional requirements
-- System architecture and technical design
-- UI/UX design and component structure
+Read and understand the design thoroughly to identify all implementation tasks
 
 ### 3. Create Task List Document
 
-Create `.tmp/step-5-task-division.md` with the following sections:
+**Use the Write tool to create `.tmp/step-5-task-division.md` with the following content:**
 
 ```markdown
 # タスクリスト - [機能/改善名]
@@ -52,7 +52,7 @@ Create `.tmp/step-5-task-division.md` with the following sections:
 - [ ] [具体的な作業項目 1]
 - [ ] [具体的な作業項目 2]
 - [ ] [具体的な作業項目 3]
-- [ ] `pnpm lint` を実行しエラーが 0 件であることを確認
+- [ ] `npm run lint` を実行しエラーが 0 件であることを確認
 - [ ] Prettier でフォーマットを実行
 - **完了条件**: [明確な完了条件] + コード品質チェックがパス
 - **依存**: [依存するタスク または なし]
@@ -62,7 +62,7 @@ Create `.tmp/step-5-task-division.md` with the following sections:
 
 - [ ] [具体的な作業項目 1]
 - [ ] [具体的な作業項目 2]
-- [ ] `pnpm lint` を実行しエラーが 0 件であることを確認
+- [ ] `npm run lint` を実行しエラーが 0 件であることを確認
 - [ ] Prettier でフォーマットを実行
 - **完了条件**: [明確な完了条件] + コード品質チェックがパス
 - **依存**: [依存するタスク]
@@ -70,34 +70,27 @@ Create `.tmp/step-5-task-division.md` with the following sections:
 
 ### Phase 2: 実装
 
-#### Task 2.1: Page.tsx の書き直し
+#### Task 2.1: [機能名]の実装
 
-- [ ] `src/app/page.tsx`を機能要件に基づいて完全に書き直す（現在のアプリディレクトリ内）
-- [ ] **適切なコンポーネント選択**: 機能に応じて以下から選択
-  - [ ] レイアウト: `AuthLayout` / `SidebarLayout` / `StackedLayout`
-  - [ ] ナビゲーション: `Navbar`, `Sidebar`
-  - [ ] ボタン・アクション: `Button` (17 色 variants 選択)
-  - [ ] テキスト表示: `Heading`, `Text`, `Strong`, `Code`, `TextLink`
-  - [ ] フォーム: `Input`, `Textarea`, `Select`, `Checkbox`, `Radio`, `Switch`, `Fieldset`
-  - [ ] データ表示: `Table`, `Badge`, `Alert`, `Avatar`, `DescriptionList`
-  - [ ] インタラクション: `Dialog`, `Dropdown`, `Pagination`
-- [ ] TypeScript の path mapping 設定（tsconfig.json で`@ui`エイリアス）
-- [ ] レスポンシブデザインの実装（Tailwind CSS utility classes 使用）
-- [ ] `pnpm lint` を実行しエラーが 0 件であることを確認
+- [ ] [実装項目 1]
+- [ ] [実装項目 2]
+- [ ] [実装項目 3]
+- [ ] Tailwind CSS のユーティリティクラスのみを使用してスタイリング
+- [ ] `npm run lint` を実行しエラーが 0 件であることを確認
 - [ ] Prettier でフォーマットを実行
-- [ ] `pnpm build` を実行しビルドが成功することを確認
-- **完了条件**: page.tsx が新機能に対応し、機能に適した共有コンポーネントを適切に選択・活用している + 全コード品質チェックがパス
-- **依存**: なし（最優先タスク）
-- **推定時間**: 2-4 時間
+- [ ] `npm run build` を実行しビルドが成功することを確認
+- **完了条件**: [明確な完了条件] + 全コード品質チェックがパス
+- **依存**: [依存するタスク]
+- **推定時間**: [時間]
 
 #### Task 2.2: [機能名]の実装
 
 - [ ] [実装項目 1]
 - [ ] [実装項目 2]
 - [ ] Tailwind CSS のユーティリティクラスのみを使用してスタイリング
-- [ ] `pnpm lint` を実行しエラーが 0 件であることを確認
+- [ ] `npm run lint` を実行しエラーが 0 件であることを確認
 - [ ] Prettier でフォーマットを実行
-- [ ] `pnpm build` を実行しビルドが成功することを確認
+- [ ] `npm run build` を実行しビルドが成功することを確認
 - **完了条件**: [明確な完了条件] + 全コード品質チェックがパス
 - **依存**: [依存するタスク]
 - **推定時間**: [時間]
@@ -137,10 +130,10 @@ Create `.tmp/step-5-task-division.md` with the following sections:
 
 ### 各タスクで必須のチェック項目
 
-1. **ESLint**: `pnpm lint` でエラーが 0 件
+1. **ESLint**: `npm run lint` でエラーが 0 件
 2. **Prettier**: 全ファイルがフォーマット済み
 3. **Tailwind CSS**: ユーティリティクラスのみ使用
-4. **Build**: `pnpm build` がエラーなく完了
+4. **Build**: `npm run build` がエラーなく完了
 
 ### 品質チェック失敗時の対応
 
@@ -157,17 +150,30 @@ Create `.tmp/step-5-task-division.md` with the following sections:
 - **必須**: ESLint/Prettier/Tailwind の規約に 100%準拠
 ```
 
-### 4. Create TODO entry
+### 4. Register tasks in TodoWrite
 
-Use TodoWrite to add "タスク分解の完了とレビュー" as a task
+Extract main tasks (Phase level or important tasks) and register them using TodoWrite tool with appropriate priorities
 
-### 5. Present to user
+### 5. Create implementation guide
 
-Show the created task division document and ask for:
+Add a section at the end of tasks.md:
 
-- Task breakdown confirmation
-- Implementation order approval
-- Permission to begin implementation
+```markdown
+## 実装開始ガイド
+
+1. このタスクリストに従って順次実装を進めてください
+2. 各タスクの開始時に TodoWrite で in_progress に更新
+3. 完了時は completed に更新
+4. 問題発生時は速やかに報告してください
+```
+
+### 6. Present to user
+
+Show the task breakdown and:
+
+- Explain the implementation order
+- Highlight any critical paths
+- Ask for approval to begin implementation
 
 ## Important Notes
 
@@ -176,8 +182,6 @@ Show the created task division document and ask for:
 - Consider parallel execution opportunities
 - Include testing tasks throughout, not just at the end
 - **MUST include code quality checks (ESLint, Prettier, Tailwind) for EVERY task**
-- **All tasks must pass `pnpm lint` with 0 errors before completion**
+- **All tasks must pass `npm run lint` with 0 errors before completion**
 - **All code must be formatted with Prettier**
 - **Only Tailwind utility classes allowed for styling**
-- **Consider monorepo structure: distinguish between shared UI components (../../packages/ui) and app-specific components (current app)**
-- **Use pnpm as the package manager for all commands and documentation**

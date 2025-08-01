@@ -1,6 +1,6 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*), Bash(git:*)
-description: 5段階仕様駆動開発ワークフローを自動実行（仕様書→要件定義→システム設計→UI設計→タスク分解）
+allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*), Bash(git:*), Bash(pnpm lint:*), Bash(pnpm build:*)
+description: 6段階仕様駆動開発ワークフローを自動実行（仕様書→要件定義→システム設計→UI設計→タスク分解→実装＋品質チェック）
 ---
 
 ## Context
@@ -13,8 +13,12 @@ Execute the complete Specification-Driven Development workflow:
 
 ### 1. Setup
 
-- Create `.tmp` directory if it doesn't exist
+- **Execute**: `mkdir -p .tmp` to create the temporary directory for design documents
 - Create a new feature branch based on the task
+
+```bash
+mkdir -p .tmp
+```
 
 ### 2. Stage 1: 仕様書作成
 
@@ -63,6 +67,31 @@ Execute `/step-5-task-division` command to break down design into implementable 
 - Build verification: `pnpm build`
 
 **Present task list to user for approval before proceeding**
+
+### 6. Stage 6: Implementation Execution
+
+**Execute each task from the task division with integrated quality checks:**
+
+For EVERY task:
+
+1. **Mark task as in_progress** using TodoWrite tool
+2. **Execute implementation** following the monorepo structure and existing patterns
+3. **Run quality checks**:
+   ```bash
+   pnpm lint
+   ```
+   - **If lint errors found**: Fix all errors before proceeding
+   - **If lint passes**: Continue to build check
+4. **Run build verification**:
+   ```bash
+   pnpm build
+   ```
+   - **If build fails**: Fix all issues before proceeding
+   - **If build passes**: Mark task as completed
+5. **Mark task as completed** using TodoWrite tool
+6. **Proceed to next task** only after ALL checks pass
+
+**CRITICAL**: Never mark a task as completed unless both `pnpm lint` and `pnpm build` pass with 0 errors.
 
 ### 7. Quality Assurance Process
 
@@ -115,18 +144,29 @@ For EVERY implementation step:
    - ESLint: `@package/eslint-config`
    - Prettier: `@package/prettier-config`
 
-### 9. Post-implementation: GitHub PR creation
+### 8. Stage 7: GitHub Pull Request Creation
 
-After implementation is complete, recommend using `/github-pull-request` command to:
+After all tasks are completed and quality checks pass, execute `/github-pull-request` command to:
 
 - Create appropriate feature branch
 - Generate structured commits with conventional commit messages
 - Create comprehensive PR with proper title and description
 - Include quality assurance checklist
+- Technical change summary
 
 ### 10. Report completion
 
-Summarize what was created across all 5 stages and inform user that they can now proceed with implementation using the generated specification documents, following the task breakdown from Stage 5.
+Summarize what was created across all stages:
+
+- Stage 1: Business specification document
+- Stage 2: Detailed requirements with quality standards
+- Stage 3: System architecture and technical design
+- Stage 4: UI/UX design and component architecture
+- Stage 5: Implementation task breakdown with quality checks
+- Stage 6: Complete implementation with integrated testing
+- Stage 7: GitHub PR creation with proper documentation
+
+Report that the full implementation has been completed with all quality checks passed.
 
 ## Important Notes
 

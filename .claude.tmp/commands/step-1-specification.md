@@ -1,6 +1,6 @@
 ---
 allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(mkdir:*), Bash(ls:*), Bash(find:*)
-description: Step 1 ビジネス要件・スコープ・ステークホルダーを整理した仕様書を作成
+description: Step 1 ビジネス要件・スコープ・ステークホルダーを整理した仕様書を作成（ディレクトリ自動作成）
 ---
 
 ## Context
@@ -11,7 +11,11 @@ description: Step 1 ビジネス要件・スコープ・ステークホルダー
 
 ### 1. Create directory
 
-- Create `.tmp` directory if it doesn't exist
+- **Execute**: `mkdir -p .tmp` to create the temporary directory for design documents
+
+```bash
+mkdir -p .tmp
+```
 
 ### 2. Analyze the user's request
 
@@ -24,7 +28,7 @@ Carefully analyze the provided task description and extract:
 
 ### 3. Create Specification Document
 
-Create `.tmp/step-1-specification.md` with the following sections:
+**Use the Write tool to create `.tmp/step-1-specification.md` with the following content:**
 
 ```markdown
 # 仕様書 - [プロジェクト/機能名]
