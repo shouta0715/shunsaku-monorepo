@@ -1,27 +1,38 @@
 ---
 allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(find:*), Bash(ls:*)
-description: Break down design into implementable tasks (Stage 3 of Spec-Driven Development)
+description: Step 5: 全設計書を基に実装可能なタスクに分解し、優先順位・依存関係を整理
 ---
 
 ## Context
 
-- Requirements: @.tmp/requirements.md
-- Design document: @.tmp/design.md
+- Specification document: @.tmp/step-1-specification.md
+- Requirements: @.tmp/step-2-requirements.md
+- System design: @.tmp/step-3-system-design.md
+- UI design: @.tmp/step-4-ui-design.md
 
 ## Your task
 
 ### 1. Verify prerequisites
 
-- Check that both `.tmp/requirements.md` and `.tmp/design.md` exist
-- If not, inform user to complete previous stages first
+- Check that all prerequisite documents exist:
+  - `.tmp/step-1-specification.md` (Step 1: 仕様書作成)
+  - `.tmp/step-2-requirements.md` (Step 2: 要件定義書作成)
+  - `.tmp/step-3-system-design.md` (Step 3: システム設計作成)
+  - `.tmp/step-4-ui-design.md` (Step 4: デザイン設計作成)
+- If any are missing, inform user to complete previous steps first
 
-### 2. Analyze design document
+### 2. Analyze all design documents
 
-Read and understand the design thoroughly to identify all implementation tasks
+Read and understand all design documents thoroughly to identify all implementation tasks:
+
+- Business requirements from specification
+- Functional requirements
+- System architecture and technical design
+- UI/UX design and component structure
 
 ### 3. Create Task List Document
 
-Create `.tmp/tasks.md` with the following structure:
+Create `.tmp/step-5-task-division.md` with the following structure:
 
 ```markdown
 # タスクリスト - [機能/改善名]
@@ -145,7 +156,7 @@ Extract main tasks (Phase level or important tasks) and register them using Todo
 
 ### 5. Create implementation guide
 
-Add a section at the end of tasks.md:
+Add a section at the end of step-5-task-division.md:
 
 ```markdown
 ## 実装開始ガイド
@@ -174,5 +185,5 @@ Show the task breakdown and:
 - **All tasks must pass `pnpm lint` with 0 errors before completion**
 - **All code must be formatted with Prettier**
 - **Only Tailwind utility classes allowed for styling**
-- **Consider monorepo structure: distinguish between shared UI components (packages/ui) and app-specific components (app/**)\*\*
+- **Consider monorepo structure: distinguish between shared UI components (packages/ui) and app-specific components (apps/**)\*\*
 - **Use pnpm as the package manager for all commands and documentation**

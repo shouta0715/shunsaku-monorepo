@@ -1,23 +1,23 @@
 ---
 allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(mkdir:*), Bash(ls:*), Bash(find:*)
-description: Create requirements specification for the given task (Stage 1 of Spec-Driven Development)
+description: Step 2: 機能要件・非機能要件・制約事項を詳細化した要件定義書を作成
 ---
 
 ## Context
 
 - Task description: $ARGUMENTS
+- Specification document: @.tmp/step-1-specification.md
 
 ## Your task
 
-### 1. Analyze project structure
+### 1. Verify prerequisites
 
-- Analyze the current monorepo structure (app/\*\*, packages/)
-- Identify the target application/package for the task
-- Create `.tmp` directory if it doesn't exist
+- Check that `.tmp/step-1-specification.md` exists from Step 1
+- If not, inform user to run `/step-1-specification` first
 
-### 2. Analyze the user's request
+### 2. Analyze the user's request and specification
 
-Carefully analyze the provided task description and extract:
+Carefully analyze the provided task description and specification document to extract:
 
 - The core problem to be solved
 - Implicit requirements not explicitly stated
@@ -26,7 +26,7 @@ Carefully analyze the provided task description and extract:
 
 ### 3. Create Requirements Document
 
-Create `.tmp/requirements.md` with the following sections:
+Create `.tmp/step-2-requirements.md` with the following sections:
 
 ```markdown
 # 要件定義書 - [タスク名]
@@ -146,9 +146,10 @@ pnpm build
 pnpm lint
 
 # 特定のアプリケーション/パッケージで作業する場合
-cd app/**  # または該当するパッケージ
+cd apps/**  # または該当するパッケージ
 pnpm dev    # アプリケーション固有のコマンド
 ```
+````
 
 ## 開発ガイドライン
 
@@ -160,7 +161,7 @@ pnpm dev    # アプリケーション固有のコマンド
 
 ### monorepo 構造
 
-- `app/**/` - Next.js アプリケーション
+- `apps/**/` - Next.js アプリケーション
 - `packages/ui/` - 共有 UI コンポーネント
 - `packages/eslint-config/` - ESLint 設定
 - `packages/prettier-config/` - Prettier 設定
@@ -177,6 +178,7 @@ pnpm dev    # アプリケーション固有のコマンド
 ## ライセンス
 
 [ライセンス情報]
+
 ````
 
 #### 5.2 Create/Update CLAUDE.md
@@ -207,13 +209,13 @@ Create or update `.claude/CLAUDE.md` with project-specific rules:
 
 ### ワークフロー
 
-1. 要件定義 → 設計 → タスク分解 → 実装
+1. 仕様書作成 → 要件定義 → システム設計 → デザイン設計 → タスク分解 → 実装
 2. 各タスク完了時に品質チェック実行
 3. コミット前に lint/build 確認
 
 ### monorepo 構造
 
-- `app/**/` - メインアプリケーション (Next.js)
+- `apps/**/` - メインアプリケーション (Next.js)
 - `packages/ui/` - 共有 UI コンポーネントライブラリ
 - `packages/*-config/` - 共有設定パッケージ
 
@@ -226,6 +228,7 @@ Create or update `.claude/CLAUDE.md` with project-specific rules:
 - `pnpm dev` - 開発サーバー起動
 - `pnpm lint` - ESLint チェック
 - `pnpm build` - ビルド
+````
 
 ### 6. Present to user
 
@@ -233,7 +236,7 @@ Show the created requirements document and ask for:
 
 - Confirmation of understanding
 - Any missing requirements
-- Approval to proceed to design phase
+- Approval to proceed to system design phase
 - Review of generated README.md and CLAUDE.md
 
 ## Important Notes
@@ -246,6 +249,5 @@ Show the created requirements document and ask for:
 - **All code must pass linting and formatting checks**
 - **MUST generate/update README.md and CLAUDE.md based on requirements**
 - **Documentation should serve as project memory for future Claude Code sessions**
-- **Consider monorepo structure: analyze whether changes affect app/**, packages/ui, or other components\*\*
+- **Consider monorepo structure: analyze whether changes affect apps/**, packages/ui, or other components\*\*
 - **Use pnpm as the package manager for all commands and documentation**
-```

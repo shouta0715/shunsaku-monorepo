@@ -59,13 +59,13 @@ For every code change:
 
 ### Overview
 
-When receiving development tasks, please follow the 4-stage workflow below. This ensures requirement clarification, structured design, and efficient implementation.
+When receiving development tasks, please follow the 5-stage workflow below. This ensures comprehensive specification, structured design, and efficient implementation.
 
-### 4-Stage Workflow
+### 5-Stage Workflow
 
-#### Stage 1: Requirements
+#### Step 1: 仕様書作成
 
-- Analyze user requests and convert them into clear functional requirements
+- Analyze user requests and extract business requirements
 - Consider monorepo structure (apps/\*\* vs packages/)
 - Document requirements in `.tmp/requirements.md`
 - Use `/requirements` command for detailed template
@@ -100,12 +100,25 @@ When receiving development tasks, please follow the 4-stage workflow below. This
   - Ensure Tailwind utility classes only
   - Update task to completed using TodoWrite
 
+#### Stage 5: GitHub Pull Request Creation
+
+- Execute `/github-pull-request` command after implementation completion
+- Automatically generates:
+  - Appropriate branch name based on implementation type
+  - Structured commits with conventional commit messages
+  - Comprehensive PR title and description
+  - Quality assurance checklist
+  - Technical change summary
+
 ### Workflow Commands
 
-- `/spec` - Start the complete specification-driven development workflow
-- `/requirements` - Execute Stage 1: Requirements only
-- `/design` - Execute Stage 2: Design only (requires requirements)
-- `/tasks` - Execute Stage 3: Task breakdown only (requires design)
+- `/full-automatic` - Start the complete 5-stage specification-driven development workflow
+- `/step-1-specification` - Execute Step 1: 仕様書作成 only
+- `/step-2-requirements` - Execute Step 2: 要件定義書作成 only (requires specification)
+- `/step-3-system-design` - Execute Step 3: システム設計作成 only (requires requirements)
+- `/step-4-ui-design` - Execute Step 4: デザイン設計作成 only (requires system design)
+- `/step-5-task-division` - Execute Step 5: タスク分解 only (requires all designs)
+- `/github-pull-request` - Execute GitHub PR creation with proper branching, commits, and description (requires completed implementation)
 
 ### Important Notes
 
