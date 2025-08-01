@@ -23,14 +23,10 @@ pwd
 
 **Step 2: Apply project detection logic**
 
-- If current directory path contains `/apps/[project-name]` → Set target to `apps/[project-name]`
-- If current directory path contains `/packages/[package-name]` → Set target to `packages/[package-name]`
-- If current directory basename is an app name under apps/ → Set target to `apps/[basename]`
-- If current directory basename is a package name under packages/ → Set target to `packages/[basename]`
-- If in monorepo root, analyze task description to determine target:
-  - Web application features → `apps/web`
-  - Shared UI components → `packages/ui`
-  - If unclear, default to `apps/web`
+- If current directory path contains `/apps/[project-name]` → Set target to current app directory
+- If current directory basename is an app name under apps/ → Set target to current directory
+- If in apps/ subdirectory → Use current app directory
+- Default to current directory (assumed to be within apps/)
 
 **Step 2.1: Normalize project directory path**
 
@@ -43,12 +39,12 @@ echo "Current absolute path: $REALPATH"
 **Step 3: Create project-specific .tmp directory**
 
 ```bash
-mkdir -p [detected-project-dir]/.tmp
+mkdir -p .tmp
 ```
 
 **Step 4: Set working context**
 
-From this point forward, all design documents will be created in `[detected-project-dir]/.tmp/` where `[detected-project-dir]` is the path determined in Steps 1-2.
+From this point forward, all design documents will be created in `.tmp/` relative to the current app directory.
 
 **Step 5: Create feature branch**
 
@@ -60,7 +56,7 @@ From this point forward, all design documents will be created in `[detected-proj
 
 1. Determine project directory (already done in Setup)
 2. Analyze the user's request and extract business requirements
-3. **Use Write tool to create the specification document in `$PROJECT_DIR/.tmp/step-1-specification.md`**
+3. **Use Write tool to create the specification document in `.tmp/step-1-specification.md`**
 4. Create TODO entry for specification review
 5. Present to user for approval
 
@@ -74,9 +70,9 @@ From this point forward, all design documents will be created in `[detected-proj
 
 1. Verify prerequisites (specification document exists)
 2. Analyze user request and specification document
-3. **Use Write tool to create requirements document in `$PROJECT_DIR/.tmp/step-2-requirements.md`**
-4. **Use Write tool to create/update `$PROJECT_DIR/README.md`**
-5. **Use Write tool to create/update `$PROJECT_DIR/.claude/CLAUDE.md`**
+3. **Use Write tool to create requirements document in `.tmp/step-2-requirements.md`**
+4. **Use Write tool to create/update `README.md`**
+5. **Use Write tool to create/update `.claude/CLAUDE.md`**
 6. Create TODO entry and present to user
 
 **MUST include code quality requirements (ESLint, Prettier, Tailwind CSS)**
@@ -90,7 +86,7 @@ From this point forward, all design documents will be created in `[detected-proj
 
 1. Verify prerequisites (specification and requirements documents exist)
 2. Analyze existing project assets and architecture
-3. **Use Write tool to create system design document in `$PROJECT_DIR/.tmp/step-3-system-design.md`**
+3. **Use Write tool to create system design document in `.tmp/step-3-system-design.md`**
 4. Create TODO entry and present to user
 
 **MUST analyze existing architecture and technical assets**
@@ -105,10 +101,10 @@ From this point forward, all design documents will be created in `[detected-proj
 
 1. Verify prerequisites (all previous documents exist)
 2. Analyze existing UI assets and Tailwind configuration
-3. **Use Write tool to create UI design document in `$PROJECT_DIR/.tmp/step-4-ui-design.md`**
+3. **Use Write tool to create UI design document in `.tmp/step-4-ui-design.md`**
 4. Create TODO entry and present to user
 
-**MUST analyze existing components in packages/ui/src/ and apps/**/src/\*\*
+**MUST analyze existing components in ../../packages/ui/src/ and current app src/**
 **MUST check Tailwind configuration and design patterns**
 **MUST define component architecture and styling guidelines**
 
@@ -120,7 +116,7 @@ From this point forward, all design documents will be created in `[detected-proj
 
 1. Verify prerequisites (all design documents exist)
 2. Analyze all design documents thoroughly
-3. **Use Write tool to create task division document in `$PROJECT_DIR/.tmp/step-5-task-division.md`**
+3. **Use Write tool to create task division document in `.tmp/step-5-task-division.md`**
 4. Register main tasks using TodoWrite tool
 5. Present to user for approval
 
@@ -169,7 +165,7 @@ Summarize what was created across all 5 stages and the recommended next steps fo
 - Consider edge cases and error scenarios in each stage
 - **MUST enforce ESLint, Prettier, and Tailwind CSS standards throughout**
 - **All code must pass quality checks before proceeding**
-- **Consider monorepo structure: distinguish between shared UI components (packages/ui) and app-specific components (apps/**)\*\*
+- **Consider monorepo structure: distinguish between shared UI components (../../packages/ui) and app-specific components (current app)**
 - **Use pnpm as the package manager for all commands and documentation**
 
 ## Available Commands

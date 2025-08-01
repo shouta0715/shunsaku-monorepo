@@ -26,21 +26,17 @@ REALPATH=$(realpath .)
 echo "Current absolute path: $REALPATH"
 ```
 
-- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to `apps/[project-name]`
-- If current directory path contains `/packages/[package-name]` → Set PROJECT_DIR to `packages/[package-name]`
-- If current directory basename is an app name under apps/ → Set PROJECT_DIR to `apps/[basename]`
-- If current directory basename is a package name under packages/ → Set PROJECT_DIR to `packages/[basename]`
-- If in monorepo root, analyze task description:
-  - Web application features → Set PROJECT_DIR to `apps/web`
-  - Shared UI components → Set PROJECT_DIR to `packages/ui`
-  - If unclear, default to `apps/web`
+- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to current app directory
+- If current directory basename is an app name under apps/ → Set PROJECT_DIR to current directory
+- If in apps/ subdirectory → Use current app directory
+- Default to current directory (assumed to be within apps/)
 
 **Step 3: Verify prerequisite documents exist**
 
-- Check that `$PROJECT_DIR/.tmp/step-1-specification.md` exists
-- Check that `$PROJECT_DIR/.tmp/step-2-requirements.md` exists
+- Check that `.tmp/step-1-specification.md` exists
+- Check that `.tmp/step-2-requirements.md` exists
 - If either missing, inform user to complete previous steps first
-- Confirm project context: "Creating system design for project: `$PROJECT_DIR`"
+- Confirm project context: "Creating system design for current app project"
 
 ### 2. Analyze requirements
 
@@ -50,20 +46,20 @@ Read and understand the specification and requirements documents thoroughly
 
 #### 3.1 Check existing architecture
 
-- Analyze monorepo structure (apps/\*\*, packages/)
+- Analyze monorepo structure (current app, ../../packages/)
 - Check existing data models and API structures
 - Document current system architecture
 
 #### 3.2 Check code quality tools configuration
 
-- Read `apps/**/eslint.config.mjs` and shared configs in `packages/eslint-config/`
-- Read `apps/**/prettier.config.mjs` and shared configs in `packages/prettier-config/`
+- Read `eslint.config.mjs` and shared configs in `../../packages/eslint-config/`
+- Read `prettier.config.mjs` and shared configs in `../../packages/prettier-config/`
 - Run `pnpm lint` to verify linting setup
 - Document any custom rules or exceptions
 
 ### 4. Create System Design Document
 
-**Use the Write tool to create `$PROJECT_DIR/.tmp/step-3-system-design.md` with the following content:**
+**Use the Write tool to create `.tmp/step-3-system-design.md` with the following content:**
 
 ````markdown
 # システム設計書 - [タスク名]
@@ -211,7 +207,7 @@ interface ResponseType {
 
 ### 9.1 パッケージ構成
 
-- `apps/**/` - アプリケーション固有の実装
+- current app - アプリケーション固有の実装
 - `packages/` - 共有ライブラリとの連携
 
 ### 9.2 依存関係管理

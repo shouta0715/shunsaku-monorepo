@@ -27,29 +27,24 @@ REALPATH=$(realpath .)
 echo "Current absolute path: $REALPATH"
 ```
 
-- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to `apps/[project-name]`
-- If current directory path contains `/packages/[package-name]` → Set PROJECT_DIR to `packages/[package-name]`
-- If current directory basename is an app name under apps/ → Set PROJECT_DIR to `apps/[basename]`
-- If current directory basename is a package name under packages/ → Set PROJECT_DIR to `packages/[basename]`
-- If in monorepo root, look for existing `.tmp` directories:
-  ```bash
-  find . -name ".tmp" -type d -path "*/apps/*" -o -path "*/packages/*"
-  ```
-- If only one project with `.tmp` found → Use that project
-- If multiple projects found → Ask user to specify target project
-- If no projects found → Inform user to run specification workflow first
+- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to current app directory
+- If current directory basename is an app name under apps/ → Set PROJECT_DIR to current directory
+- If in apps/ subdirectory → Use current app directory
+- Default to current directory (assumed to be within apps/)
+- Look for existing `.tmp` directory in current location
+- If no `.tmp` found → Inform user to run specification workflow first
 
-**Step 3: Read design documents from detected project**
+**Step 3: Read design documents from current project**
 
-- Read `$PROJECT_DIR/.tmp/step-1-specification.md` (仕様書)
-- Read `$PROJECT_DIR/.tmp/step-2-requirements.md` (要件定義書)
-- Read `$PROJECT_DIR/.tmp/step-3-system-design.md` (システム設計書)
-- Read `$PROJECT_DIR/.tmp/step-4-ui-design.md` (UI/UX 設計書)
-- Read `$PROJECT_DIR/.tmp/step-5-task-division.md` (タスクリスト)
+- Read `.tmp/step-1-specification.md` (仕様書)
+- Read `.tmp/step-2-requirements.md` (要件定義書)
+- Read `.tmp/step-3-system-design.md` (システム設計書)
+- Read `.tmp/step-4-ui-design.md` (UI/UX 設計書)
+- Read `.tmp/step-5-task-division.md` (タスクリスト)
 
 **Step 4: Confirm project context**
 
-Inform user: "Creating PR for project: `$PROJECT_DIR`"
+Inform user: "Creating PR for current app project"
 
 #### 1.2 Check current implementation
 
@@ -233,7 +228,7 @@ Examples:
 
 ### 7. Create PR document
 
-**Use the Write tool to create `$PROJECT_DIR/.tmp/github-pull-request.md` with the following content:**
+**Use the Write tool to create `.tmp/github-pull-request.md` with the following content:**
 
 ```markdown
 # GitHub Pull Request 情報

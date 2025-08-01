@@ -210,5 +210,5 @@ Show the task breakdown and:
 - **All tasks must pass `pnpm lint` with 0 errors before completion**
 - **All code must be formatted with Prettier**
 - **Only Tailwind utility classes allowed for styling**
-- **Consider monorepo structure: distinguish between shared UI components (packages/ui) and app-specific components (apps/**)\*\*
+- **Consider monorepo structure: distinguish between shared UI components (../../packages/ui) and app-specific components (current app)**
 - **Use pnpm as the package manager for all commands and documentation**

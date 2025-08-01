@@ -25,24 +25,20 @@ REALPATH=$(realpath .)
 echo "Current absolute path: $REALPATH"
 ```
 
-- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to `apps/[project-name]`
-- If current directory path contains `/packages/[package-name]` → Set PROJECT_DIR to `packages/[package-name]`
-- If current directory basename is an app name under apps/ → Set PROJECT_DIR to `apps/[basename]`
-- If current directory basename is a package name under packages/ → Set PROJECT_DIR to `packages/[basename]`
-- If in monorepo root, analyze task description:
-  - Web application features → Set PROJECT_DIR to `apps/web`
-  - Shared UI components → Set PROJECT_DIR to `packages/ui`
-  - If unclear, default to `apps/web`
+- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to current app directory
+- If current directory basename is an app name under apps/ → Set PROJECT_DIR to current directory
+- If in apps/ subdirectory → Use current app directory
+- Default to current directory (assumed to be within apps/)
 
 **Step 3: Create .tmp directory**
 
 ```bash
-mkdir -p $PROJECT_DIR/.tmp
+mkdir -p .tmp
 ```
 
 **Step 4: Confirm project context**
 
-Inform user: "Creating specification for project: `$PROJECT_DIR`"
+Inform user: "Creating specification for current app project"
 
 ### 2. Analyze the user's request
 
@@ -55,7 +51,7 @@ Carefully analyze the provided task description and extract:
 
 ### 3. Create Specification Document
 
-**Use the Write tool to create `$PROJECT_DIR/.tmp/step-1-specification.md` with the following content:**
+**Use the Write tool to create `.tmp/step-1-specification.md` with the following content:**
 
 ```markdown
 # 仕様書 - [プロジェクト/機能名]

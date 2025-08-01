@@ -7,7 +7,7 @@ This document defines the project's rules, objectives, and progress management m
 - To maximize efficiency, **if you need to execute multiple independent processes, invoke those tools concurrently, not sequentially**.
 - **You must think exclusively in English**. However, you are required to **respond in Japanese**.
 - To understand how to use a library, **always use the Contex7 MCP** to retrieve the latest information.
-- For temporary notes for design, create a markdown in the project's `.tmp` directory (e.g., `apps/web/.tmp/` or `packages/ui/.tmp/`) and save it.
+- For temporary notes for design, create a markdown in the project's `.tmp` directory (e.g., `.tmp/` relative to current app) and save it.
 - **After using Write or Edit tools, ALWAYS verify the actual file contents using the Read tool**, regardless of what the system-reminder says. The system-reminder may incorrectly show "(no content)" even when the file has been successfully written.
 - Please respond critically and without pandering to my opinions, but please don't be forceful in your criticism.
 
@@ -15,19 +15,18 @@ This document defines the project's rules, objectives, and progress management m
 
 This is a monorepo project with the following structure:
 
-- `apps/**/` - Next.js main application
-- `packages/ui/` - Shared UI component library
-- `packages/eslint-config/` - Shared ESLint configurations
-- `packages/prettier-config/` - Shared Prettier configurations
-- `packages/typescript-config/` - Shared TypeScript configurations
+- current app - Next.js main application
+- `../../packages/ui/` - Shared UI component library
+- `../../packages/eslint-config/` - Shared ESLint configurations
+- `../../packages/prettier-config/` - Shared Prettier configurations
+- `../../packages/typescript-config/` - Shared TypeScript configurations
 
 **Package Manager**: Use `pnpm` for all dependency management and script execution.
 
 **Design Documents**: Each project maintains its design documents in its own `.tmp` directory:
 
-- `apps/web/.tmp/` - Design documents for web application
-- `packages/ui/.tmp/` - Design documents for UI library changes
-- Pattern: `[project-dir]/.tmp/step-*-*.md` where [project-dir] is auto-detected
+- `.tmp/` - Design documents for current application
+- Pattern: `.tmp/step-*-*.md` relative to current app directory
 
 ## Programming Rules
 
@@ -57,9 +56,9 @@ For every code change:
 
 ### Component Usage
 
-- **Prioritize existing components**: Check `packages/ui/src/` for reusable components
-- **App-specific components**: Place in `apps/**/src/components/` only when necessary
-- **Avoid duplication**: Use shared UI components from packages/ui whenever possible
+- **Prioritize existing components**: Check `../../packages/ui/src/` for reusable components
+- **App-specific components**: Place in `src/components/` only when necessary
+- **Avoid duplication**: Use shared UI components from ../../packages/ui whenever possible
 
 ## Development Style - Specification-Driven Development
 
@@ -72,18 +71,18 @@ When receiving development tasks, please follow the 5-stage workflow below. This
 #### Step 1: 仕様書作成
 
 - Analyze user requests and extract business requirements
-- Determine target project directory (apps/**, packages/**)
+- Determine target project directory (current app)
 - Create project-specific `.tmp` directory
-- Document specification in `[project-dir]/.tmp/step-1-specification.md` where [project-dir] is detected from current context
+- Document specification in `.tmp/step-1-specification.md` relative to current app
 - Use `/step-1-specification` command for detailed template
 - **Must include**: Business requirements, stakeholders, scope definition
 
 #### Stage 2: Design
 
 - Create technical design based on requirements
-- Analyze existing components in `packages/ui/src/` and `apps/**/src/`
+- Analyze existing components in `../../packages/ui/src/` and `src/`
 - Check Tailwind configuration and shared design patterns
-- Document design in `[project-dir]/.tmp/step-3-system-design.md` and `[project-dir]/.tmp/step-4-ui-design.md`
+- Document design in `.tmp/step-3-system-design.md` and `.tmp/step-4-ui-design.md`
 - Use `/design` command for detailed template
 - **Must specify**: Component reuse strategy and monorepo placement
 
@@ -91,7 +90,7 @@ When receiving development tasks, please follow the 5-stage workflow below. This
 
 - Break down design into implementable units
 - Include code quality checks for each task
-- Document in `[project-dir]/.tmp/step-5-task-division.md`
+- Document in `.tmp/step-5-task-division.md`
 - Use `/tasks` command for detailed template
 - Manage major tasks with TodoWrite tool
 - **Must include**: `pnpm lint` and `pnpm build` checks for each task
@@ -134,8 +133,8 @@ When receiving development tasks, please follow the 5-stage workflow below. This
 - Always use this workflow for complex tasks or new feature development
 - Simple fixes or clear bug fixes can be implemented directly
 - **Monorepo considerations**:
-  - Shared components belong in `packages/ui/src/`
-  - App-specific features belong in `apps/**/src/`
+  - Shared components belong in `../../packages/ui/src/`
+  - App-specific features belong in `src/`
   - Always check existing components before creating new ones
 - **Quality is non-negotiable**: All code must pass ESLint, Prettier, and build checks
 - **Use pnpm exclusively** for all package management and script execution

@@ -27,22 +27,18 @@ REALPATH=$(realpath .)
 echo "Current absolute path: $REALPATH"
 ```
 
-- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to `apps/[project-name]`
-- If current directory path contains `/packages/[package-name]` → Set PROJECT_DIR to `packages/[package-name]`
-- If current directory basename is an app name under apps/ → Set PROJECT_DIR to `apps/[basename]`
-- If current directory basename is a package name under packages/ → Set PROJECT_DIR to `packages/[basename]`
-- If in monorepo root, analyze task description:
-  - Web application features → Set PROJECT_DIR to `apps/web`
-  - Shared UI components → Set PROJECT_DIR to `packages/ui`
-  - If unclear, default to `apps/web`
+- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to current app directory
+- If current directory basename is an app name under apps/ → Set PROJECT_DIR to current directory
+- If in apps/ subdirectory → Use current app directory
+- Default to current directory (assumed to be within apps/)
 
 **Step 3: Verify prerequisite documents exist**
 
-- Check that `$PROJECT_DIR/.tmp/step-1-specification.md` exists
-- Check that `$PROJECT_DIR/.tmp/step-2-requirements.md` exists
-- Check that `$PROJECT_DIR/.tmp/step-3-system-design.md` exists
+- Check that `.tmp/step-1-specification.md` exists
+- Check that `.tmp/step-2-requirements.md` exists
+- Check that `.tmp/step-3-system-design.md` exists
 - If any missing, inform user to complete previous steps first
-- Confirm project context: "Creating UI design for project: `$PROJECT_DIR`"
+- Confirm project context: "Creating UI design for current app project"
 
 ### 2. Analyze requirements and system design
 
@@ -52,20 +48,20 @@ Read and understand all previous documents to align UI design with system archit
 
 #### 3.1 Check existing components
 
-- Check `packages/ui/src/` for shared UI components
-- Check `apps/**/src/` for application-specific components
+- Check `../../packages/ui/src/` for shared UI components
+- Check `src/` for application-specific components
 - Read key components to understand their interfaces and usage patterns
 - Document available UI components for reuse in monorepo structure
 
 #### 3.2 Check Tailwind configuration
 
-- Look for `tailwind.config.ts` or `tailwind.config.js` in apps/\*\*/
-- Check for Tailwind CSS v4 setup in `apps/**/src/app/globals.css`
+- Look for `tailwind.config.ts` or `tailwind.config.js` in current app
+- Check for Tailwind CSS v4 setup in `src/app/globals.css`
 - Note any custom theme settings, colors, or design tokens
 
 ### 4. Create UI Design Document
 
-**Use the Write tool to create `$PROJECT_DIR/.tmp/step-4-ui-design.md` with the following content:**
+**Use the Write tool to create `.tmp/step-4-ui-design.md` with the following content:**
 
 ````markdown
 # UI/UX 設計書 - [タスク名]
@@ -110,15 +106,15 @@ export default {
 
 [プロジェクトで利用可能な既存コンポーネントをリストアップ]
 
-| 既存コンポーネント       | 用途   | 活用方法               | パッケージ  |
-| ------------------------ | ------ | ---------------------- | ----------- |
-| [検出したコンポーネント] | [用途] | [この設計での活用方法] | packages/ui |
+| 既存コンポーネント       | 用途   | 活用方法               | パッケージ        |
+| ------------------------ | ------ | ---------------------- | ----------------- |
+| [検出したコンポーネント] | [用途] | [この設計での活用方法] | ../../packages/ui |
 
 ### 2.2 新規コンポーネント一覧
 
-| コンポーネント名 | 責務      | 既存コンポーネントの活用     | 配置場所                 |
-| ---------------- | --------- | ---------------------------- | ------------------------ |
-| [Component A]    | [UI 責務] | [活用する既存コンポーネント] | packages/ui or apps/\*\* |
+| コンポーネント名 | 責務      | 既存コンポーネントの活用     | 配置場所                  |
+| ---------------- | --------- | ---------------------------- | ------------------------- |
+| [Component A]    | [UI 責務] | [活用する既存コンポーネント] | ../../packages/ui or src/ |
 
 ### 2.3 各コンポーネントの詳細
 
@@ -247,12 +243,12 @@ export default {
 
 ## 10. monorepo 配置戦略
 
-### 10.1 共有コンポーネント (packages/ui)
+### 10.1 共有コンポーネント (../../packages/ui)
 
 - 汎用的で再利用可能なコンポーネント
 - デザインシステムの基盤となるコンポーネント
 
-### 10.2 アプリ固有コンポーネント (apps/\*\*)
+### 10.2 アプリ固有コンポーネント (src/)
 
 - 特定のアプリケーションに特化したコンポーネント
 - ビジネスロジックを含むコンポーネント
@@ -274,7 +270,7 @@ Show the created UI design document and ask for:
 ## Important Notes
 
 - Focus on UI/UX and visual design aspects
-- Leverage existing components from packages/ui/src/
+- Leverage existing components from ../../packages/ui/src/
 - Follow Tailwind CSS utility-first approach
 - Ensure responsive design principles
 - Consider accessibility requirements

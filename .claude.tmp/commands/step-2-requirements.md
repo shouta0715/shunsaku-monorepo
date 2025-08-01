@@ -280,5 +280,5 @@ Show the created requirements document and ask for:
 - **All code must pass linting and formatting checks**
 - **MUST generate/update README.md and CLAUDE.md based on requirements**
 - **Documentation should serve as project memory for future Claude Code sessions**
-- **Consider monorepo structure: analyze whether changes affect apps/**, packages/ui, or other components\*\*
+- **Consider monorepo structure: analyze whether changes affect current app, ../../packages/ui, or other components**
 - **Use pnpm as the package manager for all commands and documentation**
