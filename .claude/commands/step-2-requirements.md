@@ -1,21 +1,23 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*)
-description: Create requirements specification for the given task (Stage 1 of Spec-Driven Development)
+allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(mkdir:*), Bash(ls:*), Bash(find:*)
+description: Step 2: 機能要件・非機能要件・制約事項を詳細化した要件定義書を作成
 ---
 
 ## Context
 
 - Task description: $ARGUMENTS
+- Specification document: @.tmp/step-1-specification.md
 
 ## Your task
 
-### 1. Create directory
+### 1. Verify prerequisites
 
-- Create `.tmp` directory if it doesn't exist
+- Check that `.tmp/step-1-specification.md` exists from Step 1
+- If not, inform user to run `/step-1-specification` first
 
-### 2. Analyze the user's request
+### 2. Analyze the user's request and specification
 
-Carefully analyze the provided task description and extract:
+Carefully analyze the provided task description and specification document to extract:
 
 - The core problem to be solved
 - Implicit requirements not explicitly stated
@@ -24,7 +26,7 @@ Carefully analyze the provided task description and extract:
 
 ### 3. Create Requirements Document
 
-Create `.tmp/requirements.md` with the following sections:
+Create `.tmp/step-2-requirements.md` with the following sections:
 
 ```markdown
 # 要件定義書 - [タスク名]
@@ -37,8 +39,8 @@ Create `.tmp/requirements.md` with the following sections:
 
 ### 2.1 必須機能
 
-- [ ] [機能1の詳細説明]
-- [ ] [機能2の詳細説明]
+- [ ] [機能 1 の詳細説明]
+- [ ] [機能 2 の詳細説明]
       ...
 
 ### 2.2 オプション機能
@@ -62,9 +64,9 @@ Create `.tmp/requirements.md` with the following sections:
 
 ### 3.4 コード品質基準
 
-- **ESLint**: プロジェクトのESLint設定に100%準拠すること
-- **Prettier**: 全コードがPrettierでフォーマットされていること
-- **Tailwind CSS**: Tailwindのユーティリティクラスのみを使用し、カスタムCSSは最小限に抑えること
+- **ESLint**: プロジェクトの ESLint 設定に 100%準拠すること
+- **Prettier**: 全コードが Prettier でフォーマットされていること
+- **Tailwind CSS**: Tailwind のユーティリティクラスのみを使用し、カスタム CSS は最小限に抑えること
 
 ### 3.5 互換性
 
@@ -75,8 +77,8 @@ Create `.tmp/requirements.md` with the following sections:
 ### 4.1 技術的制約
 
 - [使用技術、ライブラリの制約]
-- **必須**: ESLint、Prettier、Tailwind CSSの設定に従うこと
-- **必須**: `npm run lint`と`npm run build`がエラーなく実行できること
+- **必須**: ESLint、Prettier、Tailwind CSS の設定に従うこと
+- **必須**: `pnpm lint`と`pnpm build`がエラーなく実行できること
 
 ### 4.2 ビジネス制約
 
@@ -86,8 +88,8 @@ Create `.tmp/requirements.md` with the following sections:
 
 ### 5.1 完了の定義
 
-- [ ] [明確な完了条件1]
-- [ ] [明確な完了条件2]
+- [ ] [明確な完了条件 1]
+- [ ] [明確な完了条件 2]
       ...
 
 ### 5.2 受け入れテスト
@@ -113,13 +115,15 @@ Use TodoWrite to add "要件定義の完了とレビュー" as a task
 
 Create or update `README.md` with the following structure:
 
-```markdown
+````markdown
 # [プロジェクト名]
 
 ## 概要
+
 [要件定義から抽出したプロジェクトの目的と概要]
 
 ## 技術スタック
+
 - フレームワーク: [検出したフレームワーク]
 - 言語: [使用言語とバージョン]
 - スタイリング: Tailwind CSS v4
@@ -127,36 +131,55 @@ Create or update `README.md` with the following structure:
 - [その他の主要ライブラリ]
 
 ## セットアップ
+
 ```bash
-# 依存関係のインストール
-npm install
+# 依存関係のインストール (monorepoルートで実行)
+pnpm install
 
 # 開発サーバーの起動
-npm run dev
+pnpm dev
 
 # ビルド
-npm run build
+pnpm build
 
 # 品質チェック
-npm run lint
+pnpm lint
+
+# 特定のアプリケーション/パッケージで作業する場合
+cd apps/**  # または該当するパッケージ
+pnpm dev    # アプリケーション固有のコマンド
 ```
+````
 
 ## 開発ガイドライン
 
 ### コード品質基準
-- ESLint: `npm run lint` でエラー0件
+
+- ESLint: `pnpm lint` でエラー 0 件
 - Prettier: 全コードがフォーマット済み
 - Tailwind CSS: ユーティリティクラスのみ使用
 
+### monorepo 構造
+
+- `apps/**/` - Next.js アプリケーション
+- `packages/ui/` - 共有 UI コンポーネント
+- `packages/eslint-config/` - ESLint 設定
+- `packages/prettier-config/` - Prettier 設定
+- `packages/typescript-config/` - TypeScript 設定
+
 ### コンポーネント
-[src/components/内の利用可能なコンポーネント一覧]
+
+[packages/ui/src/内の利用可能なコンポーネント一覧]
 
 ## 機能一覧
+
 [要件定義から抽出した機能リスト]
 
 ## ライセンス
+
 [ライセンス情報]
-```
+
+````
 
 #### 5.2 Create/Update CLAUDE.md
 
@@ -166,34 +189,46 @@ Create or update `.claude/CLAUDE.md` with project-specific rules:
 # プロジェクトガイドライン
 
 ## プロジェクト概要
+
 [要件定義からの概要]
 
 ## 開発ルール
 
 ### 必須事項
-- ESLint設定に100%準拠
-- Prettierでフォーマット
-- Tailwind CSSユーティリティクラスのみ使用
+
+- ESLint 設定に 100%準拠
+- Prettier でフォーマット
+- Tailwind CSS ユーティリティクラスのみ使用
 - 既存コンポーネントを最大限活用
 
 ### コーディング規約
-- TypeScriptのanyタイプ禁止
+
+- TypeScript の any タイプ禁止
 - ハードコーディング最小化
 - [プロジェクト固有のルール]
 
 ### ワークフロー
-1. 要件定義 → 設計 → タスク分解 → 実装
+
+1. 仕様書作成 → 要件定義 → システム設計 → デザイン設計 → タスク分解 → 実装
 2. 各タスク完了時に品質チェック実行
-3. コミット前にlint/build確認
+3. コミット前に lint/build 確認
+
+### monorepo 構造
+
+- `apps/**/` - メインアプリケーション (Next.js)
+- `packages/ui/` - 共有 UI コンポーネントライブラリ
+- `packages/*-config/` - 共有設定パッケージ
 
 ### 利用可能なコンポーネント
-[src/components/の一覧と用途]
+
+[packages/ui/src/の一覧と用途]
 
 ### よく使うコマンド
-- `npm run dev` - 開発サーバー起動
-- `npm run lint` - ESLintチェック
-- `npm run build` - ビルド
-```
+
+- `pnpm dev` - 開発サーバー起動
+- `pnpm lint` - ESLint チェック
+- `pnpm build` - ビルド
+````
 
 ### 6. Present to user
 
@@ -201,7 +236,7 @@ Show the created requirements document and ask for:
 
 - Confirmation of understanding
 - Any missing requirements
-- Approval to proceed to design phase
+- Approval to proceed to system design phase
 - Review of generated README.md and CLAUDE.md
 
 ## Important Notes
@@ -214,5 +249,5 @@ Show the created requirements document and ask for:
 - **All code must pass linting and formatting checks**
 - **MUST generate/update README.md and CLAUDE.md based on requirements**
 - **Documentation should serve as project memory for future Claude Code sessions**
-
-think hard
+- **Consider monorepo structure: analyze whether changes affect apps/**, packages/ui, or other components\*\*
+- **Use pnpm as the package manager for all commands and documentation**
