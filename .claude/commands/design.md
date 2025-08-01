@@ -1,5 +1,5 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Glob, LS
+allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(find:*), Bash(ls:*), Bash(grep:*)
 description: Create detailed design specification based on requirements (Stage 2 of Spec-Driven Development)
 ---
 
@@ -21,19 +21,23 @@ Read and understand the requirements document thoroughly
 ### 3. Analyze existing project assets
 
 #### 3.1 Check existing components
-- Use Glob to find all components in `src/components/`
+
+- Check `packages/ui/src/` for shared UI components
+- Check `app/**/src/` for application-specific components
 - Read key components to understand their interfaces and usage patterns
-- Document available UI components for reuse
+- Document available UI components for reuse in monorepo structure
 
 #### 3.2 Check Tailwind configuration
-- Look for `tailwind.config.ts` or `tailwind.config.js`
-- If not found, check for Tailwind CSS v4 setup in `app/globals.css`
+
+- Look for `tailwind.config.ts` or `tailwind.config.js` in app/\*\*/
+- Check for Tailwind CSS v4 setup in `app/**/src/app/globals.css`
 - Note any custom theme settings, colors, or design tokens
 
 #### 3.3 Check code quality tools configuration
-- Read `eslint.config.mjs` to understand linting rules
-- Read `prettier.config.mjs` to understand formatting rules
-- Run `npm run lint` to verify linting setup
+
+- Read `app/**/eslint.config.mjs` and shared configs in `packages/eslint-config/`
+- Read `app/**/prettier.config.mjs` and shared configs in `packages/prettier-config/`
+- Run `pnpm lint` to verify linting setup
 - Document any custom rules or exceptions
 
 ### 4. Create Design Document
@@ -47,14 +51,14 @@ Create `.tmp/design.md` with the following sections:
 
 ### 1.1 システム構成図
 
-[ASCII図やMermaid図でシステム全体の構成を表現]
+[ASCII 図や Mermaid 図でシステム全体の構成を表現]
 
 ### 1.2 技術スタック
 
 - 言語: [使用言語とバージョン]
 - フレームワーク: [使用フレームワーク]
-- UIライブラリ: [実際に検出したライブラリを記載]
-- スタイリング: [Tailwind CSS設定を含む]
+- UI ライブラリ: [実際に検出したライブラリを記載]
+- スタイリング: [Tailwind CSS 設定を含む]
 - 既存コンポーネント: [検出したコンポーネントの概要]
 - ツール: [ビルドツール、テストツールなど]
 
@@ -64,14 +68,14 @@ Create `.tmp/design.md` with the following sections:
 
 [プロジェクトで利用可能な既存コンポーネントをリストアップ]
 
-| 既存コンポーネント | 用途 | 活用方法 |
-| ----------------- | ---- | -------- |
+| 既存コンポーネント       | 用途   | 活用方法               |
+| ------------------------ | ------ | ---------------------- |
 | [検出したコンポーネント] | [用途] | [この設計での活用方法] |
 
 ### 2.2 新規コンポーネント一覧
 
-| コンポーネント名 | 責務         | 依存関係                 | 既存コンポーネントの活用 |
-| ---------------- | ------------ | ------------------------ | ----------------------- |
+| コンポーネント名 | 責務         | 依存関係                 | 既存コンポーネントの活用     |
+| ---------------- | ------------ | ------------------------ | ---------------------------- |
 | [Component A]    | [責務の説明] | [依存するコンポーネント] | [活用する既存コンポーネント] |
 
 ### 2.3 各コンポーネントの詳細
@@ -101,13 +105,13 @@ Create `.tmp/design.md` with the following sections:
 - 処理過程: [変換ロジック]
 - 出力データ形式: [形式の説明]
 
-## 4. APIインターフェース
+## 4. API インターフェース
 
-### 4.1 内部API
+### 4.1 内部 API
 
 [モジュール間のインターフェース定義]
 
-### 4.2 外部API
+### 4.2 外部 API
 
 [外部システムとの連携インターフェース]
 
@@ -115,8 +119,8 @@ Create `.tmp/design.md` with the following sections:
 
 ### 5.1 エラー分類
 
-- [エラータイプ1]: [対処方法]
-- [エラータイプ2]: [対処方法]
+- [エラータイプ 1]: [対処方法]
+- [エラータイプ 2]: [対処方法]
 
 ### 5.2 エラー通知
 
@@ -163,39 +167,39 @@ Create `.tmp/design.md` with the following sections:
 
 [環境変数、設定ファイルの管理]
 
-## 10. UI/UX設計
+## 10. UI/UX 設計
 
 ### 10.1 デザインシステムの活用
 
-- 既存のTailwind設定に従ったスタイリング
+- 既存の Tailwind 設定に従ったスタイリング
 - 既存コンポーネントのデザインパターンとの一貫性
 - カスタムテーマやデザイントークンの活用
 
 ### 10.2 レスポンシブデザイン
 
-- Tailwindのレスポンシブユーティリティの活用方針
+- Tailwind のレスポンシブユーティリティの活用方針
 - ブレークポイントの設定
 
 ## 11. コーディング規約
 
 ### 11.1 必須ツールの使用
 
-- **ESLint**: 全コードが`npm run lint`をパスすること
-- **Prettier**: 全ファイルがPrettierでフォーマットされていること
+- **ESLint**: 全コードが`pnpm lint`をパスすること
+- **Prettier**: 全ファイルが Prettier でフォーマットされていること
 - **Tailwind CSS**: ユーティリティクラスのみ使用、インラインスタイルは禁止
 
 ### 11.2 コード品質チェック
 
 - 各機能実装後に必ず実行:
-  - `npm run lint` (エラーが0件であること)
-  - `npm run build` (ビルドが成功すること)
-  - Prettierによるフォーマット確認
+  - `pnpm lint` (エラーが 0 件であること)
+  - `pnpm build` (ビルドが成功すること)
+  - Prettier によるフォーマット確認
 
 ## 12. 実装上の注意事項
 
 - 既存コンポーネントを最大限活用し、重複実装を避ける
-- Tailwindの設定に従い、一貫性のあるスタイリングを維持
-- **必須**: ESLint/Prettier/Tailwindの規約に100%準拠
+- Tailwind の設定に従い、一貫性のあるスタイリングを維持
+- **必須**: ESLint/Prettier/Tailwind の規約に 100%準拠
 - [その他の注意点]
 
 ```
@@ -214,11 +218,11 @@ Show the created design document and ask for:
 - Consider maintainability and extensibility
 - Include concrete interface definitions where possible
 - Address all requirements from the requirements document
-- **MUST analyze and utilize existing components in src/components/**
+- **MUST analyze and utilize existing components in packages/ui/src/ and app/**/src/**
 - **MUST follow existing Tailwind CSS configuration and design patterns**
 - **Avoid reinventing the wheel - use existing UI components where possible**
 - **MUST ensure all code passes ESLint and Prettier checks**
 - **MUST use only Tailwind utility classes for styling**
+- **Consider monorepo structure: distinguish between shared UI components (packages/ui) and app-specific components (app/**)**
+- **Use pnpm as the package manager for all commands and documentation**
 ```
-
-think hard

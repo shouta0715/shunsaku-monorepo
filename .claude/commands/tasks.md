@@ -1,5 +1,5 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit
+allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(find:*), Bash(ls:*)
 description: Break down design into implementable tasks (Stage 3 of Spec-Driven Development)
 ---
 
@@ -38,21 +38,21 @@ Create `.tmp/tasks.md` with the following structure:
 
 #### Task 1.1: [タスク名]
 
-- [ ] [具体的な作業項目1]
-- [ ] [具体的な作業項目2]
-- [ ] [具体的な作業項目3]
-- [ ] `npm run lint` を実行しエラーが0件であることを確認
-- [ ] Prettierでフォーマットを実行
+- [ ] [具体的な作業項目 1]
+- [ ] [具体的な作業項目 2]
+- [ ] [具体的な作業項目 3]
+- [ ] `pnpm lint` を実行しエラーが 0 件であることを確認
+- [ ] Prettier でフォーマットを実行
 - **完了条件**: [明確な完了条件] + コード品質チェックがパス
 - **依存**: [依存するタスク または なし]
 - **推定時間**: [時間]
 
 #### Task 1.2: [タスク名]
 
-- [ ] [具体的な作業項目1]
-- [ ] [具体的な作業項目2]
-- [ ] `npm run lint` を実行しエラーが0件であることを確認
-- [ ] Prettierでフォーマットを実行
+- [ ] [具体的な作業項目 1]
+- [ ] [具体的な作業項目 2]
+- [ ] `pnpm lint` を実行しエラーが 0 件であることを確認
+- [ ] Prettier でフォーマットを実行
 - **完了条件**: [明確な完了条件] + コード品質チェックがパス
 - **依存**: [依存するタスク]
 - **推定時間**: [時間]
@@ -61,25 +61,25 @@ Create `.tmp/tasks.md` with the following structure:
 
 #### Task 2.1: [機能名]の実装
 
-- [ ] [実装項目1]
-- [ ] [実装項目2]
-- [ ] [実装項目3]
-- [ ] Tailwind CSSのユーティリティクラスのみを使用してスタイリング
-- [ ] `npm run lint` を実行しエラーが0件であることを確認
-- [ ] Prettierでフォーマットを実行
-- [ ] `npm run build` を実行しビルドが成功することを確認
+- [ ] [実装項目 1]
+- [ ] [実装項目 2]
+- [ ] [実装項目 3]
+- [ ] Tailwind CSS のユーティリティクラスのみを使用してスタイリング
+- [ ] `pnpm lint` を実行しエラーが 0 件であることを確認
+- [ ] Prettier でフォーマットを実行
+- [ ] `pnpm build` を実行しビルドが成功することを確認
 - **完了条件**: [明確な完了条件] + 全コード品質チェックがパス
 - **依存**: [依存するタスク]
 - **推定時間**: [時間]
 
 #### Task 2.2: [機能名]の実装
 
-- [ ] [実装項目1]
-- [ ] [実装項目2]
-- [ ] Tailwind CSSのユーティリティクラスのみを使用してスタイリング
-- [ ] `npm run lint` を実行しエラーが0件であることを確認
-- [ ] Prettierでフォーマットを実行
-- [ ] `npm run build` を実行しビルドが成功することを確認
+- [ ] [実装項目 1]
+- [ ] [実装項目 2]
+- [ ] Tailwind CSS のユーティリティクラスのみを使用してスタイリング
+- [ ] `pnpm lint` を実行しエラーが 0 件であることを確認
+- [ ] Prettier でフォーマットを実行
+- [ ] `pnpm build` を実行しビルドが成功することを確認
 - **完了条件**: [明確な完了条件] + 全コード品質チェックがパス
 - **依存**: [依存するタスク]
 - **推定時間**: [時間]
@@ -88,9 +88,9 @@ Create `.tmp/tasks.md` with the following structure:
 
 #### Task 3.1: [検証項目]
 
-- [ ] [テスト項目1]
-- [ ] [テスト項目2]
-- [ ] [テスト項目3]
+- [ ] [テスト項目 1]
+- [ ] [テスト項目 2]
+- [ ] [テスト項目 3]
 - **完了条件**: [明確な完了条件]
 - **依存**: [依存するタスク]
 - **推定時間**: [時間]
@@ -99,15 +99,15 @@ Create `.tmp/tasks.md` with the following structure:
 
 #### Task 4.1: [仕上げ項目]
 
-- [ ] [仕上げ作業1]
-- [ ] [仕上げ作業2]
+- [ ] [仕上げ作業 1]
+- [ ] [仕上げ作業 2]
 - **完了条件**: [明確な完了条件]
 - **依存**: [依存するタスク]
 - **推定時間**: [時間]
 
 ## 実装順序
 
-1. Phase 1から順次実行
+1. Phase 1 から順次実行
 2. 並行実行可能なタスクは並行で実行
 3. 依存関係を考慮した実装順序
 
@@ -119,16 +119,16 @@ Create `.tmp/tasks.md` with the following structure:
 
 ### 各タスクで必須のチェック項目
 
-1. **ESLint**: `npm run lint` でエラーが0件
+1. **ESLint**: `pnpm lint` でエラーが 0 件
 2. **Prettier**: 全ファイルがフォーマット済み
 3. **Tailwind CSS**: ユーティリティクラスのみ使用
-4. **Build**: `npm run build` がエラーなく完了
+4. **Build**: `pnpm build` がエラーなく完了
 
 ### 品質チェック失敗時の対応
 
-- ESLintエラー: 必ず修正してからタスクを完了とする
-- Prettierフォーマット: 自動修正を適用
-- Tailwindクラス: カスタムCSSをユーティリティクラスに置換
+- ESLint エラー: 必ず修正してからタスクを完了とする
+- Prettier フォーマット: 自動修正を適用
+- Tailwind クラス: カスタム CSS をユーティリティクラスに置換
 - ビルドエラー: エラーを修正してからタスク完了
 
 ## 注意事項
@@ -136,7 +136,7 @@ Create `.tmp/tasks.md` with the following structure:
 - 各タスクはコミット単位で完結させる
 - **必須**: タスク完了時は品質チェックを実行
 - 不明点は実装前に確認する
-- **必須**: ESLint/Prettier/Tailwindの規約に100%準拠
+- **必須**: ESLint/Prettier/Tailwind の規約に 100%準拠
 ```
 
 ### 4. Register tasks in TodoWrite
@@ -151,8 +151,8 @@ Add a section at the end of tasks.md:
 ## 実装開始ガイド
 
 1. このタスクリストに従って順次実装を進めてください
-2. 各タスクの開始時にTodoWriteでin_progressに更新
-3. 完了時はcompletedに更新
+2. 各タスクの開始時に TodoWrite で in_progress に更新
+3. 完了時は completed に更新
 4. 問題発生時は速やかに報告してください
 ```
 
@@ -171,8 +171,8 @@ Show the task breakdown and:
 - Consider parallel execution opportunities
 - Include testing tasks throughout, not just at the end
 - **MUST include code quality checks (ESLint, Prettier, Tailwind) for EVERY task**
-- **All tasks must pass `npm run lint` with 0 errors before completion**
+- **All tasks must pass `pnpm lint` with 0 errors before completion**
 - **All code must be formatted with Prettier**
 - **Only Tailwind utility classes allowed for styling**
-
-think hard
+- **Consider monorepo structure: distinguish between shared UI components (packages/ui) and app-specific components (app/**)\*\*
+- **Use pnpm as the package manager for all commands and documentation**

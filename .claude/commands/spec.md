@@ -1,5 +1,5 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*)
+allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(mkdir:*), Bash(git:*)
 description: Start Specification-Driven Development workflow for the given task
 ---
 
@@ -14,6 +14,7 @@ Execute the complete Specification-Driven Development workflow:
 ### 1. Setup
 
 - Create `.tmp` directory if it doesn't exist
+- Analyze monorepo structure (app/\*\*, packages/) to determine target area
 - Create a new feature branch based on the task
 
 ### 2. Stage 1: Requirements
@@ -28,7 +29,8 @@ Execute `/requirements` command to create detailed requirements specification.
 
 Execute `/design` command to create technical design based on requirements.
 
-**MUST analyze existing components and Tailwind configuration**
+**MUST analyze existing components in packages/ui/src/ and app/**/src/\*\*
+**MUST check Tailwind configuration in app/**/ and shared configs\*\*
 **MUST include coding standards and quality checks**
 
 **Present design to user for approval before proceeding**
@@ -38,21 +40,23 @@ Execute `/design` command to create technical design based on requirements.
 Execute `/tasks` command to break down design into implementable tasks.
 
 **MUST include quality checks for each task:**
-- ESLint: `npm run lint` (0 errors)
+
+- ESLint: `pnpm lint` (0 errors)
 - Prettier formatting
 - Tailwind utility classes only
-- Build verification: `npm run build`
+- Build verification: `pnpm build`
 
 **Present task list to user for approval before proceeding**
 
 ### 5. Quality Assurance Process
 
 For EVERY implementation step:
+
 1. Write code following existing patterns
 2. Use only Tailwind utility classes for styling
-3. Run `npm run lint` and fix all errors
+3. Run `pnpm lint` and fix all errors
 4. Format with Prettier
-5. Run `npm run build` to verify
+5. Run `pnpm build` to verify
 6. Only mark task as complete when ALL checks pass
 
 ### 6. Report completion
@@ -67,5 +71,5 @@ Summarize what was created and inform user that they can now proceed with implem
 - Consider edge cases and error scenarios in each stage
 - **MUST enforce ESLint, Prettier, and Tailwind CSS standards throughout**
 - **All code must pass quality checks before proceeding**
-
-think hard
+- **Consider monorepo structure: distinguish between shared UI components (packages/ui) and app-specific components (app/**)\*\*
+- **Use pnpm as the package manager for all commands and documentation**
