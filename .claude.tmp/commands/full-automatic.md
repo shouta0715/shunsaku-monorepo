@@ -1,11 +1,12 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*), Bash(git:*), Bash(pnpm lint:*), Bash(pnpm build:*)
+allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*), Bash(git:*), Bash(pnpm lint:*), Bash(pnpm build:*), Bash(pnpm format:*)
 description: 6段階仕様駆動開発ワークフローを自動実行（仕様書→要件定義→システム設計→UI設計→タスク分解→実装＋品質チェック）
 ---
 
 ## Context
 
 - Task requirements: $ARGUMENTS
+- Working directory: Current app directory (auto-detected)
 
 ## Your task
 
@@ -22,9 +23,10 @@ mkdir -p .tmp
 
 ### 2. Stage 1: 仕様書作成
 
-Execute `/step-1-specification` command to create business specification.
+Execute `/step-1-specification` command to create business specification in current directory.
 
 **MUST include business requirements and project scope**
+**Creates: `.tmp/step-1-specification.md` in current app directory**
 
 **Present specification to user for approval before proceeding**
 
@@ -33,7 +35,8 @@ Execute `/step-1-specification` command to create business specification.
 Execute `/step-2-requirements` command to create detailed requirements specification.
 
 **MUST include code quality requirements (ESLint, Prettier, Tailwind CSS)**
-**MUST create/update README.md and .claude/CLAUDE.md**
+**MUST create/update README.md and .claude/CLAUDE.md in current directory**
+**Creates: `.tmp/step-2-requirements.md` in current app directory**
 
 **Present requirements to user for approval before proceeding**
 
@@ -41,8 +44,9 @@ Execute `/step-2-requirements` command to create detailed requirements specifica
 
 Execute `/step-3-system-design` command to create technical design based on requirements.
 
-**MUST analyze existing architecture and technical assets**
+**MUST analyze existing architecture and technical assets in current app**
 **MUST define data models, APIs, and system architecture**
+**Creates: `.tmp/step-3-system-design.md` in current app directory**
 
 **Present system design to user for approval before proceeding**
 
@@ -50,8 +54,9 @@ Execute `/step-3-system-design` command to create technical design based on requ
 
 Execute `/step-4-ui-design` command to create UI/UX design and component architecture.
 
-**MUST analyze existing components in ../../packages/ui/src/ and current app src/**
-**MUST check Tailwind configuration and design patterns**
+**MUST analyze existing components in packages/ui/src/ and current app src/**
+**MUST check Tailwind configuration and design patterns in current app**
+**Creates: `.tmp/step-4-ui-design.md` in current app directory**
 
 **Present UI design to user for approval before proceeding**
 
@@ -65,6 +70,7 @@ Execute `/step-5-task-division` command to break down design into implementable 
 - Prettier formatting
 - Tailwind utility classes only
 - Build verification: `pnpm build`
+  **Creates: `.tmp/step-5-task-division.md` in current app directory**
 
 **Present task list to user for approval before proceeding**
 
@@ -78,31 +84,39 @@ For EVERY task:
 2. **Execute implementation** following the monorepo structure and existing patterns
 3. **Run quality checks**:
    ```bash
+   # Step 1: Format all files
+   pnpm format
+   # Step 2: Auto-fix ESLint errors
+   pnpm lint:fix
+   # Step 3: Check for remaining ESLint errors
    pnpm lint
    ```
+
    - **If lint errors found**: Fix all errors before proceeding
    - **If lint passes**: Continue to build check
 4. **Run build verification**:
    ```bash
    pnpm build
    ```
+
    - **If build fails**: Fix all issues before proceeding
    - **If build passes**: Mark task as completed
 5. **Mark task as completed** using TodoWrite tool
 6. **Proceed to next task** only after ALL checks pass
 
-**CRITICAL**: Never mark a task as completed unless both `pnpm lint` and `pnpm build` pass with 0 errors.
+**CRITICAL**: Never mark a task as completed unless `pnpm format`, `pnpm lint:fix`, `pnpm lint` (0 errors), and `pnpm build` all pass successfully.
 
 ### 7. Quality Assurance Process
 
 For EVERY implementation step:
 
 1. Write code following existing patterns
-2. Use only Tailwind utility classes for styling
-3. Run `pnpm lint` and fix all errors
-4. Format with Prettier
-5. Run `pnpm build` to verify
-6. Only mark task as complete when ALL checks pass
+2. Use only Tailwind utility classes for styling (v4 configuration)
+3. Run `pnpm format` to format with Prettier
+4. Run `pnpm lint:fix` to auto-fix ESLint errors
+5. Run `pnpm lint` and ensure 0 errors
+6. Run `pnpm build` to verify
+7. Only mark task as complete when ALL checks pass
 
 ### 8. Implementation guidance
 
@@ -117,6 +131,7 @@ For EVERY implementation step:
      AuthLayout,
      SidebarLayout,
      StackedLayout,
+     Sidebar,
      Navbar,
    } from "@package/ui";
 
@@ -131,18 +146,41 @@ For EVERY implementation step:
      Combobox,
      Listbox,
      Fieldset,
+     Field,
+     Label,
+     Description,
+     ErrorMessage,
    } from "@package/ui";
 
    // データ表示
-   import { Table, Badge, Alert, Avatar, DescriptionList } from "@package/ui";
+   import {
+     Table,
+     Badge,
+     Alert,
+     Avatar,
+     DescriptionList,
+     Text,
+     Strong,
+     Code,
+     Heading,
+   } from "@package/ui";
 
    // インタラクション
-   import { Button, Dialog, Dropdown, Pagination } from "@package/ui";
+   import {
+     Button,
+     Dialog,
+     Dropdown,
+     Pagination,
+     Link,
+     Divider,
+   } from "@package/ui";
    ```
 
 3. **設定ファイル参照**:
-   - ESLint: `@package/eslint-config`
-   - Prettier: `@package/prettier-config`
+   - ESLint: `@package/eslint-config` (base, next, react, typescript)
+   - Prettier: `@package/prettier-config` (base, tailwind)
+   - TypeScript: `@package/typescript-config` (base, nextjs, react)
+   - Tailwind CSS: v4 with @tailwindcss/postcss plugin
 
 ### 8. Stage 7: GitHub Pull Request Creation
 
@@ -176,7 +214,7 @@ Report that the full implementation has been completed with all quality checks p
 - Consider edge cases and error scenarios in each stage
 - **MUST enforce ESLint, Prettier, and Tailwind CSS standards throughout**
 - **All code must pass quality checks before proceeding**
-- **Consider monorepo structure: distinguish between shared UI components (../../packages/ui) and app-specific components (current app)**
+- **Consider monorepo structure: distinguish between shared UI components (packages/ui) and app-specific components (apps/web)**
 - **Use pnpm as the package manager for all commands and documentation**
 
 ## Available Commands

@@ -6,6 +6,7 @@ description: Step 1 ビジネス要件・スコープ・ステークホルダー
 ## Context
 
 - Task description: $ARGUMENTS
+- Working directory: Current app directory (auto-detected)
 
 ## Your task
 
@@ -121,5 +122,5 @@ Show the created specification document and ask for:
 - Focus on business value and high-level objectives
 - Avoid technical implementation details at this stage
 - Ensure clear scope definition
-- Consider monorepo structure for project placement
+- Consider monorepo structure: apps/web for main application, packages/\* for shared components
 - Document should serve as foundation for all subsequent phases

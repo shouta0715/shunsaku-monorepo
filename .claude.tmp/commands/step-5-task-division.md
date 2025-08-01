@@ -6,6 +6,7 @@ description: Step 5 設計を実装可能なタスクに分解（ディレクト
 ## Context
 
 - Task description: $ARGUMENTS
+- Working directory: Current app directory (auto-detected)
 - Specification document: @.tmp/step-1-specification.md
 - Requirements document: @.tmp/step-2-requirements.md
 - System design document: @.tmp/step-3-system-design.md
@@ -34,7 +35,7 @@ Read and understand the design thoroughly to identify all implementation tasks
 
 **Use the Write tool to create `.tmp/step-5-task-division.md` with the following content:**
 
-```markdown
+````markdown
 # タスクリスト - [機能/改善名]
 
 ## 概要
@@ -52,9 +53,17 @@ Read and understand the design thoroughly to identify all implementation tasks
 - [ ] [具体的な作業項目 1]
 - [ ] [具体的な作業項目 2]
 - [ ] [具体的な作業項目 3]
-- [ ] `npm run lint` を実行しエラーが 0 件であることを確認
-- [ ] Prettier でフォーマットを実行
-- **完了条件**: [明確な完了条件] + コード品質チェックがパス
+- [ ] **コンポーネント選択チェック** (必須):
+  1. `packages/ui/src/index.ts` で全コンポーネントを確認
+  2. `@package/ui` で実現可能か検討
+  3. 無い場合のみ新規作成を検討
+- [ ] **品質チェックプロセス実行** (以下の手順を必ず実行):
+  1. `pnpm format` で全ファイルフォーマット実行
+  2. `pnpm lint:fix` で ESLint の Error 自動修正
+  3. `pnpm lint` で Error 確認 → 0 件でなければ修正後、手順 3 を再実行
+  4. `pnpm build` がエラーなく完了することを確認
+  5. 全チェックパス後、次のタスクに進む
+- **完了条件**: [明確な完了条件] + **全品質チェックが 0 エラーで完了**
 - **依存**: [依存するタスク または なし]
 - **推定時間**: [時間]
 
@@ -62,23 +71,48 @@ Read and understand the design thoroughly to identify all implementation tasks
 
 - [ ] [具体的な作業項目 1]
 - [ ] [具体的な作業項目 2]
-- [ ] `npm run lint` を実行しエラーが 0 件であることを確認
-- [ ] Prettier でフォーマットを実行
-- **完了条件**: [明確な完了条件] + コード品質チェックがパス
+- [ ] **品質チェックプロセス実行** (以下の手順を必ず実行):
+  1. `pnpm format` で全ファイルフォーマット実行
+  2. `pnpm lint:fix` で ESLint の Error 自動修正
+  3. `pnpm lint` で Error 確認 → 0 件でなければ修正後、手順 3 を再実行
+  4. `pnpm build` がエラーなく完了することを確認
+  5. 全チェックパス後、次のタスクに進む
+- **完了条件**: [明確な完了条件] + **全品質チェックが 0 エラーで完了**
 - **依存**: [依存するタスク]
 - **推定時間**: [時間]
 
 ### Phase 2: 実装
 
+#### 実装時の絶対ルール (全タスク共通)
+
+**コンポーネント使用優先順位**:
+
+1. **第1優先**: `@package/ui` の既存コンポーネントを使用
+2. **第2優先**: `@package/ui` に無い場合のみ新規作成
+3. **禁止**: 既存コンポーネントを確認せずに新規作成
+
+**必須手順**:
+
+- 全ての実装タスクで `packages/ui/src/index.ts` を最初に確認
+- `import { Button, Table, ... } from "@package/ui"` を最優先で使用
+- 新規コンポーネント作成前に必ず再確認
+
 #### Task 2.1: [機能名]の実装
 
-- [ ] [実装項目 1]
-- [ ] [実装項目 2]
-- [ ] [実装項目 3]
-- [ ] Tailwind CSS のユーティリティクラスのみを使用してスタイリング
-- [ ] `npm run lint` を実行しエラーが 0 件であることを確認
-- [ ] Prettier でフォーマットを実行
-- [ ] `npm run build` を実行しビルドが成功することを確認
+- [ ] **コンポーネント選択チェック** (必須最初手順):
+  1. `packages/ui/src/index.ts` で全コンポーネントを確認
+  2. 必要なコンポーネントが `@package/ui` で実現可能か検訍
+  3. 無い場合のみ `apps/web/src/components/` で新規作成
+- [ ] [実装項目 1] - `@package/ui` を最優先使用
+- [ ] [実装項目 2] - `@package/ui` を最優先使用
+- [ ] [実装項目 3] - `@package/ui` を最優先使用
+- [ ] Tailwind CSS v4 のユーティリティクラスのみを使用してスタイリング
+- [ ] **品質チェックプロセス実行** (以下の手順を必ず実行):
+  1. `pnpm format` で全ファイルフォーマット実行
+  2. `pnpm lint:fix` で ESLint の Error 自動修正
+  3. `pnpm lint` で Error 確認 → 0 件でなければ修正後、手順 3 を再実行
+  4. `pnpm build` がエラーなく完了することを確認
+  5. 全チェックパス後、次のタスクに進む
 - **完了条件**: [明確な完了条件] + 全コード品質チェックがパス
 - **依存**: [依存するタスク]
 - **推定時間**: [時間]
@@ -87,10 +121,13 @@ Read and understand the design thoroughly to identify all implementation tasks
 
 - [ ] [実装項目 1]
 - [ ] [実装項目 2]
-- [ ] Tailwind CSS のユーティリティクラスのみを使用してスタイリング
-- [ ] `npm run lint` を実行しエラーが 0 件であることを確認
-- [ ] Prettier でフォーマットを実行
-- [ ] `npm run build` を実行しビルドが成功することを確認
+- [ ] Tailwind CSS v4 のユーティリティクラスのみを使用してスタイリング
+- [ ] **品質チェックプロセス実行** (以下の手順を必ず実行):
+  1. `pnpm format` で全ファイルフォーマット実行
+  2. `pnpm lint:fix` で ESLint の Error 自動修正
+  3. `pnpm lint` で Error 確認 → 0 件でなければ修正後、手順 3 を再実行
+  4. `pnpm build` がエラーなく完了することを確認
+  5. 全チェックパス後、次のタスクに進む
 - **完了条件**: [明確な完了条件] + 全コード品質チェックがパス
 - **依存**: [依存するタスク]
 - **推定時間**: [時間]
@@ -128,27 +165,58 @@ Read and understand the design thoroughly to identify all implementation tasks
 
 ## 品質チェックプロセス
 
-### 各タスクで必須のチェック項目
+### 🔥 **必須**: タスク完了時の品質チェックフロー
 
-1. **ESLint**: `npm run lint` でエラーが 0 件
-2. **Prettier**: 全ファイルがフォーマット済み
-3. **Tailwind CSS**: ユーティリティクラスのみ使用
-4. **Build**: `npm run build` がエラーなく完了
+**各タスク完了時に以下の手順を必ず実行してください:**
 
-### 品質チェック失敗時の対応
+```bash
+# 手順1: 全ファイルフォーマット
+pnpm format
 
-- ESLint エラー: 必ず修正してからタスクを完了とする
-- Prettier フォーマット: 自動修正を適用
-- Tailwind クラス: カスタム CSS をユーティリティクラスに置換
-- ビルドエラー: エラーを修正してからタスク完了
+# 手順2: ESLintエラー自動修正
+pnpm lint:fix
+
+# 手順3: ESLintエラーチェック
+pnpm lint
+```
+````
+
+**⚠️ 重要**: 手順 3 でエラーが 0 件でない場合:
+
+1. エラー内容を確認し、手動で修正
+2. 修正後、再度 `pnpm lint` を実行
+3. エラーが 0 件になるまで修正を繰り返す
+
+```bash
+# 手順4: ビルドテスト
+pnpm build
+```
+
+**⚠️ 重要**: ビルドエラーが発生した場合:
+
+1. エラー内容を確認し、手動で修正
+2. 修正後、再度 `pnpm build` を実行
+3. エラーなく完了するまで修正を繰り返す
+
+**手順 5: 次のタスクに進む** (全チェックが 0 エラーで完了後のみ)
+
+### 品質チェック失敗時の対応ルール
+
+- **ESLint エラー**: 必ず 0 件になるまで修正（タスク完了不可）
+- **Prettier**: 自動修正が適用される
+- **Tailwind CSS**: ユーティリティクラスのみ使用
+- **ビルドエラー**: 必ずエラーなく完了するまで修正（タスク完了不可）
 
 ## 注意事項
 
 - 各タスクはコミット単位で完結させる
-- **必須**: タスク完了時は品質チェックを実行
+- **🔥 必須**: タスク完了時は必ず品質チェックフローを実行
+- **🔥 必須**: ESLint/Prettier/Build が 0 エラーで完了するまで次のタスクに進まない
 - 不明点は実装前に確認する
 - **必須**: ESLint/Prettier/Tailwind の規約に 100%準拠
-```
+- **禁止**: 品質チェックをスキップしての次タスク進行
+
+````
 
 ### 4. Register tasks in TodoWrite
 
@@ -163,9 +231,11 @@ Add a section at the end of tasks.md:
 
 1. このタスクリストに従って順次実装を進めてください
 2. 各タスクの開始時に TodoWrite で in_progress に更新
-3. 完了時は completed に更新
-4. 問題発生時は速やかに報告してください
-```
+3. **必須**: タスク完了前に品質チェックフローを実行
+   - `pnpm format` → `pnpm lint:fix` → `pnpm lint` (0エラーまで繰り返し) → `pnpm build`
+4. 全品質チェックが0エラーで完了後、TodoWrite で completed に更新
+5. 問題発生時は速やかに報告してください
+````
 
 ### 6. Present to user
 
@@ -181,7 +251,9 @@ Show the task breakdown and:
 - Include clear completion criteria for each task
 - Consider parallel execution opportunities
 - Include testing tasks throughout, not just at the end
-- **MUST include code quality checks (ESLint, Prettier, Tailwind) for EVERY task**
-- **All tasks must pass `npm run lint` with 0 errors before completion**
-- **All code must be formatted with Prettier**
+- **🔥 CRITICAL**: 品質チェックフローを各タスクで必須実行
+- **🔥 CRITICAL**: `pnpm lint` が 0 エラーになるまで次のタスクに進まない
+- **🔥 CRITICAL**: `pnpm build` がエラーなく完了するまで次のタスクに進まない
+- **All code must be formatted with Prettier via `pnpm format`**
 - **Only Tailwind utility classes allowed for styling**
+- **No exceptions to the quality check process**
