@@ -1,3 +1,5 @@
+import { Heading, Input } from "@package/ui";
+
 export default function Home() {
   return (
     <div className="grid min-h-screen place-items-center p-8">
@@ -6,6 +8,8 @@ export default function Home() {
         <p className="text-lg text-gray-600">
           Start building your amazing application.
         </p>
+        <Input />
+        <Heading level={1}>Hello</Heading>
       </main>
     </div>
   );

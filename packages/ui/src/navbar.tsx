@@ -1,10 +1,10 @@
 "use client";
 
 import * as Headless from "@headlessui/react";
-import { clsx } from "clsx";
 import { LayoutGroup, motion } from "framer-motion";
 import React, { forwardRef, useId } from "react";
 import { TouchTarget } from "./button";
+import { cn } from "./cn";
 import { Link } from "./link";
 
 export function Navbar({
@@ -14,7 +14,7 @@ export function Navbar({
   return (
     <nav
       {...props}
-      className={clsx(className, "flex flex-1 items-center gap-4 py-2.5")}
+      className={cn("flex flex-1 items-center gap-4 py-2.5", className)}
     />
   );
 }
@@ -27,7 +27,7 @@ export function NavbarDivider({
     <div
       aria-hidden="true"
       {...props}
-      className={clsx(className, "h-6 w-px bg-zinc-950/10 dark:bg-white/10")}
+      className={cn("h-6 w-px bg-zinc-950/10 dark:bg-white/10", className)}
     />
   );
 }
@@ -40,7 +40,7 @@ export function NavbarSection({
 
   return (
     <LayoutGroup id={id}>
-      <div {...props} className={clsx(className, "flex items-center gap-3")} />
+      <div {...props} className={cn("flex items-center gap-3", className)} />
     </LayoutGroup>
   );
 }
@@ -53,7 +53,7 @@ export function NavbarSpacer({
     <div
       aria-hidden="true"
       {...props}
-      className={clsx(className, "-ml-4 flex-1")}
+      className={cn("-ml-4 flex-1", className)}
     />
   );
 }
@@ -68,9 +68,9 @@ export const NavbarItem = forwardRef(function NavbarItem(
     | Omit<Headless.ButtonProps, "as" | "className">
     | Omit<React.ComponentPropsWithoutRef<typeof Link>, "className">
   ),
-  ref: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>
+  ref: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>,
 ) {
-  const classes = clsx(
+  const classes = cn(
     // Base
     "relative flex min-w-0 items-center gap-3 rounded-lg p-2 text-left text-base/6 font-medium text-zinc-950 sm:text-sm/5",
     // Leading icon/icon-only
@@ -86,11 +86,11 @@ export const NavbarItem = forwardRef(function NavbarItem(
     // Dark mode
     "dark:text-white dark:*:data-[slot=icon]:fill-zinc-400",
     "dark:data-hover:bg-white/5 dark:data-hover:*:data-[slot=icon]:fill-white",
-    "dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white"
+    "dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white",
   );
 
   return (
-    <span className={clsx(className, "relative")}>
+    <span className={cn("relative", className)}>
       {current && (
         <motion.span
           className="absolute inset-x-2 -bottom-2.5 h-0.5 rounded-full bg-zinc-950 dark:bg-white"
@@ -110,7 +110,7 @@ export const NavbarItem = forwardRef(function NavbarItem(
         <Headless.Button
           {...props}
           ref={ref}
-          className={clsx("cursor-default", classes)}
+          className={cn("cursor-default", classes)}
           data-current={current ? "true" : undefined}
         >
           <TouchTarget>{children}</TouchTarget>
@@ -124,5 +124,5 @@ export function NavbarLabel({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"span">) {
-  return <span {...props} className={clsx(className, "truncate")} />;
+  return <span {...props} className={cn("truncate", className)} />;
 }

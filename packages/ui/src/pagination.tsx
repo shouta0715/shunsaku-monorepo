@@ -1,6 +1,6 @@
-import { clsx } from "clsx";
 import type React from "react";
 import { Button } from "./button";
+import { cn } from "./cn";
 
 export function Pagination({
   "aria-label": ariaLabel = "Page navigation",
@@ -11,7 +11,7 @@ export function Pagination({
     <nav
       aria-label={ariaLabel}
       {...props}
-      className={clsx(className, "flex gap-x-2")}
+      className={cn("flex gap-x-2", className)}
     />
   );
 }
@@ -22,7 +22,7 @@ export function PaginationPrevious({
   children = "Previous",
 }: React.PropsWithChildren<{ href?: string | null; className?: string }>) {
   return (
-    <span className={clsx(className, "grow basis-0")}>
+    <span className={cn("grow basis-0", className)}>
       <Button
         {...(href === null ? { disabled: true } : { href })}
         plain
@@ -54,7 +54,7 @@ export function PaginationNext({
   children = "Next",
 }: React.PropsWithChildren<{ href?: string | null; className?: string }>) {
   return (
-    <span className={clsx(className, "flex grow basis-0 justify-end")}>
+    <span className={cn("flex grow basis-0 justify-end", className)}>
       <Button
         {...(href === null ? { disabled: true } : { href })}
         plain
@@ -87,7 +87,7 @@ export function PaginationList({
   return (
     <span
       {...props}
-      className={clsx(className, "hidden items-baseline gap-x-2 sm:flex")}
+      className={cn("hidden items-baseline gap-x-2 sm:flex", className)}
     />
   );
 }
@@ -107,10 +107,10 @@ export function PaginationPage({
       plain
       aria-current={current ? "page" : undefined}
       aria-label={`Page ${children}`}
-      className={clsx(
-        className,
+      className={cn(
         "min-w-9 before:absolute before:-inset-px before:rounded-lg",
-        current && "before:bg-zinc-950/5 dark:before:bg-white/10"
+        current && "before:bg-zinc-950/5 dark:before:bg-white/10",
+        className,
       )}
       href={href}
     >
@@ -128,9 +128,9 @@ export function PaginationGap({
     <span
       aria-hidden="true"
       {...props}
-      className={clsx(
+      className={cn(
+        "w-9 text-center text-sm/6 font-semibold text-zinc-950 select-none dark:text-white",
         className,
-        "w-9 text-center text-sm/6 font-semibold text-zinc-950 select-none dark:text-white"
       )}
     >
       {children}
