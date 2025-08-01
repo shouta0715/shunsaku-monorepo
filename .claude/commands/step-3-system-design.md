@@ -5,14 +5,15 @@ description: Step 3: アーキテクチャ・API・データ設計を含むシ�
 
 ## Context
 
-- Specification document: @.tmp/step-1-specification.md
-- Requirements document: @.tmp/step-2-requirements.md
+- Specification document: @{project_dir}/.tmp/step-1-specification.md
+- Requirements document: @{project_dir}/.tmp/step-2-requirements.md
 
 ## Your task
 
-### 1. Verify prerequisites
+### 1. Verify prerequisites and determine project directory
 
-- Check that `.tmp/step-1-specification.md` and `.tmp/step-2-requirements.md` exist
+- Determine the target project directory using the same logic as Step 1
+- Check that `{project_dir}/.tmp/step-1-specification.md` and `{project_dir}/.tmp/step-2-requirements.md` exist
 - If not, inform user to complete previous steps first
 
 ### 2. Analyze requirements
@@ -36,7 +37,7 @@ Read and understand the specification and requirements documents thoroughly
 
 ### 4. Create System Design Document
 
-Create `.tmp/step-3-system-design.md` with the following sections:
+Create `{project_dir}/.tmp/step-3-system-design.md` with the following sections:
 
 ````markdown
 # システム設計書 - [タスク名]

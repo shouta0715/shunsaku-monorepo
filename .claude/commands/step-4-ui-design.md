@@ -5,15 +5,16 @@ description: Step 4: コンポーネント設計・デザインシステム・�
 
 ## Context
 
-- Specification document: @.tmp/step-1-specification.md
-- Requirements document: @.tmp/step-2-requirements.md
-- System design document: @.tmp/step-3-system-design.md
+- Specification document: @{project_dir}/.tmp/step-1-specification.md
+- Requirements document: @{project_dir}/.tmp/step-2-requirements.md
+- System design document: @{project_dir}/.tmp/step-3-system-design.md
 
 ## Your task
 
-### 1. Verify prerequisites
+### 1. Verify prerequisites and determine project directory
 
-- Check that `.tmp/step-1-specification.md`, `.tmp/step-2-requirements.md`, and `.tmp/step-3-system-design.md` exist
+- Determine the target project directory using the same logic as Step 1
+- Check that `{project_dir}/.tmp/step-1-specification.md`, `{project_dir}/.tmp/step-2-requirements.md`, and `{project_dir}/.tmp/step-3-system-design.md` exist
 - If not, inform user to complete previous steps first
 
 ### 2. Analyze requirements and system design
@@ -37,7 +38,7 @@ Read and understand all previous documents to align UI design with system archit
 
 ### 4. Create UI Design Document
 
-Create `.tmp/step-4-ui-design.md` with the following sections:
+Create `{project_dir}/.tmp/step-4-ui-design.md` with the following sections:
 
 ````markdown
 # UI/UX 設計書 - [タスク名]

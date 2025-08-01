@@ -11,13 +11,14 @@ description: 実装完了後に適切なブランチ名・コミット・PRタ�
 
 ### 1. Analyze implementation status
 
-#### 1.1 Check design documents
+#### 1.1 Determine project directory and check design documents
 
-- Read `.tmp/step-1-specification.md` (仕様書)
-- Read `.tmp/step-2-requirements.md` (要件定義書)
-- Read `.tmp/step-3-system-design.md` (システム設計書)
-- Read `.tmp/step-4-ui-design.md` (UI/UX 設計書)
-- Read `.tmp/step-5-task-division.md` (タスクリスト)
+- Determine the target project directory using the same logic as other steps
+- Read `{project_dir}/.tmp/step-1-specification.md` (仕様書)
+- Read `{project_dir}/.tmp/step-2-requirements.md` (要件定義書)
+- Read `{project_dir}/.tmp/step-3-system-design.md` (システム設計書)
+- Read `{project_dir}/.tmp/step-4-ui-design.md` (UI/UX 設計書)
+- Read `{project_dir}/.tmp/step-5-task-division.md` (タスクリスト)
 
 #### 1.2 Check current implementation
 
@@ -201,7 +202,7 @@ Examples:
 
 ### 7. Create PR document
 
-Create `.tmp/github-pull-request.md` with:
+Create `{project_dir}/.tmp/github-pull-request.md` with:
 
 ```markdown
 # GitHub Pull Request 情報

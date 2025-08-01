@@ -9,11 +9,18 @@ description: Step 1: ビジネス要件・スコープ・ステークホルダ�
 
 ## Your task
 
-### 1. Analyze project structure
+### 1. Analyze project structure and determine target directory
 
-- Analyze the current monorepo structure (apps/\*\*, packages/)
-- Identify the target application/package for the task
-- Create `.tmp` directory if it doesn't exist
+- Analyze the current working directory to determine the target project
+- Check if currently in `apps/*/` or `packages/*/` directory
+- If not in a specific project directory, determine target from task context
+- Create `{project_dir}/.tmp` directory if it doesn't exist
+
+**Project Detection Logic:**
+- If `pwd` contains `apps/[project]/` → Use `apps/[project]/.tmp/`
+- If `pwd` contains `packages/[package]/` → Use `packages/[package]/.tmp/`
+- If in monorepo root, analyze task to determine target project
+- Default to `apps/web/.tmp/` if unclear
 
 ### 2. Analyze the user's request
 
@@ -26,7 +33,7 @@ Carefully analyze the provided task description and extract:
 
 ### 3. Create Specification Document
 
-Create `.tmp/step-1-specification.md` with the following sections:
+Create `{project_dir}/.tmp/step-1-specification.md` with the following sections:
 
 ```markdown
 # 仕様書 - [プロジェクト/機能名]

@@ -13,8 +13,9 @@ Execute the complete 5-Stage Specification-Driven Development workflow:
 
 ### 0. Setup
 
-- Create `.tmp` directory if it doesn't exist
-- Analyze monorepo structure (apps/\*\*, packages/) to determine target area
+- Determine the target project directory (apps/**, packages/**)
+- Create `{project_dir}/.tmp` directory if it doesn't exist
+- Analyze monorepo structure to understand the current project context
 - Create a new feature branch based on the task
 
 ### Step 1: 仕様書作成

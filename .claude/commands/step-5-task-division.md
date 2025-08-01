@@ -5,20 +5,21 @@ description: Step 5: 全設計書を基に実装可能なタスクに分解し�
 
 ## Context
 
-- Specification document: @.tmp/step-1-specification.md
-- Requirements: @.tmp/step-2-requirements.md
-- System design: @.tmp/step-3-system-design.md
-- UI design: @.tmp/step-4-ui-design.md
+- Specification document: @{project_dir}/.tmp/step-1-specification.md
+- Requirements: @{project_dir}/.tmp/step-2-requirements.md
+- System design: @{project_dir}/.tmp/step-3-system-design.md
+- UI design: @{project_dir}/.tmp/step-4-ui-design.md
 
 ## Your task
 
-### 1. Verify prerequisites
+### 1. Verify prerequisites and determine project directory
 
+- Determine the target project directory using the same logic as Step 1
 - Check that all prerequisite documents exist:
-  - `.tmp/step-1-specification.md` (Step 1: 仕様書作成)
-  - `.tmp/step-2-requirements.md` (Step 2: 要件定義書作成)
-  - `.tmp/step-3-system-design.md` (Step 3: システム設計作成)
-  - `.tmp/step-4-ui-design.md` (Step 4: デザイン設計作成)
+  - `{project_dir}/.tmp/step-1-specification.md` (Step 1: 仕様書作成)
+  - `{project_dir}/.tmp/step-2-requirements.md` (Step 2: 要件定義書作成)
+  - `{project_dir}/.tmp/step-3-system-design.md` (Step 3: システム設計作成)
+  - `{project_dir}/.tmp/step-4-ui-design.md` (Step 4: デザイン設計作成)
 - If any are missing, inform user to complete previous steps first
 
 ### 2. Analyze all design documents
@@ -32,7 +33,7 @@ Read and understand all design documents thoroughly to identify all implementati
 
 ### 3. Create Task List Document
 
-Create `.tmp/step-5-task-division.md` with the following structure:
+Create `{project_dir}/.tmp/step-5-task-division.md` with the following structure:
 
 ```markdown
 # タスクリスト - [機能/改善名]
