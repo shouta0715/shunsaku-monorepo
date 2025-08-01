@@ -26,6 +26,7 @@
       "Bash(pnpm lint:*)",
       "Bash(pnpm test:*)",
       "Bash(pnpm run:*)",
+      "Bash(pnpm typecheck:*)",
       "Bash(ls:*)",
       "Bash(cat:*)",
       "Bash(find:*)",

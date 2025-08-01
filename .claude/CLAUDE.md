@@ -7,7 +7,7 @@ This document defines the project's rules, objectives, and progress management m
 - To maximize efficiency, **if you need to execute multiple independent processes, invoke those tools concurrently, not sequentially**.
 - **You must think exclusively in English**. However, you are required to **respond in Japanese**.
 - To understand how to use a library, **always use the Contex7 MCP** to retrieve the latest information.
-- For temporary notes for design, create a markdown in `{project_dir}/.tmp` and save it.
+- For temporary notes for design, create a markdown in the project's `.tmp` directory (e.g., `apps/web/.tmp/` or `packages/ui/.tmp/`) and save it.
 - **After using Write or Edit tools, ALWAYS verify the actual file contents using the Read tool**, regardless of what the system-reminder says. The system-reminder may incorrectly show "(no content)" even when the file has been successfully written.
 - Please respond critically and without pandering to my opinions, but please don't be forceful in your criticism.
 
@@ -27,7 +27,7 @@ This is a monorepo project with the following structure:
 
 - `apps/web/.tmp/` - Design documents for web application
 - `packages/ui/.tmp/` - Design documents for UI library changes
-- Pattern: `{project_dir}/.tmp/step-*-*.md`
+- Pattern: `[project-dir]/.tmp/step-*-*.md` where [project-dir] is auto-detected
 
 ## Programming Rules
 
@@ -74,7 +74,7 @@ When receiving development tasks, please follow the 5-stage workflow below. This
 - Analyze user requests and extract business requirements
 - Determine target project directory (apps/**, packages/**)
 - Create project-specific `.tmp` directory
-- Document specification in `{project_dir}/.tmp/step-1-specification.md`
+- Document specification in `[project-dir]/.tmp/step-1-specification.md` where [project-dir] is detected from current context
 - Use `/step-1-specification` command for detailed template
 - **Must include**: Business requirements, stakeholders, scope definition
 
@@ -83,7 +83,7 @@ When receiving development tasks, please follow the 5-stage workflow below. This
 - Create technical design based on requirements
 - Analyze existing components in `packages/ui/src/` and `apps/**/src/`
 - Check Tailwind configuration and shared design patterns
-- Document design in `{project_dir}/.tmp/step-3-system-design.md` and `{project_dir}/.tmp/step-4-ui-design.md`
+- Document design in `[project-dir]/.tmp/step-3-system-design.md` and `[project-dir]/.tmp/step-4-ui-design.md`
 - Use `/design` command for detailed template
 - **Must specify**: Component reuse strategy and monorepo placement
 
@@ -91,7 +91,7 @@ When receiving development tasks, please follow the 5-stage workflow below. This
 
 - Break down design into implementable units
 - Include code quality checks for each task
-- Document in `{project_dir}/.tmp/step-5-task-division.md`
+- Document in `[project-dir]/.tmp/step-5-task-division.md`
 - Use `/tasks` command for detailed template
 - Manage major tasks with TodoWrite tool
 - **Must include**: `pnpm lint` and `pnpm build` checks for each task

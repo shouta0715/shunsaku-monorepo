@@ -11,14 +11,37 @@ description: 実装完了後に適切なブランチ名・コミット・PRタ�
 
 ### 1. Analyze implementation status
 
-#### 1.1 Determine project directory and check design documents
+#### 1.1 Detect project directory and check design documents
 
-- Determine the target project directory using the same logic as other steps
-- Read `{project_dir}/.tmp/step-1-specification.md` (仕様書)
-- Read `{project_dir}/.tmp/step-2-requirements.md` (要件定義書)
-- Read `{project_dir}/.tmp/step-3-system-design.md` (システム設計書)
-- Read `{project_dir}/.tmp/step-4-ui-design.md` (UI/UX 設計書)
-- Read `{project_dir}/.tmp/step-5-task-division.md` (タスクリスト)
+**Step 1: Determine current project context**
+
+```bash
+pwd
+```
+
+**Step 2: Apply project detection logic (same as other steps)**
+
+- If current path contains `apps/[project-name]/` → Set PROJECT_DIR to `apps/[project-name]`
+- If current path contains `packages/[package-name]/` → Set PROJECT_DIR to `packages/[package-name]`
+- If in monorepo root, look for existing `.tmp` directories:
+  ```bash
+  find . -name ".tmp" -type d -path "*/apps/*" -o -path "*/packages/*"
+  ```
+- If only one project with `.tmp` found → Use that project
+- If multiple projects found → Ask user to specify target project
+- If no projects found → Inform user to run specification workflow first
+
+**Step 3: Read design documents from detected project**
+
+- Read `$PROJECT_DIR/.tmp/step-1-specification.md` (仕様書)
+- Read `$PROJECT_DIR/.tmp/step-2-requirements.md` (要件定義書)
+- Read `$PROJECT_DIR/.tmp/step-3-system-design.md` (システム設計書)
+- Read `$PROJECT_DIR/.tmp/step-4-ui-design.md` (UI/UX 設計書)
+- Read `$PROJECT_DIR/.tmp/step-5-task-division.md` (タスクリスト)
+
+**Step 4: Confirm project context**
+
+Inform user: "Creating PR for project: `$PROJECT_DIR`"
 
 #### 1.2 Check current implementation
 
@@ -202,7 +225,7 @@ Examples:
 
 ### 7. Create PR document
 
-Create `{project_dir}/.tmp/github-pull-request.md` with:
+**Use the Write tool to create `$PROJECT_DIR/.tmp/github-pull-request.md` with the following content:**
 
 ```markdown
 # GitHub Pull Request 情報

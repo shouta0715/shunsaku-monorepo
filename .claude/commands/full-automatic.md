@@ -11,16 +11,48 @@ description: 5段階仕様駆動開発ワークフローを自動実行（仕様
 
 Execute the complete 5-Stage Specification-Driven Development workflow:
 
-### 0. Setup
+### 0. Setup and Project Detection
 
-- Determine the target project directory (apps/**, packages/**)
-- Create `{project_dir}/.tmp` directory if it doesn't exist
-- Analyze monorepo structure to understand the current project context
+**Step 1: Determine target project directory**
+
+Execute the following to detect current project context:
+
+```bash
+pwd
+```
+
+**Step 2: Apply project detection logic**
+
+- If current directory contains `apps/[project-name]/` → Set target to `apps/[project-name]`
+- If current directory contains `packages/[package-name]/` → Set target to `packages/[package-name]`
+- If in monorepo root, analyze task description to determine target:
+  - Web application features → `apps/web`
+  - Shared UI components → `packages/ui`
+  - If unclear, default to `apps/web`
+
+**Step 3: Create project-specific .tmp directory**
+
+```bash
+mkdir -p [detected-project-dir]/.tmp
+```
+
+**Step 4: Set working context**
+
+From this point forward, all design documents will be created in `[detected-project-dir]/.tmp/` where `[detected-project-dir]` is the path determined in Steps 1-2.
+
+**Step 5: Create feature branch**
+
 - Create a new feature branch based on the task
 
 ### Step 1: 仕様書作成
 
-Execute `/step-1-specification` command to create initial specification document.
+**Execute the following steps from `/step-1-specification` command:**
+
+1. Determine project directory (already done in Setup)
+2. Analyze the user's request and extract business requirements
+3. **Use Write tool to create the specification document in `$PROJECT_DIR/.tmp/step-1-specification.md`**
+4. Create TODO entry for specification review
+5. Present to user for approval
 
 **MUST include business requirements and project scope**
 
@@ -28,7 +60,14 @@ Execute `/step-1-specification` command to create initial specification document
 
 ### Step 2: 要件定義書作成
 
-Execute `/step-2-requirements` command to create detailed requirements specification.
+**Execute the following steps from `/step-2-requirements` command:**
+
+1. Verify prerequisites (specification document exists)
+2. Analyze user request and specification document
+3. **Use Write tool to create requirements document in `$PROJECT_DIR/.tmp/step-2-requirements.md`**
+4. **Use Write tool to create/update `$PROJECT_DIR/README.md`**
+5. **Use Write tool to create/update `$PROJECT_DIR/.claude/CLAUDE.md`**
+6. Create TODO entry and present to user
 
 **MUST include code quality requirements (ESLint, Prettier, Tailwind CSS)**
 **MUST reference specification document from Step 1**
@@ -37,7 +76,12 @@ Execute `/step-2-requirements` command to create detailed requirements specifica
 
 ### Step 3: システム設計作成
 
-Execute `/step-3-system-design` command to create technical system design.
+**Execute the following steps from `/step-3-system-design` command:**
+
+1. Verify prerequisites (specification and requirements documents exist)
+2. Analyze existing project assets and architecture
+3. **Use Write tool to create system design document in `$PROJECT_DIR/.tmp/step-3-system-design.md`**
+4. Create TODO entry and present to user
 
 **MUST analyze existing architecture and technical assets**
 **MUST define data models, APIs, and system architecture**
@@ -47,7 +91,12 @@ Execute `/step-3-system-design` command to create technical system design.
 
 ### Step 4: デザイン設計作成
 
-Execute `/step-4-ui-design` command to create UI/UX design specification.
+**Execute the following steps from `/step-4-ui-design` command:**
+
+1. Verify prerequisites (all previous documents exist)
+2. Analyze existing UI assets and Tailwind configuration
+3. **Use Write tool to create UI design document in `$PROJECT_DIR/.tmp/step-4-ui-design.md`**
+4. Create TODO entry and present to user
 
 **MUST analyze existing components in packages/ui/src/ and apps/**/src/\*\*
 **MUST check Tailwind configuration and design patterns**
@@ -57,7 +106,13 @@ Execute `/step-4-ui-design` command to create UI/UX design specification.
 
 ### Step 5: タスク分解
 
-Execute `/step-5-task-division` command to break down all designs into implementable tasks.
+**Execute the following steps from `/step-5-task-division` command:**
+
+1. Verify prerequisites (all design documents exist)
+2. Analyze all design documents thoroughly
+3. **Use Write tool to create task division document in `$PROJECT_DIR/.tmp/step-5-task-division.md`**
+4. Register main tasks using TodoWrite tool
+5. Present to user for approval
 
 **MUST include quality checks for each task:**
 
@@ -87,7 +142,7 @@ Inform user that they can now proceed with implementation using the generated sp
 
 After implementation is complete, recommend using `/github-pull-request` command to:
 
-- Create appropriate feature branch
+- Create appropriate feature b\\\c\
 - Generate structured commits with conventional commit messages
 - Create comprehensive PR with proper title and description
 - Include quality assurance checklist

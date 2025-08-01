@@ -5,22 +5,38 @@ description: Step 5: 全設計書を基に実装可能なタスクに分解し�
 
 ## Context
 
-- Specification document: @{project_dir}/.tmp/step-1-specification.md
-- Requirements: @{project_dir}/.tmp/step-2-requirements.md
-- System design: @{project_dir}/.tmp/step-3-system-design.md
-- UI design: @{project_dir}/.tmp/step-4-ui-design.md
+- Specification document: Will be detected from project directory
+- Requirements: Will be detected from project directory
+- System design: Will be detected from project directory
+- UI design: Will be detected from project directory
 
 ## Your task
 
-### 1. Verify prerequisites and determine project directory
+### 1. Detect project directory and verify prerequisites
 
-- Determine the target project directory using the same logic as Step 1
-- Check that all prerequisite documents exist:
-  - `{project_dir}/.tmp/step-1-specification.md` (Step 1: 仕様書作成)
-  - `{project_dir}/.tmp/step-2-requirements.md` (Step 2: 要件定義書作成)
-  - `{project_dir}/.tmp/step-3-system-design.md` (Step 3: システム設計作成)
-  - `{project_dir}/.tmp/step-4-ui-design.md` (Step 4: デザイン設計作成)
+**Step 1: Determine current project context**
+
+```bash
+pwd
+```
+
+**Step 2: Apply project detection logic (same as previous steps)**
+
+- If current path contains `apps/[project-name]/` → Set PROJECT_DIR to `apps/[project-name]`
+- If current path contains `packages/[package-name]/` → Set PROJECT_DIR to `packages/[package-name]`
+- If in monorepo root, analyze task description:
+  - Web application features → Set PROJECT_DIR to `apps/web`
+  - Shared UI components → Set PROJECT_DIR to `packages/ui`
+  - If unclear, default to `apps/web`
+
+**Step 3: Verify all prerequisite documents exist**
+
+- Check that `$PROJECT_DIR/.tmp/step-1-specification.md` exists (Step 1: 仕様書作成)
+- Check that `$PROJECT_DIR/.tmp/step-2-requirements.md` exists (Step 2: 要件定義書作成)
+- Check that `$PROJECT_DIR/.tmp/step-3-system-design.md` exists (Step 3: システム設計作成)
+- Check that `$PROJECT_DIR/.tmp/step-4-ui-design.md` exists (Step 4: デザイン設計作成)
 - If any are missing, inform user to complete previous steps first
+- Confirm project context: "Creating task division for project: `$PROJECT_DIR`"
 
 ### 2. Analyze all design documents
 
@@ -33,7 +49,7 @@ Read and understand all design documents thoroughly to identify all implementati
 
 ### 3. Create Task List Document
 
-Create `{project_dir}/.tmp/step-5-task-division.md` with the following structure:
+**Use the Write tool to create `$PROJECT_DIR/.tmp/step-5-task-division.md` with the following content:**
 
 ```markdown
 # タスクリスト - [機能/改善名]
