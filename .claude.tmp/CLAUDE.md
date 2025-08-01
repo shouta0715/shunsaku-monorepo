@@ -77,7 +77,7 @@ For every code change:
 - **Import from @package/ui**: Use `import { Button, Table } from "@package/ui"`
 - **Choose appropriate components**: Select based on function, not just appearance
 - **TypeScript path mapping**: Configure `@ui/*` alias in tsconfig.json for cleaner imports
-- **App-specific components**: Place in `src/components/` only when necessary
+- **App-specific components**: Place in `packages/` only when necessary
 - **Avoid duplication**: Use shared UI components from ../../packages/ui whenever possible
 
 ### Page Implementation Standards

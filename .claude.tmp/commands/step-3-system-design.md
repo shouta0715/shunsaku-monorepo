@@ -30,20 +30,20 @@ Read and understand the specification and requirements documents thoroughly
 
 #### 3.1 Check monorepo structure
 
-- Use list_dir to check monorepo structure (apps/, packages/)
+- Use list_dir to check monorepo structure (apps/, ../../packages/)
 - Check existing data models and API structures
 - Document current system architecture
 
 #### 3.2 Check existing components
 
-- Use file_search to find components in `packages/ui/src/`
+- Use file_search to find components in `../../packages/ui/src/`
 - Read key components to understand their interfaces and usage patterns
 - Document available UI components for system design consideration
 
 #### 3.3 Check code quality tools configuration
 
-- Read `eslint.config.mjs` and shared configs in `packages/eslint-config/`
-- Read `prettier.config.mjs` and shared configs in `packages/prettier-config/`
+- Read `eslint.config.mjs` and shared configs in `../../packages/eslint-config/`
+- Read `prettier.config.mjs` and shared configs in `../../packages/prettier-config/`
 - Verify `@package/ui` components import setup
 - Configure TypeScript path mapping for `@ui` alias if needed:
   ```json
