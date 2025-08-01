@@ -9,49 +9,22 @@ description: Step 1 ビジネス要件・スコープ・ステークホルダー
 
 ## Your task
 
-### 1. Detect project directory and setup
+### 1. Create directory
 
-**Step 1: Determine current project context**
-
-```bash
-pwd
-```
-
-**Step 2: Apply project detection logic**
-
-```bash
-# Get absolute path and normalize
-REALPATH=$(realpath .)
-echo "Current absolute path: $REALPATH"
-```
-
-- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to current app directory
-- If current directory basename is an app name under apps/ → Set PROJECT_DIR to current directory
-- If in apps/ subdirectory → Use current app directory
-- Default to current directory (assumed to be within apps/)
-
-**Step 3: Create .tmp directory**
-
-```bash
-mkdir -p .tmp
-```
-
-**Step 4: Confirm project context**
-
-Inform user: "Creating specification for current app project"
+- Create `.tmp` directory if it doesn't exist
 
 ### 2. Analyze the user's request
 
 Carefully analyze the provided task description and extract:
 
-- The high-level goals and objectives
-- Stakeholder requirements
-- Business context and constraints
-- Success metrics and KPIs
+- The core problem to be solved
+- Implicit requirements not explicitly stated
+- Potential edge cases and constraints
+- Success criteria
 
 ### 3. Create Specification Document
 
-**Use the Write tool to create `.tmp/step-1-specification.md` with the following content:**
+Create `.tmp/step-1-specification.md` with the following sections:
 
 ```markdown
 # 仕様書 - [プロジェクト/機能名]

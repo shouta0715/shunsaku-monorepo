@@ -6,53 +6,43 @@ description: Step 2 機能要件・非機能要件・制約事項を詳細化し
 ## Context
 
 - Task description: $ARGUMENTS
-- Specification document: Will be detected from project directory
+- Specification document: @.tmp/step-1-specification.md
 
 ## Your task
 
-### 1. Detect project directory and verify prerequisites
+### 1. Verify prerequisites
 
-**Step 1: Determine current project context**
-
-```bash
-pwd
-```
-
-**Step 2: Apply project detection logic (same as Step 1)**
-
-```bash
-# Get absolute path and normalize
-REALPATH=$(realpath .)
-echo "Current absolute path: $REALPATH"
-```
-
-- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to `apps/[project-name]`
-- If current directory path contains `/packages/[package-name]` → Set PROJECT_DIR to `packages/[package-name]`
-- If current directory basename is an app name under apps/ → Set PROJECT_DIR to `apps/[basename]`
-- If current directory basename is a package name under packages/ → Set PROJECT_DIR to `packages/[basename]`
-- If in monorepo root, analyze task description:
-  - Web application features → Set PROJECT_DIR to `apps/web`
-  - Shared UI components → Set PROJECT_DIR to `packages/ui`
-  - If unclear, default to `apps/web`
-
-**Step 3: Verify prerequisite documents exist**
-
-- Check that `$PROJECT_DIR/.tmp/step-1-specification.md` exists from Step 1
+- Check that `.tmp/step-1-specification.md` exists
 - If not, inform user to run `/step-1-specification` first
-- Confirm project context: "Creating requirements for project: `$PROJECT_DIR`"
 
-### 2. Analyze the user's request and specification
+### 2. Analyze specification
 
-Carefully analyze the provided task description and specification document to extract:
+Read and understand the specification document thoroughly
 
-- The core problem to be solved
-- Implicit requirements not explicitly stated
-- Potential edge cases and constraints
-- Success criteria
+### 3. Analyze existing project assets
 
-### 3. Create Requirements Document
+#### 3.1 Check existing components
 
-**Use the Write tool to create `$PROJECT_DIR/.tmp/step-2-requirements.md` with the following content:**
+- Use Glob to find all components in `src/components/`
+- Read key components to understand their interfaces and usage patterns
+- Document available UI components for reuse
+
+#### 3.2 Check Tailwind configuration
+
+- Look for `tailwind.config.ts` or `tailwind.config.js`
+- If not found, check for Tailwind CSS v4 setup in `app/globals.css`
+- Note any custom theme settings, colors, or design tokens
+
+#### 3.3 Check code quality tools configuration
+
+- Read `eslint.config.mjs` to understand linting rules
+- Read `prettier.config.mjs` to understand formatting rules
+- Run `npm run lint` to verify linting setup
+- Document any custom rules or exceptions
+
+### 4. Create Requirements Document
+
+Create `.tmp/step-2-requirements.md` with the following sections:
 
 ```markdown
 # 要件定義書 - [タスク名]
@@ -90,11 +80,22 @@ Carefully analyze the provided task description and specification document to ex
 
 ### 3.4 コード品質基準
 
-- **ESLint**: プロジェクトの ESLint 設定に 100%準拠すること
-- **Prettier**: 全コードが Prettier でフォーマットされていること
+- **ESLint**: `@package/eslint-config`の設定に 100%準拠すること
+- **Prettier**: `@package/prettier-config`を使用してフォーマットされていること
 - **Tailwind CSS**: Tailwind のユーティリティクラスのみを使用し、カスタム CSS は最小限に抑えること
 
-### 3.5 互換性
+### 3.5 コンポーネント使用基準
+
+- **共有コンポーネント**: `@package/ui`からの import を優先使用
+- **適切なコンポーネント選択**: 機能に最適なコンポーネントを選択すること
+  - レイアウト: AuthLayout, SidebarLayout, StackedLayout から選択
+  - フォーム: Input, Textarea, Select, Checkbox, Radio, Switch, Fieldset から適切に選択
+  - データ表示: Table, Badge, Alert, Avatar, DescriptionList から選択
+  - インタラクション: Button (17 色 variants), Dialog, Dropdown, Pagination から選択
+- **Page 実装**: `apps/web/src/app/page.tsx`を機能に応じて書き直すこと
+- **TypeScript 設定**: tsconfig.json で`@ui`エイリアスの設定を推奨
+
+### 3.6 互換性
 
 - [既存システムとの互換性要件]
 
@@ -139,7 +140,7 @@ Use TodoWrite to add "要件定義の完了とレビュー" as a task
 
 #### 5.1 Create/Update README.md
 
-**Use the Write tool to create or update `$PROJECT_DIR/README.md` with the following content:**
+**Use the Write tool to create or update `README.md` with the following content:**
 
 ````markdown
 # [プロジェクト名]
@@ -195,7 +196,7 @@ pnpm dev    # アプリケーション固有のコマンド
 
 ### コンポーネント
 
-[packages/ui/src/内の利用可能なコンポーネント一覧]
+[../../packages/ui/src/内の利用可能なコンポーネント一覧]
 
 ## 機能一覧
 
@@ -211,10 +212,10 @@ pnpm dev    # アプリケーション固有のコマンド
 
 **First create the .claude directory if it doesn't exist:**
 ```bash
-mkdir -p $PROJECT_DIR/.claude
+mkdir -p .claude
 ```
 
-**Then use the Write tool to create or update `$PROJECT_DIR/.claude/CLAUDE.md` with the following content:**
+**Then use the Write tool to create or update `.claude/CLAUDE.md` with the following content:**
 
 ```markdown
 # プロジェクトガイドライン
@@ -252,7 +253,7 @@ mkdir -p $PROJECT_DIR/.claude
 
 ### 利用可能なコンポーネント
 
-[packages/ui/src/の一覧と用途]
+[../../packages/ui/src/の一覧と用途]
 
 ### よく使うコマンド
 

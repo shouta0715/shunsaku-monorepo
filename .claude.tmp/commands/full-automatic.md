@@ -1,5 +1,5 @@
 ---
-allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(mkdir:*), Bash(git:*)
+allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*), Bash(git:*)
 description: 5段階仕様駆動開発ワークフローを自動実行（仕様書→要件定義→システム設計→UI設計→タスク分解）
 ---
 
@@ -9,116 +9,51 @@ description: 5段階仕様駆動開発ワークフローを自動実行（仕様
 
 ## Your task
 
-Execute the complete 5-Stage Specification-Driven Development workflow:
+Execute the complete Specification-Driven Development workflow:
 
-### 0. Setup and Project Detection
+### 1. Setup
 
-**Step 1: Determine target project directory**
-
-Execute the following to detect current project context:
-
-```bash
-pwd
-```
-
-**Step 2: Apply project detection logic**
-
-- If current directory path contains `/apps/[project-name]` → Set target to current app directory
-- If current directory basename is an app name under apps/ → Set target to current directory
-- If in apps/ subdirectory → Use current app directory
-- Default to current directory (assumed to be within apps/)
-
-**Step 2.1: Normalize project directory path**
-
-```bash
-# Get absolute path and extract project directory
-REALPATH=$(realpath .)
-echo "Current absolute path: $REALPATH"
-```
-
-**Step 3: Create project-specific .tmp directory**
-
-```bash
-mkdir -p .tmp
-```
-
-**Step 4: Set working context**
-
-From this point forward, all design documents will be created in `.tmp/` relative to the current app directory.
-
-**Step 5: Create feature branch**
-
+- Create `.tmp` directory if it doesn't exist
 - Create a new feature branch based on the task
 
-### Step 1: 仕様書作成
+### 2. Stage 1: 仕様書作成
 
-**Execute the following steps from `/step-1-specification` command:**
-
-1. Determine project directory (already done in Setup)
-2. Analyze the user's request and extract business requirements
-3. **Use Write tool to create the specification document in `.tmp/step-1-specification.md`**
-4. Create TODO entry for specification review
-5. Present to user for approval
+Execute `/step-1-specification` command to create business specification.
 
 **MUST include business requirements and project scope**
 
 **Present specification to user for approval before proceeding**
 
-### Step 2: 要件定義書作成
+### 3. Stage 2: 要件定義
 
-**Execute the following steps from `/step-2-requirements` command:**
-
-1. Verify prerequisites (specification document exists)
-2. Analyze user request and specification document
-3. **Use Write tool to create requirements document in `.tmp/step-2-requirements.md`**
-4. **Use Write tool to create/update `README.md`**
-5. **Use Write tool to create/update `.claude/CLAUDE.md`**
-6. Create TODO entry and present to user
+Execute `/step-2-requirements` command to create detailed requirements specification.
 
 **MUST include code quality requirements (ESLint, Prettier, Tailwind CSS)**
-**MUST reference specification document from Step 1**
+**MUST create/update README.md and .claude/CLAUDE.md**
 
 **Present requirements to user for approval before proceeding**
 
-### Step 3: システム設計作成
+### 4. Stage 3: システム設計
 
-**Execute the following steps from `/step-3-system-design` command:**
-
-1. Verify prerequisites (specification and requirements documents exist)
-2. Analyze existing project assets and architecture
-3. **Use Write tool to create system design document in `.tmp/step-3-system-design.md`**
-4. Create TODO entry and present to user
+Execute `/step-3-system-design` command to create technical design based on requirements.
 
 **MUST analyze existing architecture and technical assets**
 **MUST define data models, APIs, and system architecture**
-**MUST include security and performance considerations**
 
 **Present system design to user for approval before proceeding**
 
-### Step 4: デザイン設計作成
+### 5. Stage 4: UI 設計
 
-**Execute the following steps from `/step-4-ui-design` command:**
-
-1. Verify prerequisites (all previous documents exist)
-2. Analyze existing UI assets and Tailwind configuration
-3. **Use Write tool to create UI design document in `.tmp/step-4-ui-design.md`**
-4. Create TODO entry and present to user
+Execute `/step-4-ui-design` command to create UI/UX design and component architecture.
 
 **MUST analyze existing components in ../../packages/ui/src/ and current app src/**
 **MUST check Tailwind configuration and design patterns**
-**MUST define component architecture and styling guidelines**
 
 **Present UI design to user for approval before proceeding**
 
-### Step 5: タスク分解
+### 6. Stage 5: タスク分解
 
-**Execute the following steps from `/step-5-task-division` command:**
-
-1. Verify prerequisites (all design documents exist)
-2. Analyze all design documents thoroughly
-3. **Use Write tool to create task division document in `.tmp/step-5-task-division.md`**
-4. Register main tasks using TodoWrite tool
-5. Present to user for approval
+Execute `/step-5-task-division` command to break down design into implementable tasks.
 
 **MUST include quality checks for each task:**
 
@@ -129,7 +64,7 @@ From this point forward, all design documents will be created in `.tmp/` relativ
 
 **Present task list to user for approval before proceeding**
 
-### 6. Quality Assurance Process
+### 7. Quality Assurance Process
 
 For EVERY implementation step:
 
@@ -140,22 +75,58 @@ For EVERY implementation step:
 5. Run `pnpm build` to verify
 6. Only mark task as complete when ALL checks pass
 
-### 7. Implementation guidance
+### 8. Implementation guidance
 
-Inform user that they can now proceed with implementation using the generated specification documents, following the task breakdown from Step 5.
+**重要な実装方針:**
 
-### 8. Post-implementation: GitHub PR creation
+1. **Page.tsx 書き直し**: `src/app/page.tsx`を機能に応じて完全に書き直す
+2. **適切なコンポーネント選択**: 機能に応じて`@package/ui`から最適なコンポーネントを選択
+
+   ```typescript
+   // レイアウト
+   import {
+     AuthLayout,
+     SidebarLayout,
+     StackedLayout,
+     Navbar,
+   } from "@package/ui";
+
+   // フォーム
+   import {
+     Input,
+     Textarea,
+     Select,
+     Checkbox,
+     Radio,
+     Switch,
+     Combobox,
+     Listbox,
+     Fieldset,
+   } from "@package/ui";
+
+   // データ表示
+   import { Table, Badge, Alert, Avatar, DescriptionList } from "@package/ui";
+
+   // インタラクション
+   import { Button, Dialog, Dropdown, Pagination } from "@package/ui";
+   ```
+
+3. **設定ファイル参照**:
+   - ESLint: `@package/eslint-config`
+   - Prettier: `@package/prettier-config`
+
+### 9. Post-implementation: GitHub PR creation
 
 After implementation is complete, recommend using `/github-pull-request` command to:
 
-- Create appropriate feature b\\\c\
+- Create appropriate feature branch
 - Generate structured commits with conventional commit messages
 - Create comprehensive PR with proper title and description
 - Include quality assurance checklist
 
-### 9. Report completion
+### 10. Report completion
 
-Summarize what was created across all 5 stages and the recommended next steps for implementation and PR creation.
+Summarize what was created across all 5 stages and inform user that they can now proceed with implementation using the generated specification documents, following the task breakdown from Stage 5.
 
 ## Important Notes
 

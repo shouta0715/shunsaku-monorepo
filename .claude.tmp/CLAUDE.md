@@ -56,9 +56,36 @@ For every code change:
 
 ### Component Usage
 
-- **Prioritize existing components**: Check `../../packages/ui/src/` for reusable components
+#### Available Shared UI Components (@package/ui)
+
+**Basic Elements**: Button (17 colors+variants), Text, Heading, Link, Divider
+**Forms**: Input, Textarea, Select, Checkbox, Radio, Switch, Combobox, Listbox, Fieldset  
+**Data Display**: Table, Badge, Avatar, Alert, DescriptionList
+**Layout**: AuthLayout, SidebarLayout, StackedLayout, Sidebar, Navbar
+**Interaction**: Dialog, Dropdown, Pagination
+
+#### Component Selection Guidelines
+
+- **Forms**: Input/Textarea (basic), Select/Listbox/Combobox (selection), Checkbox/Radio/Switch (options)
+- **Layout**: AuthLayout (auth pages), SidebarLayout (admin), StackedLayout (simple), Navbar (navigation)
+- **Data**: Table (lists), Badge/Alert (status), Avatar (users), DescriptionList (key-value)
+- **Actions**: Button (rich variants), Dialog (modals), Dropdown (menus), Pagination (navigation)
+
+#### Implementation Rules
+
+- **Prioritize existing components**: Always check `../../packages/ui/src/` first
+- **Import from @package/ui**: Use `import { Button, Table } from "@package/ui"`
+- **Choose appropriate components**: Select based on function, not just appearance
+- **TypeScript path mapping**: Configure `@ui/*` alias in tsconfig.json for cleaner imports
 - **App-specific components**: Place in `src/components/` only when necessary
 - **Avoid duplication**: Use shared UI components from ../../packages/ui whenever possible
+
+### Page Implementation Standards
+
+- **Must rewrite page.tsx**: Always rewrite `src/app/page.tsx` according to feature requirements (within current app directory)
+- **Use shared components**: Prioritize `@package/ui` components in page implementation
+- **Follow ESLint config**: Use `@package/eslint-config` settings
+- **Follow Prettier config**: Use `@package/prettier-config` settings
 
 ## Development Style - Specification-Driven Development
 
@@ -77,25 +104,41 @@ When receiving development tasks, please follow the 5-stage workflow below. This
 - Use `/step-1-specification` command for detailed template
 - **Must include**: Business requirements, stakeholders, scope definition
 
-#### Stage 2: Design
+#### Step 2: 要件定義書作成
 
-- Create technical design based on requirements
+- Create detailed requirements based on specification
 - Analyze existing components in `../../packages/ui/src/` and `src/`
-- Check Tailwind configuration and shared design patterns
-- Document design in `.tmp/step-3-system-design.md` and `.tmp/step-4-ui-design.md`
-- Use `/design` command for detailed template
-- **Must specify**: Component reuse strategy and monorepo placement
+- Check code quality tools configuration (ESLint, Prettier, Tailwind)
+- Document requirements in `.tmp/step-2-requirements.md`
+- Use `/step-2-requirements` command for detailed template
+- **Must include**: Functional/non-functional requirements and code quality standards
 
-#### Stage 3: Task List
+#### Step 3: システム設計作成
 
-- Break down design into implementable units
+- Create system architecture and technical design
+- Analyze existing project assets and monorepo structure
+- Document system design in `.tmp/step-3-system-design.md`
+- Use `/step-3-system-design` command for detailed template
+- **Must specify**: Data models, APIs, and system architecture
+
+#### Step 4: UI 設計作成
+
+- Create UI/UX design and component architecture
+- Analyze existing UI assets and Tailwind configuration
+- Document UI design in `.tmp/step-4-ui-design.md`
+- Use `/step-4-ui-design` command for detailed template
+- **Must specify**: Component reuse strategy and styling guidelines
+
+#### Step 5: タスク分解
+
+- Break down design into implementable tasks
 - Include code quality checks for each task
 - Document in `.tmp/step-5-task-division.md`
-- Use `/tasks` command for detailed template
+- Use `/step-5-task-division` command for detailed template
 - Manage major tasks with TodoWrite tool
 - **Must include**: `pnpm lint` and `pnpm build` checks for each task
 
-#### Stage 4: Implementation
+#### Stage 6: Implementation
 
 - Implement according to task list
 - For each task:
@@ -106,7 +149,7 @@ When receiving development tasks, please follow the 5-stage workflow below. This
   - Ensure Tailwind utility classes only
   - Update task to completed using TodoWrite
 
-#### Stage 5: GitHub Pull Request Creation
+#### Stage 7: GitHub Pull Request Creation
 
 - Execute `/github-pull-request` command after implementation completion
 - Automatically generates:

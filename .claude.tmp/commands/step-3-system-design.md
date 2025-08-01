@@ -1,42 +1,21 @@
 ---
-allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(find:*), Bash(ls:*), Bash(grep:*)
-description: Step 3 アーキテクチャ・API・データ設計を含むシステム設計書を作成
+allowed-tools: TodoWrite, Read, Write, MultiEdit
+description: Step 3 システムアーキテクチャと技術設計を作成
 ---
 
 ## Context
 
-- Specification document: Will be detected from project directory
-- Requirements document: Will be detected from project directory
+- Task description: $ARGUMENTS
+- Specification document: @.tmp/step-1-specification.md
+- Requirements document: @.tmp/step-2-requirements.md
 
 ## Your task
 
-### 1. Detect project directory and verify prerequisites
-
-**Step 1: Determine current project context**
-
-```bash
-pwd
-```
-
-**Step 2: Apply project detection logic (same as previous steps)**
-
-```bash
-# Get absolute path and normalize
-REALPATH=$(realpath .)
-echo "Current absolute path: $REALPATH"
-```
-
-- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to current app directory
-- If current directory basename is an app name under apps/ → Set PROJECT_DIR to current directory
-- If in apps/ subdirectory → Use current app directory
-- Default to current directory (assumed to be within apps/)
-
-**Step 3: Verify prerequisite documents exist**
+### 1. Verify prerequisites
 
 - Check that `.tmp/step-1-specification.md` exists
 - Check that `.tmp/step-2-requirements.md` exists
 - If either missing, inform user to complete previous steps first
-- Confirm project context: "Creating system design for current app project"
 
 ### 2. Analyze requirements
 
@@ -44,22 +23,41 @@ Read and understand the specification and requirements documents thoroughly
 
 ### 3. Analyze existing project assets
 
-#### 3.1 Check existing architecture
+#### 3.1 Check monorepo structure
 
-- Analyze monorepo structure (current app, ../../packages/)
+- Use list_dir to check monorepo structure (apps/, packages/)
 - Check existing data models and API structures
 - Document current system architecture
 
-#### 3.2 Check code quality tools configuration
+#### 3.2 Check existing components
 
-- Read `eslint.config.mjs` and shared configs in `../../packages/eslint-config/`
-- Read `prettier.config.mjs` and shared configs in `../../packages/prettier-config/`
+- Use file_search to find components in `packages/ui/src/`
+- Read key components to understand their interfaces and usage patterns
+- Document available UI components for system design consideration
+
+#### 3.3 Check code quality tools configuration
+
+- Read `eslint.config.mjs` and shared configs in `packages/eslint-config/`
+- Read `prettier.config.mjs` and shared configs in `packages/prettier-config/`
+- Verify `@package/ui` components import setup
+- Configure TypeScript path mapping for `@ui` alias if needed:
+  ```json
+  // tsconfig.json
+  {
+    "compilerOptions": {
+      "paths": {
+        "@ui/*": ["../../packages/ui/src/*"],
+        "@ui": ["../../packages/ui/src/index.ts"]
+      }
+    }
+  }
+  ```
 - Run `pnpm lint` to verify linting setup
 - Document any custom rules or exceptions
 
 ### 4. Create System Design Document
 
-**Use the Write tool to create `.tmp/step-3-system-design.md` with the following content:**
+Create `.tmp/step-3-system-design.md` with the following sections:
 
 ````markdown
 # システム設計書 - [タスク名]
@@ -216,7 +214,7 @@ interface ResponseType {
 
 ```
 
-### 5. Update TODO
+### 5. Create TODO entry
 
 Use TodoWrite to add "システム設計の完了とレビュー" as a task
 

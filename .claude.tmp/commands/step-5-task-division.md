@@ -1,50 +1,25 @@
 ---
-allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(find:*), Bash(ls:*)
-description: Step 5 全設計書を基に実装可能なタスクに分解し、優先順位・依存関係を整理
+allowed-tools: TodoWrite, Read, Write, MultiEdit
+description: Step 5 設計を実装可能なタスクに分解
 ---
 
 ## Context
 
-- Specification document: Will be detected from project directory
-- Requirements: Will be detected from project directory
-- System design: Will be detected from project directory
-- UI design: Will be detected from project directory
+- Task description: $ARGUMENTS
+- Specification document: @.tmp/step-1-specification.md
+- Requirements document: @.tmp/step-2-requirements.md
+- System design document: @.tmp/step-3-system-design.md
+- UI design document: @.tmp/step-4-ui-design.md
 
 ## Your task
 
-### 1. Detect project directory and verify prerequisites
+### 1. Verify prerequisites
 
-**Step 1: Determine current project context**
-
-```bash
-pwd
-```
-
-**Step 2: Apply project detection logic (same as previous steps)**
-
-```bash
-# Get absolute path and normalize
-REALPATH=$(realpath .)
-echo "Current absolute path: $REALPATH"
-```
-
-- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to `apps/[project-name]`
-- If current directory path contains `/packages/[package-name]` → Set PROJECT_DIR to `packages/[package-name]`
-- If current directory basename is an app name under apps/ → Set PROJECT_DIR to `apps/[basename]`
-- If current directory basename is a package name under packages/ → Set PROJECT_DIR to `packages/[basename]`
-- If in monorepo root, analyze task description:
-  - Web application features → Set PROJECT_DIR to `apps/web`
-  - Shared UI components → Set PROJECT_DIR to `packages/ui`
-  - If unclear, default to `apps/web`
-
-**Step 3: Verify all prerequisite documents exist**
-
-- Check that `$PROJECT_DIR/.tmp/step-1-specification.md` exists (Step 1: 仕様書作成)
-- Check that `$PROJECT_DIR/.tmp/step-2-requirements.md` exists (Step 2: 要件定義書作成)
-- Check that `$PROJECT_DIR/.tmp/step-3-system-design.md` exists (Step 3: システム設計作成)
-- Check that `$PROJECT_DIR/.tmp/step-4-ui-design.md` exists (Step 4: デザイン設計作成)
-- If any are missing, inform user to complete previous steps first
-- Confirm project context: "Creating task division for project: `$PROJECT_DIR`"
+- Check that `.tmp/step-1-specification.md` exists
+- Check that `.tmp/step-2-requirements.md` exists
+- Check that `.tmp/step-3-system-design.md` exists
+- Check that `.tmp/step-4-ui-design.md` exists
+- If any missing, inform user to complete previous steps first
 
 ### 2. Analyze all design documents
 
@@ -57,7 +32,7 @@ Read and understand all design documents thoroughly to identify all implementati
 
 ### 3. Create Task List Document
 
-**Use the Write tool to create `$PROJECT_DIR/.tmp/step-5-task-division.md` with the following content:**
+Create `.tmp/step-5-task-division.md` with the following sections:
 
 ```markdown
 # タスクリスト - [機能/改善名]
@@ -95,18 +70,25 @@ Read and understand all design documents thoroughly to identify all implementati
 
 ### Phase 2: 実装
 
-#### Task 2.1: [機能名]の実装
+#### Task 2.1: Page.tsx の書き直し
 
-- [ ] [実装項目 1]
-- [ ] [実装項目 2]
-- [ ] [実装項目 3]
-- [ ] Tailwind CSS のユーティリティクラスのみを使用してスタイリング
+- [ ] `src/app/page.tsx`を機能要件に基づいて完全に書き直す（現在のアプリディレクトリ内）
+- [ ] **適切なコンポーネント選択**: 機能に応じて以下から選択
+  - [ ] レイアウト: `AuthLayout` / `SidebarLayout` / `StackedLayout`
+  - [ ] ナビゲーション: `Navbar`, `Sidebar`
+  - [ ] ボタン・アクション: `Button` (17 色 variants 選択)
+  - [ ] テキスト表示: `Heading`, `Text`, `Strong`, `Code`, `TextLink`
+  - [ ] フォーム: `Input`, `Textarea`, `Select`, `Checkbox`, `Radio`, `Switch`, `Fieldset`
+  - [ ] データ表示: `Table`, `Badge`, `Alert`, `Avatar`, `DescriptionList`
+  - [ ] インタラクション: `Dialog`, `Dropdown`, `Pagination`
+- [ ] TypeScript の path mapping 設定（tsconfig.json で`@ui`エイリアス）
+- [ ] レスポンシブデザインの実装（Tailwind CSS utility classes 使用）
 - [ ] `pnpm lint` を実行しエラーが 0 件であることを確認
 - [ ] Prettier でフォーマットを実行
 - [ ] `pnpm build` を実行しビルドが成功することを確認
-- **完了条件**: [明確な完了条件] + 全コード品質チェックがパス
-- **依存**: [依存するタスク]
-- **推定時間**: [時間]
+- **完了条件**: page.tsx が新機能に対応し、機能に適した共有コンポーネントを適切に選択・活用している + 全コード品質チェックがパス
+- **依存**: なし（最優先タスク）
+- **推定時間**: 2-4 時間
 
 #### Task 2.2: [機能名]の実装
 
@@ -175,30 +157,17 @@ Read and understand all design documents thoroughly to identify all implementati
 - **必須**: ESLint/Prettier/Tailwind の規約に 100%準拠
 ```
 
-### 4. Register tasks in TodoWrite
+### 4. Create TODO entry
 
-Extract main tasks (Phase level or important tasks) and register them using TodoWrite tool with appropriate priorities
+Use TodoWrite to add "タスク分解の完了とレビュー" as a task
 
-### 5. Create implementation guide
+### 5. Present to user
 
-Add a section at the end of step-5-task-division.md:
+Show the created task division document and ask for:
 
-```markdown
-## 実装開始ガイド
-
-1. このタスクリストに従って順次実装を進めてください
-2. 各タスクの開始時に TodoWrite で in_progress に更新
-3. 完了時は completed に更新
-4. 問題発生時は速やかに報告してください
-```
-
-### 6. Present to user
-
-Show the task breakdown and:
-
-- Explain the implementation order
-- Highlight any critical paths
-- Ask for approval to begin implementation
+- Task breakdown confirmation
+- Implementation order approval
+- Permission to begin implementation
 
 ## Important Notes
 
