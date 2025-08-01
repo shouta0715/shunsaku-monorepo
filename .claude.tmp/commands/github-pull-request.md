@@ -1,50 +1,37 @@
 ---
-allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(git:*), Bash(find:*), Bash(ls:*), Bash(gh:*)
+allowed-tools: TodoWrite, Read, Write, MultiEdit, Bash(git:*), Bash(find:*), Bash(ls:*), Bash(gh:*), Bash(pnpm lint:*), Bash(pnpm build:*)
 description: 実装完了後に適切なブランチ名・コミット・PRタイトル・説明文を自動生成してプルリクエストを作成
 ---
 
 ## Context
 
 - Implementation details: $ARGUMENTS (optional, if specific implementation details need to be specified)
+- Working directory: Current app directory (auto-detected)
 
 ## Your task
 
 ### 1. Analyze implementation status
 
-#### 1.1 Detect project directory and check design documents
+#### 1.1 Check design documents in current directory
 
-**Step 1: Determine current project context**
+**Step 1: Confirm current working directory**
 
 ```bash
 pwd
 ```
 
-**Step 2: Apply project detection logic (same as other steps)**
-
-```bash
-# Get absolute path and normalize
-REALPATH=$(realpath .)
-echo "Current absolute path: $REALPATH"
-```
-
-- If current directory path contains `/apps/[project-name]` → Set PROJECT_DIR to current app directory
-- If current directory basename is an app name under apps/ → Set PROJECT_DIR to current directory
-- If in apps/ subdirectory → Use current app directory
-- Default to current directory (assumed to be within apps/)
-- Look for existing `.tmp` directory in current location
-- If no `.tmp` found → Inform user to run specification workflow first
-
-**Step 3: Read design documents from current project**
+**Step 2: Read design documents from current directory**
 
 - Read `.tmp/step-1-specification.md` (仕様書)
 - Read `.tmp/step-2-requirements.md` (要件定義書)
 - Read `.tmp/step-3-system-design.md` (システム設計書)
 - Read `.tmp/step-4-ui-design.md` (UI/UX 設計書)
 - Read `.tmp/step-5-task-division.md` (タスクリスト)
+- If `.tmp` directory doesn't exist → Inform user to run specification workflow first
 
-**Step 4: Confirm project context**
+**Step 3: Confirm project context**
 
-Inform user: "Creating PR for current app project"
+Inform user: "Creating PR for current project"
 
 #### 1.2 Check current implementation
 
@@ -74,15 +61,19 @@ Example: `feature/user-authentication`, `fix/login-validation-error`
 
 #### 3.1 Run mandatory checks
 
+- `pnpm format` - Prettier で全ファイル整形
+- `pnpm lint:fix` - ESLint エラー自動修正
 - `pnpm lint` - ESLint エラーが 0 件であることを確認
 - `pnpm build` - ビルドが成功することを確認
-- Code formatting with Prettier
+- `pnpm typecheck` - TypeScript エラーが 0 件であることを確認
 
 #### 3.2 Verify implementation
 
 - All planned tasks from task division are completed
 - Code follows established patterns and conventions
-- Tailwind CSS utility classes only (no custom CSS)
+- Tailwind CSS v4 utility classes only (no custom CSS)
+- Uses @package/ui components where appropriate
+- Follows monorepo structure (packages/ui for shared, apps/web for app-specific)
 
 ### 4. Create structured commits
 
@@ -183,11 +174,13 @@ Examples:
 
 ## 品質チェック
 
-- [ ] `pnpm lint` エラー 0 件
-- [ ] `pnpm build` 成功
-- [ ] Prettier フォーマット済み
-- [ ] Tailwind CSS ユーティリティクラスのみ使用
-- [ ] 既存コンポーネントの活用
+- [ ] `pnpm format` Prettier 整形済み
+- [ ] `pnpm lint:fix` ESLint 自動修正済み
+- [ ] `pnpm lint` ESLint エラー 0 件
+- [ ] `pnpm build` ビルド成功
+- [ ] `pnpm typecheck` TypeScript エラー 0 件
+- [ ] Tailwind CSS v4 ユーティリティクラスのみ使用
+- [ ] @package/ui 既存コンポーネントの活用
 - [ ] レスポンシブデザイン対応
 - [ ] 型安全性の確保
 

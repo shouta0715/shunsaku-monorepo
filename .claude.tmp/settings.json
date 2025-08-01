@@ -1,7 +1,8 @@
 {
   "env": {
     "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
-    "PNPM_HOME": "./node_modules/.bin"
+    "PNPM_HOME": "./node_modules/.bin",
+    "NODE_ENV": "development"
   },
   "permissions": {
     "allow": [
@@ -24,9 +25,12 @@
       "Bash(pnpm dev:*)",
       "Bash(pnpm build:*)",
       "Bash(pnpm lint:*)",
+      "Bash(pnpm lint:fix:*)",
+      "Bash(pnpm format:*)",
       "Bash(pnpm test:*)",
       "Bash(pnpm run:*)",
       "Bash(pnpm typecheck:*)",
+      "Bash(pnpm start:*)",
       "Bash(ls:*)",
       "Bash(cat:*)",
       "Bash(find:*)",
@@ -77,6 +81,7 @@
       "Write(*.key)",
       "Bash(npm install:*)",
       "Bash(npm i:*)",
+      "Bash(npm run:*)",
       "Bash(yarn:*)",
       "Bash(kill:*)",
       "Bash(killall:*)",
