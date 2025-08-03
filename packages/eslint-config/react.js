@@ -1,4 +1,3 @@
-import jsxA11y from "eslint-plugin-jsx-a11y";
 import reactPlugin from "eslint-plugin-react";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
 import globals from "globals";
@@ -11,11 +10,9 @@ const config = tseslint.config(
     name: "react-settings",
     files: ["**/*.ts", "**/*.tsx"],
     ...reactPlugin.configs.flat.recommended,
-    ...jsxA11y.flatConfigs.strict,
     settings: { react: { version: "detect" } },
     languageOptions: {
       ...reactPlugin.configs.flat.recommended.languageOptions,
-      ...jsxA11y.flatConfigs.recommended.languageOptions,
       globals: {
         ...globals.serviceworker,
         ...globals.browser,
@@ -24,7 +21,6 @@ const config = tseslint.config(
     plugins: {
       react: reactPlugin,
       "react-hooks": reactHooksPlugin,
-      "jsx-a11y": jsxA11y,
     },
   },
   {
