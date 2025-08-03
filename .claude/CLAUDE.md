@@ -63,48 +63,28 @@ When receiving development tasks, please follow the 4-stage workflow below. This
 ### Important Notes
 
 - Each stage depends on the deliverables of the previous stage
-- Please obtain user confirmation before proceeding to the next stage
+- Each stage automatically proceeds to the next with comprehensive progress reporting
 - Always use this workflow for complex tasks or new feature development
 - Simple fixes or clear bug fixes can be implemented directly
 
 ## Claude 4 Best Practices Integration
 
-### Core Optimization Principles
+### Core Principles
 
-**Maximum Parallel Execution**: When performing multiple independent operations, invoke all relevant tools simultaneously rather than sequentially. This is critical for efficiency - plan your operations upfront and execute them together.
+- Use parallel execution for independent operations
+- Be specific about desired outcomes
+- Use thinking capabilities for complex reasoning
+- Provide clear context and motivation
 
-**Explicit and Comprehensive Instructions**: Be specific about desired outcomes. Claude 4 responds better to clear, detailed instructions rather than implicit expectations.
+### Development Standards
 
-**Strategic Use of Thinking**: Leverage thinking capabilities for complex multi-step reasoning, especially after tool usage. Think through results and plan optimal next steps.
+- Analyze thoroughly in early stages
+- Build quality considerations into every task
+- Design for scalability and maintainability
 
-**Context-Driven Development**: Provide background and motivation for tasks to help Claude understand goals and deliver more targeted solutions.
+### Optimization Guidelines
 
-### Development Excellence Standards
-
-**Thoroughness Over Speed**: Take time for comprehensive analysis in early stages - errors compound in later phases.
-
-**Quality Integration**: Build testing, security, and performance considerations into every task from the start.
-
-**Future-Proof Architecture**: Design for scalability, maintainability, and extensibility from day one.
-
-**Proactive Risk Management**: Identify potential issues early and build mitigation strategies into the design.
-
-### Tool Usage Optimization
-
-**Efficient File Management**: Minimize creation of temporary files unless necessary for iteration. Clean up temporary files after task completion.
-
-**Smart Component Reuse**: Always check @package/ui for existing components before creating custom ones [[memory:4951752]].
-
-**Comprehensive Context Gathering**: Use multiple search strategies and gather complete context before making decisions.
-
-**Strategic Task Management**: Use TodoWrite effectively to track progress and manage complex workflows.
-
-### Communication Excellence
-
-**Clear Progress Reporting**: Provide detailed summaries of what was accomplished and where artifacts are located.
-
-**Explicit Approval Requests**: Always request specific confirmation before proceeding to next phases.
-
-**Risk and Rationale Communication**: Explain technical decisions and highlight potential concerns proactively.
-
-**Implementation Readiness**: Ensure deliverables are immediately actionable by development teams.
+- Check @package/ui for existing components [[memory:4951752]]
+- Use TodoWrite for task management
+- Provide progress summaries
+- Ensure deliverables are actionable

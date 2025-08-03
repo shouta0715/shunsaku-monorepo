@@ -9,83 +9,48 @@ description: Start Specification-Driven Development workflow for the given task
 
 ## Your task
 
-Execute the complete Specification-Driven Development workflow with maximum efficiency and thoroughness:
+Execute the complete Specification-Driven Development workflow:
 
-### 1. Setup and Preparation
-
-**Parallel execution instructions**: When performing multiple independent operations, invoke all relevant tools simultaneously rather than sequentially for maximum efficiency.
+### 1. Setup
 
 - Create `.tmp` directory if it doesn't exist
-- Create a new feature branch based on the task
-- Set up the project structure with comprehensive planning
 
 ### 2. Stage 1: Requirements Analysis
 
 Execute `/step-1-requirements` command to create detailed requirements specification.
 
-**Critical requirements**:
+**Output**: `.tmp/step-1-requirements.md`
 
-- Be thorough in identifying ALL explicit and implicit requirements
-- Create actionable, measurable specifications
-- Include comprehensive edge cases and constraints
-- Define clear success criteria
-
-**Present requirements to user for approval before proceeding**
+**Provide requirements summary**
 
 ### 3. Stage 2: Technical Design
 
 Execute `/step-2-design` command to create technical design based on requirements.
 
-**Design excellence requirements**:
+**Output**: `.tmp/step-2-design.md`
 
-- Create complete, implementable technical specifications
-- Include detailed component interfaces and data flows
-- Address all non-functional requirements (performance, security, maintainability)
-- Consider future extensibility and scalability
-
-**Present design to user for approval before proceeding**
+**Provide design summary**
 
 ### 4. Stage 3: Implementation Planning
 
 Execute `/step-3-tasks` command to break down design into implementable tasks.
 
-**Task optimization requirements**:
+**Output**: `.tmp/step-3-tasks.md`
 
-- Break down into commit-sized, actionable tasks (1-4 hours each)
-- Identify parallel execution opportunities
-- Include comprehensive testing throughout the process
-- Define clear completion criteria for each task
+**Provide task breakdown summary**
 
-**Present task list to user for approval before proceeding**
+### 5. Final Summary
 
-### 5. Comprehensive Reporting
+Provide a detailed final summary including:
 
-Provide a detailed summary including:
-
-- What was created and where it's located
+- Complete deliverables created and their locations
 - Key architectural decisions and rationale
 - Implementation readiness assessment
-- Next steps for development team
+- Recommended next steps for immediate development start
+- Summary of the entire workflow completion
 
-## Critical Success Factors
+## Execution Guidelines
 
-**Tool Usage Optimization**:
-
-- **ALWAYS use parallel tool calls** when performing multiple independent operations
-- Leverage thinking capabilities for complex multi-step reasoning
-- Use comprehensive context gathering before making decisions
-
-**Quality Assurance**:
-
-- Each stage output must be detailed, actionable, and implementable
-- Wait for explicit user confirmation between stages
-- Focus on clarity, completeness, and technical excellence
-- Proactively identify and address potential risks and edge cases
-
-**Efficiency Optimization**:
-
-- Plan multiple operations upfront and execute them simultaneously
-- Minimize sequential dependencies where possible
-- Create comprehensive documentation that reduces future clarification needs
-
-think hard and execute with maximum efficiency
+- Use parallel tool calls for independent operations
+- Provide clear summaries between stages
+- Execute efficiently with minimal dependencies

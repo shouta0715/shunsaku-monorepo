@@ -9,19 +9,13 @@ description: Create requirements specification for the given task (Stage 1 of Sp
 
 ## Your task
 
-**Execute requirements analysis with maximum thoroughness and efficiency**. This is the foundation stage that determines project success - invest the time needed to get comprehensive, accurate requirements.
+**Execute requirements analysis**. Create clear, accurate requirements.
 
-### 1. Setup and Preparation
-
-**Parallel execution**: When performing multiple independent operations (directory creation, file reading, research), invoke all relevant tools simultaneously for maximum efficiency.
+### 1. Setup
 
 - Create `.tmp` directory if it doesn't exist
-- If similar projects exist in the codebase, research them for patterns and best practices
-- Gather comprehensive context about the existing system architecture
 
-### 2. Deep Requirements Analysis
-
-**Critical analysis approach**: Think carefully through each aspect before proceeding. Use systematic analysis to ensure nothing is missed.
+### 2. Requirements Analysis
 
 **Extract and document**:
 
@@ -41,6 +35,10 @@ Create `.tmp/step-1-requirements.md` with the following sections:
 ```markdown
 # 要件定義書 - [タスク名]
 
+作成日: [YYYY-MM-DD]
+更新日: [YYYY-MM-DD]
+バージョン: 1.0
+
 ## 1. 目的
 
 [このタスク/プロジェクトの目的を明確に記述]
@@ -49,8 +47,8 @@ Create `.tmp/step-1-requirements.md` with the following sections:
 
 ### 2.1 必須機能
 
-- [ ] [機能1の詳細説明]
-- [ ] [機能2の詳細説明]
+- [ ] [機能 1 の詳細説明]
+- [ ] [機能 2 の詳細説明]
       ...
 
 ### 2.2 オプション機能
@@ -90,8 +88,8 @@ Create `.tmp/step-1-requirements.md` with the following sections:
 
 ### 5.1 完了の定義
 
-- [ ] [明確な完了条件1]
-- [ ] [明確な完了条件2]
+- [ ] [明確な完了条件 1]
+- [ ] [明確な完了条件 2]
       ...
 
 ### 5.2 受け入れテスト
@@ -107,44 +105,8 @@ Create `.tmp/step-1-requirements.md` with the following sections:
 - [設計フェーズで詳細化すべき事項]
 ```
 
-### 4. Quality Assurance and Validation
+### 4. Summary and Next Steps
 
-**Comprehensive review process**:
+**Provide requirements summary** and **automatically proceed to technical design phase**
 
-- Verify all requirements are testable and measurable
-- Ensure requirements address both current needs and future scalability
-- Cross-check requirements against business objectives
-- Identify potential conflicts or ambiguities
-
-Use TodoWrite to add "要件定義の完了とレビュー" as a task
-
-### 5. Strategic Presentation and Validation
-
-**Present comprehensive requirements analysis**:
-
-- Show the complete requirements document with clear structure
-- Highlight key insights and critical requirements discovered
-- Explain the rationale behind non-obvious requirements
-- Point out potential risks and mitigation strategies identified
-
-**Request specific feedback**:
-
-- Confirmation that all business objectives are covered
-- Validation of implicit requirements identified
-- Agreement on success criteria and completion conditions
-- Any additional constraints or requirements not captured
-- **Explicit approval to proceed to technical design phase**
-
-## Requirements Excellence Standards
-
-**Thoroughness over speed**: Take the time needed for comprehensive analysis - errors here compound in later stages.
-
-**Context-driven analysis**: Always consider how this feature fits within the broader system architecture and business goals.
-
-**Measurable specifications**: Every requirement should be verifiable through testing or observation.
-
-**Risk-aware planning**: Proactively identify what could go wrong and how to prevent it.
-
-**Future-proof thinking**: Consider extensibility and maintenance from the start.
-
-think hard and execute with excellence - comprehensive requirements are the foundation of project success
+Execute efficiently while ensuring requirements are clear, measurable, and implementable.

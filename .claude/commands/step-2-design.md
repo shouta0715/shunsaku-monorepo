@@ -9,43 +9,35 @@ description: Create detailed design specification based on requirements (Stage 2
 
 ## Your task
 
-**Execute comprehensive technical design with architectural excellence**. Transform requirements into implementable, scalable technical specifications.
+**Execute technical design**. Transform requirements into implementable specifications.
 
-### 1. Prerequisites and Context Gathering
-
-**Parallel execution**: When checking prerequisites and gathering context, invoke multiple tools simultaneously for maximum efficiency.
+### 1. Prerequisites
 
 - Check that `.tmp/step-1-requirements.md` exists
-- If not, inform user to run `/step-1-requirements` first
-- Research existing codebase patterns and architectural decisions
-- Identify reusable components from the `@package/ui` library [[memory:4951752]]
-- Gather information about the current tech stack and constraints
+- Research existing codebase patterns and identify reusable components from `@package/ui` [[memory:4951752]]
 
-### 2. Strategic Requirements Analysis
+### 2. Design Analysis
 
-**Deep analysis approach**: Use thinking capabilities to thoroughly understand requirements before designing.
+- Read requirements document and map to technical components
+- Consider scalability, performance, security implications
 
-**Comprehensive analysis process**:
-
-- Read and deeply understand the requirements document
-- Identify architectural implications of each requirement
-- Map requirements to technical components and interfaces
-- Consider scalability and performance implications
-- Plan for error handling and edge cases
-- Evaluate security and compliance requirements
-
-### 3. Architectural Design Excellence
+### 3. Architectural Design
 
 Create `.tmp/step-2-design.md` with the following sections:
 
 ````markdown
 # 詳細設計書 - [タスク名]
 
+作成日: [YYYY-MM-DD]
+更新日: [YYYY-MM-DD]
+バージョン: 1.0
+基盤要件: @.tmp/step-1-requirements.md
+
 ## 1. アーキテクチャ概要
 
 ### 1.1 システム構成図
 
-[ASCII図やMermaid図でシステム全体の構成を表現]
+[ASCII 図や Mermaid 図でシステム全体の構成を表現]
 
 ### 1.2 技術スタック
 
@@ -89,13 +81,13 @@ Create `.tmp/step-2-design.md` with the following sections:
 - 処理過程: [変換ロジック]
 - 出力データ形式: [形式の説明]
 
-## 4. APIインターフェース
+## 4. API インターフェース
 
-### 4.1 内部API
+### 4.1 内部 API
 
 [モジュール間のインターフェース定義]
 
-### 4.2 外部API
+### 4.2 外部 API
 
 [外部システムとの連携インターフェース]
 
@@ -103,8 +95,8 @@ Create `.tmp/step-2-design.md` with the following sections:
 
 ### 5.1 エラー分類
 
-- [エラータイプ1]: [対処方法]
-- [エラータイプ2]: [対処方法]
+- [エラータイプ 1]: [対処方法]
+- [エラータイプ 2]: [対処方法]
 
 ### 5.2 エラー通知
 
@@ -153,52 +145,14 @@ Create `.tmp/step-2-design.md` with the following sections:
 
 ## 10. 実装上の注意事項
 
-- [注意点1]
-- [注意点2]
+- [注意点 1]
+- [注意点 2]
 
 ```
 
-### 4. Design Validation and Quality Assurance
+### 4. Summary and Next Steps
 
-**Comprehensive validation process**:
-- Verify design addresses all requirements from the requirements document
-- Ensure architectural consistency and scalability
-- Validate component interfaces and data flow integrity
-- Check for potential performance bottlenecks
-- Review security implications and mitigation strategies
-- Confirm maintainability and extensibility
+**Provide design summary** and **automatically proceed to implementation planning phase**
 
-Use TodoWrite to add "詳細設計の完了とレビュー" as a task
-
-### 5. Strategic Presentation and Validation
-
-**Present comprehensive technical design**:
-- Show the complete design document with clear architectural vision
-- Explain key technical decisions and their rationale
-- Highlight how the design addresses scalability and maintainability
-- Point out innovative solutions and architectural patterns used
-- Identify potential risks and mitigation strategies
-
-**Request specific technical validation**:
-- Confirmation that the architecture meets all requirements
-- Validation of technical approach and technology choices
-- Agreement on component interfaces and data flow design
-- Review of performance and security considerations
-- **Explicit approval to proceed to implementation planning phase**
-
-## Design Excellence Standards
-
-**Architectural Integrity**: Every component should have a clear purpose and well-defined boundaries.
-
-**Scalability Focus**: Design for growth - consider how the system will evolve and scale.
-
-**Maintainability Priority**: Code should be readable, testable, and modifiable by future developers.
-
-**Performance Consideration**: Identify potential bottlenecks and optimization opportunities early.
-
-**Security by Design**: Build security considerations into the architecture from the start.
-
-**Reusability Optimization**: Leverage existing components and create reusable patterns where appropriate.
-
-think hard and execute with excellence - create architecture that stands the test of time
+Execute efficiently while ensuring design is scalable, maintainable, and secure.
 ```
