@@ -9,7 +9,10 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "lint:fix": "pnpm lint --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "quality:auto": "pnpm install && pnpm lint:fix && pnpm format",
+    "quality:check": "pnpm lint && pnpm typecheck && pnpm build",
+    "quality:full": "pnpm quality:auto && pnpm quality:check"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
