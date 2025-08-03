@@ -151,7 +151,7 @@ Create `.tmp/step-2-design.md` with the following sections:
 
 - @package/ui コンポーネントを最優先で使用する
 - データベース/API 接続前にモックデータで動作確認を行う
-- 各機能実装後は品質チェック（lint, format, typecheck, build）を実行する
+- 各機能実装後は品質チェック（pnpm install, pnpm lint, pnpm format, pnpm typecheck, pnpm build）を実行する
 
 ## 11. モックデータ設計
 

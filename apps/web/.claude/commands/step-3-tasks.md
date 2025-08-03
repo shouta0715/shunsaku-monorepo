@@ -153,11 +153,12 @@ Add implementation guide to tasks.md:
 
 各タスク完了時に以下を順次実行：
 
-1. `pnpm lint:fix` - 自動修正
-2. `pnpm format` - コード整形
-3. `pnpm lint` - リント確認（エラーがあれば修正）
-4. `pnpm typecheck` - 型チェック（エラーがあれば修正）
-5. `pnpm build` - ビルド確認（エラーがあれば修正）
+1. `pnpm install` - パッケージインストール
+2. `pnpm lint:fix` - 自動修正
+3. `pnpm format` - コード整形
+4. `pnpm lint` - リント確認（エラーがあれば修正）
+5. `pnpm typecheck` - 型チェック（エラーがあれば修正）
+6. `pnpm build` - ビルド確認（エラーがあれば修正）
 
 **重要**: 全ての品質チェックがパスするまでタスクは完了とみなさない
 ```

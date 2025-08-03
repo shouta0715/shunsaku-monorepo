@@ -23,11 +23,12 @@ This document defines the project's rules, objectives, and progress management m
 
 After implementing each feature or completing each task, execute the following quality checks in order:
 
-1. `pnpm lint:fix` - Automatically fix linting issues
-2. `pnpm format` - Format code according to project standards
-3. `pnpm lint` - Verify all linting rules pass; fix any remaining issues
-4. `pnpm typecheck` - Ensure TypeScript compilation succeeds; resolve type errors
-5. `pnpm build` - Confirm the project builds successfully; address build failures
+1. `pnpm install` - Package Install
+2. `pnpm lint:fix` - Automatically fix linting issues
+3. `pnpm format` - Format code according to project standards
+4. `pnpm lint` - Verify all linting rules pass; fix any remaining issues
+5. `pnpm typecheck` - Ensure TypeScript compilation succeeds; resolve type errors
+6. `pnpm build` - Confirm the project builds successfully; address build failures
 
 **Critical**: All quality checks must pass before considering a task complete.
 
