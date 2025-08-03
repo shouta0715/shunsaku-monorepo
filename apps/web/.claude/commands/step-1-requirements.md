@@ -252,10 +252,14 @@ interface User {
 
 ## 🚀 実行手順
 
-### ステップ1: 準備作業
+### ステップ1: 準備作業 (Windows最適化)
 ```bash
-# .tmpディレクトリの作成
-mkdir -p .tmp
+# .tmpディレクトリの作成 (全OS対応)
+node -e "const fs=require('fs'); fs.mkdirSync('.tmp', {recursive:true})"
+
+# または手動で:
+# Windows: mkdir .tmp (存在する場合は無視)
+# macOS/Linux: mkdir -p .tmp
 ```
 
 ### ステップ2: 要求分析

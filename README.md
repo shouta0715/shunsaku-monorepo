@@ -117,17 +117,24 @@ pnpm lint:fix   # ESLint 自動修正
 pnpm format     # Prettier フォーマット
 ```
 
-#### Phase 2: 検証（並列実行）
+#### Phase 2: 検証（並列実行） - Windows 最適化
 
-**macOS/Linux:**
+**推奨方法 (全 OS 対応・確実性重視):**
 
 ```bash
-pnpm lint & pnpm typecheck & pnpm build
+# 順次実行 - 確実に動作
+pnpm lint
+pnpm typecheck
+pnpm build
 ```
 
-**Windows:**
+**並列実行 (上級者向け):**
 
-```powershell
+```bash
+# macOS/Linux:
+pnpm lint & pnpm typecheck & pnpm build
+
+# Windows PowerShell:
 pnpm lint; pnpm typecheck; pnpm build
 ```
 

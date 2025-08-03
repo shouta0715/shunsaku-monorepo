@@ -123,10 +123,21 @@ gantt
 **技術詳細**:
 
 ```bash
-# 実行コマンド例
+# プロジェクト作成
 pnpm create next-app@latest
-pnpm add zustand @tanstack/react-query
+
+# パッケージ追加 (package.json直接編集推奨)
+# 1. package.jsonの dependencies に追加:
+#    "zustand": "^4.5.2",
+#    "@tanstack/react-query": "^5.17.15"
+# 2. インストール実行
+pnpm install
 ```
+
+**パッケージ管理方針:**
+
+- パッケージ追加は `package.json` を直接編集してから `pnpm install`
+- Windows環境での確実性を重視した方法
 
 **品質保証**:
 

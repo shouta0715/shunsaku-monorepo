@@ -56,18 +56,27 @@ pnpm lint:fix     # Auto-fix linting issues
 pnpm format       # Format code
 ```
 
-### Phase 2: Verification (Parallel)
+### Phase 2: Verification (Windows最適化)
 
-**macOS/Linux:**
+**推奨方法 (全OS対応・確実性重視):**
 
 ```bash
-pnpm lint & pnpm typecheck & pnpm build
+# 順次実行 - Windows環境で確実に動作
+pnpm lint
+pnpm typecheck
+pnpm build
 ```
 
-**Windows:**
+**並列実行 (上級者向け):**
 
-```powershell
-pnpm lint; pnpm typecheck; pnpm build
+```bash
+# macOS/Linux: バックグラウンド並列実行
+pnpm lint & pnpm typecheck & pnpm build & wait
+
+# Windows PowerShell: 個別実行推奨
+pnpm lint
+pnpm typecheck
+pnpm build
 ```
 
 ### Completion Criteria
@@ -308,29 +317,52 @@ try {
 }
 ```
 
-## 📦 Dependency Management
+## 📦 Dependency Management (Windows最適化)
 
-### Adding Dependencies
+### パッケージ追加の推奨方法
+
+**Step 1: package.json直接編集**
+
+```json
+{
+  "dependencies": {
+    "package-name": "^1.2.3"
+  },
+  "devDependencies": {
+    "@types/package-name": "^1.0.0"
+  }
+}
+```
+
+**Step 2: インストール実行**
 
 ```bash
-# Production dependency
+pnpm install
+```
+
+**従来の方法 (参考):**
+
+```bash
+# 直接追加 (Windows環境で問題が生じる場合がある)
 pnpm add package-name
-
-# Development dependency
 pnpm add -D package-name
-
-# Specific version
 pnpm add package-name@1.2.3
 ```
 
-### Resolution Process
+### パッケージ解決プロセス (Windows最適化)
 
-1. **Identify missing packages** from errors
-2. **Use Context7 MCP** to get latest library documentation
-3. **Check alternatives** in `@package/ui` first
-4. **Add required dependencies** with specific versions
-5. **Run quality checks** (lint → typecheck → build)
-6. **Update documentation** if needed
+1. **Missing packages特定** - エラーから不足パッケージを識別
+2. **Context7 MCP活用** - 最新ライブラリドキュメントを取得
+3. **@package/ui優先確認** - 既存コンポーネントで代替可能か検討
+4. **package.json直接編集** - 必要な依存関係を適切なバージョンで追加
+5. **インストール実行** - `pnpm install` でパッケージをインストール
+6. **品質チェック** - 順次実行で確認:
+   ```bash
+   pnpm lint
+   pnpm typecheck
+   pnpm build
+   ```
+7. **ドキュメント更新** - 必要に応じて更新
 
 ### MCP Context7 Integration
 
@@ -388,24 +420,42 @@ Benefits:
 | Lint errors    | Run `pnpm lint:fix` first              |
 | Test failures  | Check mock data, verify async handling |
 
-### Debug Commands
+### Debug Commands (Windows最適化)
 
 ```bash
 # Clear all caches
 pnpm clean
-
-# Reinstall dependencies
-rm -rf node_modules pnpm-lock.yaml && pnpm install
 
 # Check for outdated packages
 pnpm outdated
 
 # Analyze bundle size
 pnpm analyze
+```
 
-# Complete quality check pipeline
-pnpm install && pnpm lint:fix && pnpm format
-pnpm lint && pnpm typecheck && pnpm build
+**依存関係の再インストール:**
+
+```bash
+# Windows安全な方法:
+pnpm store prune
+pnpm install
+
+# 手動クリーンアップ (必要に応じて):
+# 1. node_modules フォルダを手動削除
+# 2. pnpm-lock.yaml を削除
+# 3. pnpm install を実行
+```
+
+**完全な品質チェックパイプライン:**
+
+```bash
+# 順次実行 (Windows推奨)
+pnpm install
+pnpm lint:fix
+pnpm format
+pnpm lint
+pnpm typecheck
+pnpm build
 ```
 
 ### Permission Management (Claude Code Best Practices)

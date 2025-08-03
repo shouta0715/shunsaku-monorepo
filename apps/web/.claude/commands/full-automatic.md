@@ -160,13 +160,15 @@ Claude Codeのベストプラクティスに基づき、ユーザーの要求を
 | ファイル書き込み失敗        | ディスク容量不足      | 容量確認、不要ファイル削除         |
 | 既存ファイルの上書き警告    | `.tmp` に既存ファイル | バックアップ後に実行継続           |
 
-### ロールバック手順
+### ロールバック手順 (Windows最適化)
 
 問題が発生した場合の復旧方法：
 
+**推奨方法:**
+
 ```bash
-# 1. 部分的な出力ファイルを削除
-rm -rf .tmp/step-*
+# 1. 部分的な出力ファイルを削除 (Windows/Mac/Linux対応)
+node -e "const fs=require('fs'); try{fs.rmSync('.tmp',{recursive:true,force:true})}catch(e){} fs.mkdirSync('.tmp',{recursive:true})"
 
 # 2. コマンドを再実行（より具体的な説明で）
 /full-automatic "詳細で明確な要求説明"
@@ -175,6 +177,18 @@ rm -rf .tmp/step-*
 /step-1-requirements "要求説明"
 /step-2-design
 /step-3-tasks
+```
+
+**手動削除 (必要に応じて):**
+
+```bash
+# Windows PowerShell:
+Remove-Item -Recurse -Force .tmp -ErrorAction SilentlyContinue
+New-Item -ItemType Directory .tmp
+
+# macOS/Linux:
+rm -rf .tmp/step-*
+mkdir -p .tmp
 ```
 
 ## 🎯 実用例とテンプレート
