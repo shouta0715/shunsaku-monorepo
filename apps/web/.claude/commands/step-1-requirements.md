@@ -7,7 +7,7 @@ output: ".tmp/step-1-requirements.md"
 
 # 📋 要件分析ステージ
 
-**既存apps/webプロジェクトのメインページ（src/app/layout.tsx, page.tsx）上書き型実装を前提とし、ユーザー要求を@package/ui活用・src/内正しいディレクトリ構造での要件仕様書に変換します。**
+**既存apps/webプロジェクトのメインページ（src/app/layout.tsx, page.tsx）上書き型実装を前提とし、ユーザー要求を@package/ui活用・統一デザインシステム（white基調・slate色系・gentle UI）準拠・src/内正しいディレクトリ構造での要件仕様書に変換します。**
 
 ## 📝 使用法
 
@@ -53,4 +53,5 @@ output: ".tmp/step-1-requirements.md"
 - **SMART+原則**: 具体的・測定可能・実現可能・関連性・時限性・テスト可能性
 - **完全性**: 機能・非機能要件が漏れなく網羅
 - **@package/ui活用計画**: 既存コンポーネント調査と活用戦略
+- **デザイン統一性**: 統一カラーパレット（slate系）・優しいトーンの徹底
 - **品質要件**: エラー0件・build成功・動作確認の明確な基準定義

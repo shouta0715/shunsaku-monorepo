@@ -1,74 +1,123 @@
 # [プロジェクト名] - モダンWebアプリケーション
 
 ## プロジェクト概要
-[ここに1-2行でプロジェクトの目的と価値を記述]
+統一されたデザインシステムを持つ、モダンでアクセシブルなWebアプリケーション。  
+白基調の優しい色調で、プロフェッショナルかつ親しみやすいユーザー体験を提供。
 
-## 技術仕様
+## v0.dev最適化設計仕様
+
+### 技術スタック
 - **Framework**: Next.js 15 with App Router
 - **Language**: TypeScript (strict mode)
 - **Styling**: Tailwind CSS
-- **UI Components**: shadcn/ui ベース (v0.devの標準コンポーネント使用)
-- **Responsive**: Mobile-first design
-- **Target**: デスクトップ・タブレット・モバイル対応
+- **UI Library**: shadcn/ui components
+- **Icons**: Lucide React
+- **Responsive**: Mobile-first design approach
 
-## UI/UX要件
+## デザインシステム (最重要)
 
-### レイアウト
-- **Page Type**: [Single page / Multi-section landing / Dashboard / Blog / E-commerce など]
-- **Navigation**: [Header nav / Sidebar / Bottom nav / Floating など]
-- **Layout Style**: [Modern / Minimal / Professional / Creative / Corporate など]
+### カラーパレット - 白基調 & 優しい色調
+```
+Primary Colors (統一使用):
+- Background: bg-white, bg-gray-50, bg-gray-25
+- Primary: bg-blue-50, text-blue-600, border-blue-200
+- Secondary: bg-emerald-50, text-emerald-600, border-emerald-200
+- Accent: bg-rose-50, text-rose-600, border-rose-200
+- Neutral: bg-slate-50, text-slate-600, border-slate-200
 
-### デザインシステム
-- **Color Scheme**: [Light / Dark / Auto / Custom]
-- **Typography**: Sans-serif (Inter/Geist系)
-- **Spacing**: Consistent 8px grid system
-- **Border Radius**: [Sharp / Rounded / Pill / Mixed]
-- **Shadows**: [None / Subtle / Prominent / Glass effect]
+Text Hierarchy:
+- Headlines: text-slate-900
+- Body: text-slate-600
+- Muted: text-slate-400
+- Links: text-blue-600 hover:text-blue-700
+```
 
-### 主要コンポーネント
-1. **Header**: [ナビゲーション・ロゴ・CTA要素]
-2. **Hero Section**: [見出し・説明・メインCTA・画像/動画]
-3. **Feature Sections**: [機能紹介・アイコン・説明文]
-4. **[カスタムセクション]**: [具体的な機能要件]
-5. **Footer**: [リンク・連絡先・SNS・コピーライト]
+### デザイン原則
+- **Tone**: Clean, Gentle, Professional, Approachable
+- **Typography**: font-inter または font-geist-sans
+- **Spacing**: 一貫した 8px グリッドシステム
+- **Border Radius**: rounded-lg (8px) 統一
+- **Shadows**: shadow-sm, shadow-md のみ使用
+- **Borders**: border-slate-200 で統一
+
+### コンポーネント統一ルール
+- **全てのカード**: bg-white + border-slate-200 + shadow-sm
+- **ボタン**: Primary (bg-blue-600), Secondary (bg-white border-slate-200)
+- **入力フィールド**: bg-white + border-slate-200 + focus:border-blue-500
+- **バッジ**: bg-{color}-50 + text-{color}-600 組み合わせ
+- **アイコン**: 同じ色系統のtext-{color}-500で統一
+
+## レイアウト構成
+
+### ページタイプ
+- **Type**: [Single page / Multi-section landing / Dashboard など]
+- **Navigation**: [Header nav / Sidebar など]
+- **Style**: Modern Minimal with Gentle Aesthetics
+
+### 必須セクション
+1. **Header**: 白背景、優しいボーダー、統一ナビゲーション
+2. **Hero Section**: 大きなホワイトスペース、ソフトなグラデーション
+3. **Feature Sections**: カード型レイアウト、統一カラーパレット
+4. **Slide Show Section**: `/slide-show`ページ、プレゼンテーション機能
+5. **Footer**: ミニマル、白基調、優しいアクセント
 
 ## 機能要件
 
 ### Core Features
-- [メイン機能1]: [具体的な説明]
-- [メイン機能2]: [具体的な説明]
-- [メイン機能3]: [具体的な説明]
+- **スライドショー機能**: プロジェクトプレゼンテーション用の自動再生・手動ナビゲーション対応スライドショー
+- **統一デザインシステム**: 全ページで一貫したカラーパレット・コンポーネントスタイル
+- **レスポンシブレイアウト**: モバイルファースト設計による全デバイス対応
 
-### Interactive Elements
-- [フォーム / ボタン / モーダル / カルーセル / タブ などの対話要素]
-- [アニメーション要件]: [Hover effects / Smooth transitions / Loading states]
+### インタラクティブ要素
+- **Hover Effects**: 優しいトランジション (transition-all duration-200)
+- **Buttons**: ソフトなホバーエフェクト
+- **Cards**: 微細なshadow変化
+- **Forms**: フォーカス時の優しいボーダー変化
 
-### Content Areas
-- [テキストコンテンツ]: [見出し・段落・リスト形式]
-- [メディアコンテンツ]: [画像・アイコン・動画プレースホルダー]
-- [データ表示]: [テーブル・カード・グリッド・リスト形式]
+### コンテンツエリア
+- **Typography**: 読みやすい行間、適切なコントラスト
+- **Images**: rounded-lg、優しいborder
+- **Icons**: 統一カラーパレットで色付け
 
-## アクセシビリティ
+## v0.dev 最適化指示
+
+### 必須キーワード
+- "clean white design"
+- "soft color palette"
+- "consistent component styling"
+- "gentle user interface"
+- "unified color scheme"
+- "modern minimal aesthetic"
+
+### 避ける要素
+- 強い色 (red-500, blue-500など)
+- 鋭いコントラスト
+- 複雑なグラデーション
+- 不統一な色使い
+
+## アクセシビリティ & パフォーマンス
 - WCAG 2.1 AA準拠
-- キーボードナビゲーション対応
-- スクリーンリーダー対応
-- コントラスト比適切
-- セマンティックHTML使用
+- 適切なコントラスト比 (白背景での可読性確保)
+- キーボードナビゲーション
+- セマンティックHTML構造
+- 最適化された画像使用
 
-## パフォーマンス考慮
-- 画像最適化（next/image使用前提）
-- 遅延読み込み
-- コンポーネント分割
-- モバイル最適化
-
-## 出力要件
-- **Clean Code**: TypeScriptで型安全
-- **Component Structure**: 再利用可能なコンポーネント設計
-- **Responsive**: mobile-first approach
-- **Modern**: 2024年のデザイントレンド
-- **Professional**: ビジネス利用可能品質
+## 品質要件
+- **Code Quality**: TypeScript strict mode
+- **Reusability**: 統一デザインシステムに基づく再利用可能コンポーネント
+- **Consistency**: 全コンポーネントで同じカラーパレット使用
+- **Responsiveness**: Mobile-first responsive design
+- **Performance**: 軽量で高速なUI
 
 ---
 
-**Priority**: 機能性とユーザビリティを重視し、見た目の美しさと使いやすさのバランスを取る
-**Output**: Figmaエクスポート可能な完成度の高いプロトタイプ
+**最優先事項**: 
+1. 白基調の優しい色使いを徹底
+2. 全コンポーネントでカラーパレットを統一
+3. 清潔で親しみやすいデザイン
+4. プロフェッショナルかつ温かみのあるUI
+
+**v0.devプロンプト戦略**: 
+- 具体的な色指定を含める
+- 統一感を強調する表現を使用
+- 優しい・柔らかいトーンを明示
