@@ -16,6 +16,20 @@ This document defines the project's rules, objectives, and progress management m
 - Avoid hard-coding values unless absolutely necessary.
 - Do not use `any` or `unknown` types in TypeScript.
 - You must not use a TypeScript `class` unless it is absolutely necessary (e.g., extending the `Error` class for custom error handling that requires `instanceof` checks).
+- **Component Priority**: Always use components from `@package/ui` as the foundation. Only create custom components if the required functionality is not available in the package.
+- **Mock Data Strategy**: When implementing features that require databases or APIs, create mock data to ensure functionality works independently before integrating with real data sources.
+
+### Quality Assurance Protocol
+
+After implementing each feature or completing each task, execute the following quality checks in order:
+
+1. `pnpm lint:fix` - Automatically fix linting issues
+2. `pnpm format` - Format code according to project standards
+3. `pnpm lint` - Verify all linting rules pass; fix any remaining issues
+4. `pnpm typecheck` - Ensure TypeScript compilation succeeds; resolve type errors
+5. `pnpm build` - Confirm the project builds successfully; address build failures
+
+**Critical**: All quality checks must pass before considering a task complete.
 
 ## Development Style - Specification-Driven Development
 

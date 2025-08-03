@@ -15,6 +15,7 @@ description: Create detailed design specification based on requirements (Stage 2
 
 - Check that `.tmp/step-1-requirements.md` exists
 - Research existing codebase patterns and identify reusable components from `@package/ui` [[memory:4951752]]
+- Plan mock data structure for development and testing phases
 
 ### 2. Design Analysis
 
@@ -50,9 +51,12 @@ Create `.tmp/step-2-design.md` with the following sections:
 
 ### 2.1 コンポーネント一覧
 
-| コンポーネント名 | 責務         | 依存関係                 |
-| ---------------- | ------------ | ------------------------ |
-| [Component A]    | [責務の説明] | [依存するコンポーネント] |
+| コンポーネント名 | 責務         | ソース      | 依存関係                 |
+| ---------------- | ------------ | ----------- | ------------------------ |
+| [Component A]    | [責務の説明] | @package/ui | [依存するコンポーネント] |
+| [Component B]    | [責務の説明] | カスタム    | [依存するコンポーネント] |
+
+**注**: 可能な限り @package/ui のコンポーネントを使用し、必要な場合のみカスタムコンポーネントを作成する
 
 ### 2.2 各コンポーネントの詳細
 
@@ -145,8 +149,26 @@ Create `.tmp/step-2-design.md` with the following sections:
 
 ## 10. 実装上の注意事項
 
-- [注意点 1]
-- [注意点 2]
+- @package/ui コンポーネントを最優先で使用する
+- データベース/API 接続前にモックデータで動作確認を行う
+- 各機能実装後は品質チェック（lint, format, typecheck, build）を実行する
+
+## 11. モックデータ設計
+
+### 11.1 データ構造
+
+```typescript
+// モックデータの型定義例
+interface MockData {
+  // [データ構造の定義]
+}
+```
+
+### 11.2 モック API 設計
+
+- エンドポイント: [一覧]
+- レスポンス形式: [JSON 構造]
+- エラーケース: [想定されるエラーパターン]
 
 ```
 

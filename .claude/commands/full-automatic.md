@@ -37,3 +37,6 @@ Execute `/step-3-tasks` command to break down design into implementable tasks.
 
 - Use parallel tool calls for independent operations
 - Execute efficiently with minimal dependencies
+- Prioritize @package/ui components in all design and implementation phases
+- Implement mock data strategy for features requiring external data sources
+- Ensure quality assurance (lint, format, typecheck, build) is integrated into each stage

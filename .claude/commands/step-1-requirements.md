@@ -24,6 +24,8 @@ description: Create requirements specification for the given task (Stage 1 of Sp
 - **Implicit functional requirements**: What the system should do (unstated but expected)
 - **Non-functional requirements**: Performance, security, usability, maintainability expectations
 - **Integration requirements**: How this fits with existing systems
+- **Component requirements**: Identify which `@package/ui` components can be leveraged
+- **Data requirements**: Specify what data/APIs are needed and plan for mock data during development
 - **Edge cases and error scenarios**: What could go wrong and how to handle it
 - **Success criteria**: Measurable, specific completion conditions
 - **Future considerations**: Extensibility and scalability needs
@@ -73,6 +75,17 @@ Create `.tmp/step-1-requirements.md` with the following sections:
 ### 3.4 互換性
 
 - [既存システムとの互換性要件]
+
+### 3.5 コンポーネント要件
+
+- 使用可能な @package/ui コンポーネント: [一覧]
+- カスタムコンポーネントが必要な箇所: [理由とともに記載]
+
+### 3.6 データ要件
+
+- 必要な API エンドポイント: [一覧]
+- データベーススキーマ要件: [説明]
+- モックデータ仕様: [開発段階で使用するテストデータ]
 
 ## 4. 制約事項
 
