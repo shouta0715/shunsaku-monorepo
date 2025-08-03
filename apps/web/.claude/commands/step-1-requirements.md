@@ -1,41 +1,88 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*)
-description: Stage 1 - Requirements Analysis for Specification-Driven Development
+description: "Requirements Analysis Stage - ユーザー要求を包括的な要件仕様書に変換"
+version: "2.0.0"
+author: ["AnijaaaPan", "shouta0715"]
+created: "2025-01-28"
+updated: "2025-01-28"
+category: "analysis"
+tags:
+  [
+    "requirements",
+    "analysis",
+    "smart-criteria",
+    "moscow",
+    "claude-code-optimized",
+  ]
+stage: 1
+prerequisite: "Clear user requirements description"
+duration: "2-3 minutes"
+output: ".tmp/step-1-requirements.md"
+optimization: "Claude Code Best Practices + Japanese Excellence"
 ---
 
-# Requirements Analysis Stage
+# 📋 要件分析ステージ
 
-Transform user requests into comprehensive requirements documentation.
+**ユーザーの要求を実装可能な包括的要件仕様書に変換します。**
 
-## 📋 Input
+Claude Codeのベストプラクティスに基づき、曖昧な要求を具体的で測定可能な機能要件・非機能要件に分解し、開発チーム全体が理解できる明確な仕様書を作成します。
 
-- User request: `$ARGUMENTS`
-- Output: `.tmp/step-1-requirements.md`
+## 🎯 Claude Code 最適化ポイント
 
-## 🎯 Objectives
+- **段階的詳細化**: 初期段階で概要を把握し、段階的に詳細を追加
+- **コンテキスト効率**: 必要な情報を簡潔にまとめ、コンテキストウィンドウを効率的に使用
+- **反復改善**: フィードバックループによる継続的な品質向上
+- **書き直し戦略**: 不十分な結果の場合は積極的に書き直しを依頼
 
-### Core Analysis Areas
+## 📝 使用法
 
-1. **Problem Definition**
-   - What problem are we solving?
-   - Why is this solution needed?
-   - Who are the stakeholders?
+```bash
+/step-1-requirements "User authentication system with social login and 2FA"
+/step-1-requirements "Real-time chat with file sharing and notifications"
+/step-1-requirements "Product catalog with advanced search and filtering"
+```
 
-2. **Functional Requirements**
-   - Explicit requirements (stated by user)
-   - Implicit requirements (industry standards)
-   - User workflows and interactions
+## 📋 入力・出力仕様
 
-3. **Non-Functional Requirements**
-   - Performance targets
-   - Security requirements
-   - Accessibility standards
-   - Browser compatibility
+### 入力要件
 
-4. **Integration Points**
-   - Existing system dependencies
-   - API requirements
-   - Data sources needed
+- **User Requirements**: `$ARGUMENTS` - 実装したい機能の詳細説明
+  - ✅ **Good**: "JWT認証、パスワードリセット、2FA、役割ベースアクセス制御を含む認証システム"
+  - ❌ **Bad**: "ログイン機能"
+  - 🎯 **Claude Code Optimized**: 「技術要件、性能目標、セキュリティ基準、ユーザーシナリオを明示した包括的な要求説明」
+
+### 出力仕様
+
+- **ファイル**: `.tmp/step-1-requirements.md`
+- **フォーマット**: 構造化されたMarkdown文書
+- **内容**: 機能要件、非機能要件、制約、成功基準
+
+## 🎯 分析目標
+
+### 核心分析領域
+
+1. **🎯 問題定義**
+   - 解決すべき具体的な課題は何か？
+   - なぜこのソリューションが必要なのか？
+   - 主要ステークホルダーは誰か？
+   - ビジネス価値と優先度は？
+
+2. **⚙️ 機能要件**
+   - 明示的要件（ユーザーが直接述べた内容）
+   - 暗黙的要件（業界標準、慣習）
+   - ユーザーワークフローと操作手順
+   - エッジケースと例外処理
+
+3. **🚀 非機能要件**
+   - パフォーマンス目標（ページロード時間、API応答速度）
+   - セキュリティ要件（認証、認可、データ保護）
+   - アクセシビリティ基準（WCAG 2.1準拠）
+   - 互換性（ブラウザ、デバイス、画面サイズ）
+
+4. **🔗 統合ポイント**
+   - 既存システムとの依存関係
+   - 外部API要件と制約
+   - データソースと形式
+   - @package/ui コンポーネントの活用計画
 
 ## 📝 Requirements Template
 
@@ -205,29 +252,90 @@ interface User {
 
 ## 🚀 実行手順
 
-1. **ディレクトリ作成**
-   ```bash
-   mkdir -p .tmp
+### ステップ1: 準備作業
+```bash
+# .tmpディレクトリの作成
+mkdir -p .tmp
+```
+
+### ステップ2: 要求分析
+- **📖 要求の深堀り**: ユーザー説明の背景と文脈を理解
+- **🔍 暗黙要件の抽出**: 業界標準やベストプラクティスを適用
+- **⚖️ 実現可能性評価**: 技術的制約とリソース制約を検討
+- **🎯 優先度設定**: MoSCoW方式（Must/Should/Could/Won't）で分類
+
+### ステップ3: 構造化文書作成
+- **📋 テンプレート適用**: 標準テンプレートに基づく体系的記述
+- **📊 定量化**: 可能な限り数値目標を設定
+- **🔗 関連性確保**: 各要件の相互関係を明確化
+- **📝 レビュー最適化**: ステークホルダーが理解しやすい形式
+
+### ステップ4: 品質保証
+- **✅ 完全性チェック**: 漏れなくダブりなく（MECE）
+- **🎯 実現可能性検証**: 技術的・リソース的実現性
+- **📏 測定可能性確認**: 成功基準の定量化度合い
+
+## 🚨 エラーハンドリング
+
+### よくある問題と対策
+
+| 問題 | 原因 | 対処法 |
+|------|------|--------|
+| 要求が曖昧すぎる | 情報不足 | 具体的な使用例を要求者に確認 |
+| 技術的実現性が不明 | 新技術・複雑な要件 | 技術調査タスクを別途計画 |
+| ステークホルダー不明 | 要求元の整理不足 | 影響範囲と関係者を明確化 |
+| 非機能要件の欠如 | 機能面のみ注目 | 性能・セキュリティ等を必須項目化 |
+
+### 品質改善ループ
+
+```bash
+# 1. 不十分な要件書が生成された場合
+/step-1-requirements "より詳細で具体的な要求説明"
+
+# 2. 段階的詳細化（必要に応じて）
+# まず基本要件を作成 → 詳細を段階的に追加
+```
+
+## 💡 要件定義のベストプラクティス
+
+### SMART+ 原則 (日本語版 Claude Code 最適化)
+- **S確実性 (Specific)**: 曖昧さを排除し、具体的で明確な記述
+- **M測定性 (Measurable)**: 数値的に測定可能な成功基準とKPI
+- **A実現性 (Achievable)**: 現実的な技術的制約とリソース制約を考慮
+- **R関連性 (Relevant)**: ビジネス価値とユーザー価値に直結
+- **T時限性 (Time-bound)**: 明確な期限と優先度マトリックス
+- **+テスト可能性 (Testable)**: 自動テストで検証可能な形で記述
+
+### ユーザー中心設計
+- **🎯 ユーザー価値優先**: 技術より価値に焦点
+- **📱 ユースケース具体化**: 実際の利用シーンを詳述
+- **🧑‍💻 ペルソナ設定**: 想定ユーザーを明確に定義
+- **🔄 フィードバックループ**: 継続的な要件調整を計画
+
+### 段階的詳細化アプローチ
+- **🚀 MVP定義**: 最小実行可能な機能セット
+- **📈 拡張計画**: Phase 2以降の機能拡張
+- **🔗 依存関係管理**: 機能間の関係性を明確化
+- **📝 トレーサビリティ**: 各要件に一意のIDとバージョン管理
+
+## 📊 出力品質指標 (Claude Code ベストプラクティス準拠)
+
+### 要件書のコア品質指標
+- [ ] **完全性 & MECE原則**: 漏れなくダブりなく全要素を網羅
+- [ ] **一貫性 & 矛盾解消**: 要件間のコンフリクトを事前に特定・解決
+- [ ] **実現可能性 & リスク評価**: 技術的制約とリソース制約を猴資
+- [ ] **測定可能性 & KPI**: 定量的成功基準と検証方法を明示
+- [ ] **優先度マトリックス**: MoSCoW分析とビジネスインパクト評価
+
+### Claude Code 特化最適化
+- [ ] **@package/ui 活用計画**: 既存コンポーネントの網羅的調査と活用戦略
+- [ ] **コンテキスト効率**: 簡潔で人間が読みやすい形式で記述
+- [ ] **反復改善対応**: フィードバックループでの継続的品質向上を考慮
+- [ ] **段階的詳細化**: MVPから拡張機能へのスムーズな進化計画
+
+### 次ステージ連携準備度
+- [ ] **技術設計情報**: アーキテクチャ設計に必要な全情報を提供
+- [ ] **ステークホルダー合意**: 主要関係者のレビューと承認が完了
+- [ ] **優先度コンセンサス**: 実装順序とリソース配分が合意済み
+- [ ] **制約条件明確化**: 技術的・ビジネス的制約と前提条件を明文化
 ````
-
-2. **要件分析**
-   - ユーザーの要求を詳細に分析
-   - 暗黙の要件を明確化
-   - 技術的実現可能性を検討
-
-3. **ドキュメント生成**
-   - テンプレートに基づいて作成
-   - 具体的で測定可能な要件を記載
-   - レビュー可能な形式で出力
-
-4. **品質チェック**
-   - 要件の完全性
-   - 実現可能性
-   - 測定可能性
-
-## 💡 ベストプラクティス
-
-- **SMART原則**: Specific, Measurable, Achievable, Relevant, Time-bound
-- **ユーザー中心**: 技術ではなくユーザー価値に焦点
-- **段階的詳細化**: MVPと将来の拡張を明確に分離
-- **トレーサビリティ**: 各要件に一意のIDを付与
