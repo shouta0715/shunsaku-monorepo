@@ -105,8 +105,8 @@ Create `.tmp/step-1-requirements.md` with the following sections:
 - [設計フェーズで詳細化すべき事項]
 ```
 
-### 4. Summary and Next Steps
+### 4. Next Steps
 
-**Provide requirements summary** and **automatically proceed to technical design phase**
+**Automatically proceed to technical design phase**
 
 Execute efficiently while ensuring requirements are clear, measurable, and implementable.

@@ -131,8 +131,6 @@ Add implementation guide to tasks.md:
 3. 完了時は completed に更新
 ```
 
-### 6. Summary
+### 6. Completion
 
-**Provide task breakdown summary** and confirm **ready to begin implementation**
-
-Execute efficiently with clear, commit-sized tasks and parallel execution where possible.
+**Ready to begin implementation** with clear, commit-sized tasks and parallel execution.

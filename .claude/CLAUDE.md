@@ -71,10 +71,21 @@ When receiving development tasks, please follow the 4-stage workflow below. This
 
 ### Core Principles
 
-- Use parallel execution for independent operations
-- Be specific about desired outcomes
-- Use thinking capabilities for complex reasoning
-- Provide clear context and motivation
+**Explicit Instructions**: Always be specific about desired outcomes. Claude 4 responds better to clear, detailed instructions rather than implicit expectations.
+
+**Parallel Tool Execution**: When performing multiple independent operations, invoke all relevant tools simultaneously rather than sequentially. Use this prompt for maximum efficiency:
+
+```
+最大の効率を得るために、複数の独立した操作を実行する必要がある場合は、順次ではなく、関連するすべてのツールを同時に呼び出してください。
+```
+
+**Enhanced Thinking**: Leverage thinking capabilities for complex multi-step reasoning, especially after tool usage:
+
+```
+ツールの結果を受け取った後、その品質を慎重に検討し、次に進む前に最適な次のステップを決定してください。この新しい情報に基づいて計画し、反復するために思考を使用し、最善の次のアクションを取ってください。
+```
+
+**Context-Driven Development**: Provide background and motivation for tasks to help Claude understand goals and deliver more targeted solutions.
 
 ### Development Standards
 
@@ -84,7 +95,26 @@ When receiving development tasks, please follow the 4-stage workflow below. This
 
 ### Optimization Guidelines
 
-- Check @package/ui for existing components [[memory:4951752]]
-- Use TodoWrite for task management
-- Provide progress summaries
-- Ensure deliverables are actionable
+**Component Reuse**: Check @package/ui for existing components before creating custom ones [[memory:4951752]]
+
+**File Management**: Minimize creation of temporary files unless necessary for iteration. Clean up temporary files after task completion:
+
+```
+反復のために一時的な新しいファイル、スクリプト、またはヘルパーファイルを作成した場合は、タスクの最後にこれらのファイルを削除してクリーンアップしてください。
+```
+
+**Frontend Enhancement**: For frontend code generation, use explicit encouragement and detailed modifiers:
+
+```
+遠慮せずに、全力を尽くしてください。可能な限り多くの関連機能とインタラクションを含めてください。ホバー状態、トランジション、マイクロインタラクションなどの思慮深い詳細を追加してください。
+```
+
+**Task Management**: Use TodoWrite for progress tracking and ensure deliverables are immediately actionable
+
+### Migration Considerations
+
+**From Previous Claude Models**: When transitioning to Claude 4, consider these key points:
+
+1. **Be Specific About Desired Behavior**: Consider describing exactly what you want to see in the output
+2. **Frame Instructions with Modifiers**: Add modifiers that encourage Claude to improve the quality and detail of its output. For example, instead of "分析ダッシュボードを作成する", use "分析ダッシュボードを作成してください。可能な限り多くの関連機能やインタラクションを含めてください。基本を超えて、完全な機能を備えた実装を作成してください。"
+3. **Explicitly Request Specific Features**: If you need animations or interactive elements, you must explicitly request them

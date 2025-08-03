@@ -150,9 +150,9 @@ Create `.tmp/step-2-design.md` with the following sections:
 
 ```
 
-### 4. Summary and Next Steps
+### 4. Next Steps
 
-**Provide design summary** and **automatically proceed to implementation planning phase**
+**Automatically proceed to implementation planning phase**
 
 Execute efficiently while ensuring design is scalable, maintainable, and secure.
 ```
