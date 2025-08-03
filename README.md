@@ -1,10 +1,10 @@
 # Shunsaku Monorepo
 
-Claude Code を使用した仕様駆動開発（Specification-Driven Development）のための monorepo プロジェクトです。5 段階のワークフローにより、仕様書作成から GitHub PR 作成まで完全自動化された開発プロセスを提供します。
+Claude Code を使用した仕様駆動開発（Specification-Driven Development）のための monorepo プロジェクトです。3 段階のワークフローにより、要件分析から実装タスク分解まで完全自動化された開発プロセスを提供します。
 
 ## 🎯 プロジェクト概要
 
-このリポジトリは、Claude Code の強力な機能を活用して開発効率を最大化するための monorepo 構造プロジェクトです。仕様書作成から実装、PR 作成まで一貫したワークフローで高品質なソフトウェア開発を実現します。
+このリポジトリは、Claude Code の強力な機能を活用して開発効率を最大化するための monorepo 構造プロジェクトです。要件分析・技術設計・タスク分解の 3 段階ワークフローで、品質の高いソフトウェア開発を実現します。
 
 ## 🏗️ Monorepo 構造
 
@@ -55,7 +55,7 @@ pnpm build
 pnpm lint
 ```
 
-## 📋 5 段階仕様駆動開発ワークフロー
+## 📋 3 段階仕様駆動開発ワークフロー
 
 ### 完全自動実行
 
@@ -66,24 +66,18 @@ pnpm lint
 ### 個別ステップ実行
 
 ```bash
-/step-1-specification [タスク説明]  # 仕様書作成
-/step-2-requirements              # 要件定義書作成
-/step-3-system-design             # システム設計作成
-/step-4-ui-design                 # UI/UX設計作成
-/step-5-task-division             # タスク分解
-/github-pull-request              # GitHub PR作成
+/step-1-requirements [タスク説明]  # 要件分析
+/step-2-design                    # 技術設計
+/step-3-tasks                     # タスク分解
 ```
 
 ### 各ステップの詳細
 
-| ステップ    | 説明                                           | 出力ファイル                   |
-| ----------- | ---------------------------------------------- | ------------------------------ |
-| **Step 1**  | ビジネス要件・スコープ・ステークホルダーを整理 | `.tmp/step-1-specification.md` |
-| **Step 2**  | 機能要件・非機能要件・制約事項を詳細化         | `.tmp/step-2-requirements.md`  |
-| **Step 3**  | アーキテクチャ・API・データ設計を作成          | `.tmp/step-3-system-design.md` |
-| **Step 4**  | コンポーネント設計・デザインシステムを作成     | `.tmp/step-4-ui-design.md`     |
-| **Step 5**  | 実装可能なタスクに分解・優先順位整理           | `.tmp/step-5-task-division.md` |
-| **PR 作成** | ブランチ・コミット・PR 説明文を自動生成        | `.tmp/github-pull-request.md`  |
+| ステップ   | 説明                                             | 出力ファイル                  |
+| ---------- | ------------------------------------------------ | ----------------------------- |
+| **Step 1** | 要件分析・機能/非機能要件・制約事項を整理        | `.tmp/step-1-requirements.md` |
+| **Step 2** | アーキテクチャ・API・UI/UX 設計を統合作成        | `.tmp/step-2-design.md`       |
+| **Step 3** | 実装可能なタスクに分解・優先順位・依存関係を整理 | `.tmp/step-3-tasks.md`        |
 
 ## 🛠️ 技術スタック
 
@@ -105,8 +99,9 @@ pnpm lint
 
 - **Linting**: ESLint（エラー 0 件必須）
 - **Formatting**: Prettier（自動フォーマット）
-- **Styling**: Tailwind CSS ユーティリティクラスのみ
+- **Type Checking**: TypeScript（厳格モード）
 - **Build Check**: `pnpm build` 成功必須
+- **MCP Tools**: Context7 を使用した最新ライブラリ情報取得
 
 ## 📁 開発ガイドライン
 
@@ -114,13 +109,54 @@ pnpm lint
 
 すべてのコードは以下の基準を満たす必要があります：
 
+#### Phase 1: 自動修正（順次実行）
+
 ```bash
-# 必須チェック項目
-pnpm lint     # エラー0件
-pnpm build    # ビルド成功
-# Prettier自動フォーマット
-# Tailwind CSSユーティリティクラスのみ使用
+pnpm install    # 依存関係インストール
+pnpm lint:fix   # ESLint 自動修正
+pnpm format     # Prettier フォーマット
 ```
+
+#### Phase 2: 検証（並列実行）
+
+**macOS/Linux:**
+
+```bash
+pnpm lint & pnpm typecheck & pnpm build
+```
+
+**Windows:**
+
+```powershell
+pnpm lint; pnpm typecheck; pnpm build
+```
+
+#### 完了基準
+
+- ✅ ESLint エラー 0 件
+- ✅ TypeScript エラー 0 件
+- ✅ ビルド成功
+- ✅ テスト成功（該当する場合）
+
+### TypeScript 開発規約
+
+```typescript
+// ❌ 避けるべき
+const data: any = fetchData();
+const result: unknown = processData();
+class UserService {} // 必要でない限りクラスは避ける
+
+// ✅ 推奨
+const data: UserData = fetchData();
+const result: ProcessedResult = processData();
+const userService = {}; // オブジェクト/関数を使用
+```
+
+### コンポーネント開発方針
+
+1. **優先順位**: 常に `@package/ui` を最初に確認
+2. **カスタムコンポーネント**: 必要な場合のみ作成
+3. **モックデータ**: 外部統合前にモックデータで機能実装
 
 ### Monorepo 構成
 
@@ -131,9 +167,9 @@ pnpm build    # ビルド成功
 ### 開発フロー
 
 1. **仕様策定**: `/full-automatic` または個別ステップ実行
-2. **実装**: タスクリストに従って開発
-3. **品質チェック**: ESLint、Prettier、ビルド確認
-4. **PR 作成**: `/github-pull-request` で自動生成
+2. **実装**: タスクリストに従って開発（TodoWrite 活用）
+3. **品質チェック**: ESLint、TypeScript、ビルド確認
+4. **コードレビュー**: GitHub PR 作成・レビュー
 
 ## 🎨 利用可能な UI コンポーネント
 
@@ -170,18 +206,62 @@ pnpm build                  # UIライブラリビルド
 
 ### 主要機能
 
-- **自動仕様書生成**: ビジネス要件の整理・文書化
-- **設計の自動化**: システム・UI 設計の構造化
-- **タスク分解**: 実装可能な単位への自動分割
-- **品質保証**: ESLint・Prettier・Tailwind CSS 基準の強制
-- **PR 自動化**: ブランチ・コミット・説明文の自動生成
+- **要件分析の自動化**: ユーザーニーズの整理・文書化
+- **技術設計の統合**: システム・UI 設計の一体的作成
+- **タスク分解**: 実装可能な単位への自動分割・依存関係整理
+- **品質保証**: ESLint・TypeScript・Prettier 基準の強制
+- **並列処理**: 独立操作の同時実行による効率化
+
+### 設定・権限管理
+
+Claude Code の設定は `.claude/settings.json` で管理されています：
+
+- **許可操作**: ファイル操作、Git 操作、pnpm コマンド、TodoWrite
+- **制限操作**: システム操作、破壊的操作、機密ファイルアクセス
+- **MCP ツール**: Context7 による最新ライブラリ情報取得
+
+### ベストプラクティス
+
+#### 並列処理の活用
+
+```javascript
+// ✅ 効率的: 並列実行
+Promise.all([
+  readFile("config.json"),
+  readFile("data.json"),
+  searchPattern("TODO"),
+]);
+
+// ❌ 非効率: 順次実行
+await readFile("config.json");
+await readFile("data.json");
+await searchPattern("TODO");
+```
+
+#### エラーハンドリング
+
+```typescript
+// ✅ 包括的エラーハンドリング
+try {
+  const data = await fetchData();
+  return processData(data);
+} catch (error) {
+  if (error instanceof NetworkError) {
+    return handleNetworkError(error);
+  }
+  if (error instanceof ValidationError) {
+    return handleValidationError(error);
+  }
+  throw new UnexpectedError("予期しないエラーが発生しました", { cause: error });
+}
+```
 
 ## 🤝 コントリビューション
 
-1. 新機能やバグ修正は必ず 5 段階ワークフローを使用
-2. 品質チェック（lint・build）をすべてパス
-3. `/github-pull-request` で PR 作成
-4. コードレビュー後にマージ
+1. 新機能やバグ修正は必ず 3 段階ワークフローを使用
+2. 品質チェック（lint・typecheck・build）をすべてパス
+3. TodoWrite でタスク管理・進捗追跡
+4. GitHub PR 作成・コードレビュー後にマージ
 
 ## 📄 ライセンス
 

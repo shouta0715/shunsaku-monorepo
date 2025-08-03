@@ -1,17 +1,28 @@
 {
+  "model": "opus",
+  "includeCoAuthoredBy": true,
+  "cleanupPeriodDays": 30,
+  "enableAllProjectMcpServers": false,
+
   "env": {
-    "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
+    "NODE_ENV": "development",
     "PNPM_HOME": "./node_modules/.bin",
-    "NODE_ENV": "development"
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "0"
   },
+
   "permissions": {
     "allow": [
+      // File operations
       "Read(**)",
       "Read(../**)",
       "Read(../../**)",
       "Write(**)",
       "Write(../**)",
       "Write(../../**)",
+      "Edit(**)",
+      "MultiEdit(**)",
+
+      // Git operations
       "Bash(git init:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
@@ -23,6 +34,14 @@
       "Bash(git pull origin:*)",
       "Bash(git stash:*)",
       "Bash(git stash pop:*)",
+
+      // GitHub CLI
+      "Bash(gh pr create:*)",
+      "Bash(gh pr edit:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr status:*)",
+
+      // Package management (pnpm)
       "Bash(pnpm:*)",
       "Bash(pnpm install:*)",
       "Bash(pnpm add:*)",
@@ -36,6 +55,8 @@
       "Bash(pnpm run:*)",
       "Bash(pnpm typecheck:*)",
       "Bash(pnpm start:*)",
+
+      // File system operations
       "Bash(ls:*)",
       "Bash(cat:*)",
       "Bash(find:*)",
@@ -44,41 +65,55 @@
       "Bash(touch:*)",
       "Bash(cp:*)",
       "Bash(mv:*)",
-      "Bash(gh pr create:*)",
-      "Bash(gh pr edit:*)",
-      "Bash(gh pr view:*)",
-      "Bash(gh pr status:*)",
+
+      // Cleanup operations (restricted)
       "Bash(rm .tmp/*:*)",
       "Bash(rm node_modules/*:*)",
       "Bash(rm dist/*:*)",
       "Bash(rm build/*:*)",
+
+      // Development tools
       "Bash(code:*)",
       "Bash(npx:*)",
       "Bash(cmd:*)",
       "Bash(powershell:*)",
-      "Edit(**)",
-      "MultiEdit(**)",
+
+      // Task management
       "TodoWrite(**)",
+
+      // MCP tools
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs"
     ],
+
     "deny": [
+      // System operations
       "Bash(sudo:*)",
       "Bash(su:*)",
       "Bash(chmod +x:*)",
+      "Bash(chown:*)",
+      "Bash(chmod:*)",
+
+      // Destructive operations
       "Bash(rm -rf:*)",
       "Bash(rm -r:*)",
       "Bash(rm /*:*)",
       "Bash(rm ~/*:*)",
+
+      // Dangerous git operations
       "Bash(git push --force:*)",
       "Bash(git push -f:*)",
       "Bash(git reset --hard:*)",
       "Bash(git rebase:*)",
       "Bash(git cherry-pick:*)",
+
+      // Network operations
       "Bash(curl:*)",
       "Bash(wget:*)",
       "Bash(ssh:*)",
       "Bash(scp:*)",
+
+      // Sensitive file access
       "Read(.env*)",
       "Read(*.key)",
       "Read(id_rsa*)",
@@ -86,25 +121,29 @@
       "Read(*.pem)",
       "Write(.env*)",
       "Write(*.key)",
+
+      // Alternative package managers
       "Bash(npm install:*)",
       "Bash(npm i:*)",
       "Bash(npm run:*)",
       "Bash(yarn:*)",
+
+      // Process management
       "Bash(kill:*)",
       "Bash(killall:*)",
+
+      // Archive operations
       "Bash(tar:*)",
       "Bash(zip:*)",
       "Bash(unzip:*)",
-      "Bash(chown:*)",
-      "Bash(chmod:*)",
+
+      // Service management
       "Bash(systemctl:*)",
       "Bash(service:*)",
+
+      // Container operations
       "Bash(docker:*)",
       "Bash(kubectl:*)"
     ]
-  },
-  "model": "opus",
-  "enableAllProjectMcpServers": false,
-  "includeCoAuthoredBy": true,
-  "cleanupPeriodDays": 30
+  }
 }

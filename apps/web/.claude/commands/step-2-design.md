@@ -1,180 +1,376 @@
 ---
 allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit
-description: Create detailed design specification based on requirements (Stage 2 of Spec-Driven Development)
+description: Stage 2 - Technical Design for Specification-Driven Development
 ---
 
-## Context
+# Technical Design Stage
 
-- Requirements document: @.tmp/step-1-requirements.md
+Transform requirements into detailed technical architecture and implementation design.
 
-## Your task
+## 📋 Prerequisites
 
-**Execute technical design**. Transform requirements into implementable specifications.
+- Input: `.tmp/step-1-requirements.md`
+- Output: `.tmp/step-2-design.md`
 
-### 1. Prerequisites
+## 🎯 Design Objectives
 
-- Check that `.tmp/step-1-requirements.md` exists
-- Research existing codebase patterns and identify reusable components from `@package/ui` [[memory:4951752]]
-- Plan mock data structure for development and testing phases
+### Architecture Goals
 
-### 2. Design Analysis
+1. **Scalability**: Design for growth
+2. **Maintainability**: Clean, modular architecture
+3. **Performance**: Optimize from the start
+4. **Security**: Built-in security measures
+5. **Testability**: Design for testing
 
-- Read requirements document and map to technical components
-- Consider scalability, performance, security implications
-
-### 3. Architectural Design
-
-Create `.tmp/step-2-design.md` with the following sections:
+## 📐 Design Template
 
 ````markdown
-# 詳細設計書 - [タスク名]
+# 技術設計書 - [プロジェクト名]
 
-作成日: [YYYY-MM-DD]
-更新日: [YYYY-MM-DD]
-バージョン: 1.0
-基盤要件: @.tmp/step-1-requirements.md
+**作成日**: YYYY-MM-DD  
+**バージョン**: 1.0  
+**基準文書**: `.tmp/step-1-requirements.md`
 
 ## 1. アーキテクチャ概要
 
 ### 1.1 システム構成図
 
-[ASCII 図や Mermaid 図でシステム全体の構成を表現]
+```mermaid
+graph TB
+    subgraph "Frontend"
+        A[Next.js App] --> B[React Components]
+        B --> C[@package/ui]
+        B --> D[Custom Components]
+    end
+
+    subgraph "State Management"
+        E[Zustand/Context]
+    end
+
+    subgraph "API Layer"
+        F[API Routes]
+        G[Mock Service Worker]
+    end
+
+    A --> E
+    E --> F
+    F --> G
+```
 
 ### 1.2 技術スタック
 
-- 言語: [使用言語とバージョン]
-- フレームワーク: [使用フレームワーク]
-- ライブラリ: [主要ライブラリ一覧]
-- ツール: [ビルドツール、テストツールなど]
+| Layer      | Technology   | Version | Rationale               |
+| ---------- | ------------ | ------- | ----------------------- |
+| Frontend   | Next.js      | 15.x    | App Router, RSC support |
+| UI Library | React        | 19.x    | Latest features         |
+| Styling    | Tailwind CSS | 3.x     | Utility-first CSS       |
+| State      | Zustand      | 4.x     | Simple, performant      |
+| Testing    | Vitest       | Latest  | Fast, ESM support       |
 
-## 2. コンポーネント設計
+## 2. ディレクトリ構造
 
-### 2.1 コンポーネント一覧
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── (auth)/            # Auth group
+│   ├── api/               # API routes
+│   └── layout.tsx         # Root layout
+├── components/            # React components
+│   ├── ui/               # UI components
+│   └── features/         # Feature components
+├── hooks/                # Custom hooks
+├── lib/                  # Utilities
+├── services/             # API services
+├── stores/               # State management
+├── types/                # TypeScript types
+└── utils/                # Helper functions
+```
 
-| コンポーネント名 | 責務         | ソース      | 依存関係                 |
-| ---------------- | ------------ | ----------- | ------------------------ |
-| [Component A]    | [責務の説明] | @package/ui | [依存するコンポーネント] |
-| [Component B]    | [責務の説明] | カスタム    | [依存するコンポーネント] |
+## 3. コンポーネント設計
 
-**注**: 可能な限り @package/ui のコンポーネントを使用し、必要な場合のみカスタムコンポーネントを作成する
+### 3.1 コンポーネント階層
 
-### 2.2 各コンポーネントの詳細
+```mermaid
+graph TD
+    A[App Layout] --> B[Header]
+    A --> C[Main Content]
+    A --> D[Footer]
 
-#### [Component A]
+    C --> E[Feature Component]
+    E --> F[@package/ui Components]
+    E --> G[Custom Components]
+```
 
-- **目的**: [このコンポーネントの目的]
-- **公開インターフェース**:
-  ```typescript
-  interface ComponentA {
-    method1(param: Type): ReturnType;
-  }
-  ```
-````
+### 3.2 コンポーネント仕様
 
-- **内部実装方針**: [実装のアプローチ]
+#### 既存コンポーネント活用 (@package/ui)
 
-## 3. データフロー
+| Component | Usage              | Props                  | Customization  |
+| --------- | ------------------ | ---------------------- | -------------- |
+| Button    | CTA, Actions       | variant, size, onClick | Theme tokens   |
+| Card      | Content containers | children, className    | Border, shadow |
+| Modal     | Dialogs            | open, onClose          | Animations     |
 
-### 3.1 データフロー図
-
-[データの流れを示す図]
-
-### 3.2 データ変換
-
-- 入力データ形式: [形式の説明]
-- 処理過程: [変換ロジック]
-- 出力データ形式: [形式の説明]
-
-## 4. API インターフェース
-
-### 4.1 内部 API
-
-[モジュール間のインターフェース定義]
-
-### 4.2 外部 API
-
-[外部システムとの連携インターフェース]
-
-## 5. エラーハンドリング
-
-### 5.1 エラー分類
-
-- [エラータイプ 1]: [対処方法]
-- [エラータイプ 2]: [対処方法]
-
-### 5.2 エラー通知
-
-[エラーの通知方法とログ戦略]
-
-## 6. セキュリティ設計
-
-### 6.1 認証・認可
-
-[必要に応じて記載]
-
-### 6.2 データ保護
-
-[機密データの扱い方]
-
-## 7. テスト戦略
-
-### 7.1 単体テスト
-
-- カバレッジ目標: [%]
-- テストフレームワーク: [使用ツール]
-
-### 7.2 統合テスト
-
-[統合テストのアプローチ]
-
-## 8. パフォーマンス最適化
-
-### 8.1 想定される負荷
-
-[パフォーマンス要件]
-
-### 8.2 最適化方針
-
-[最適化のアプローチ]
-
-## 9. デプロイメント
-
-### 9.1 デプロイ構成
-
-[本番環境へのデプロイ方法]
-
-### 9.2 設定管理
-
-[環境変数、設定ファイルの管理]
-
-## 10. 実装上の注意事項
-
-- @package/ui コンポーネントを最優先で使用する
-- データベース/API 接続前にモックデータで動作確認を行う
-- 各機能実装後は品質チェック（pnpm install, pnpm lint, pnpm format, pnpm typecheck, pnpm build）を実行する
-
-## 11. モックデータ設計
-
-### 11.1 データ構造
+#### カスタムコンポーネント
 
 ```typescript
-// モックデータの型定義例
-interface MockData {
-  // [データ構造の定義]
+// Example: FeatureComponent
+interface FeatureComponentProps {
+  data: FeatureData;
+  onAction: (id: string) => void;
+  loading?: boolean;
+}
+
+const FeatureComponent: React.FC<FeatureComponentProps> = ({
+  data,
+  onAction,
+  loading = false,
+}) => {
+  // Implementation
+};
+```
+
+## 4. 状態管理設計
+
+### 4.1 グローバル状態
+
+```typescript
+// Zustand Store Example
+interface AppState {
+  user: User | null;
+  settings: Settings;
+  actions: {
+    setUser: (user: User) => void;
+    updateSettings: (settings: Partial<Settings>) => void;
+  };
 }
 ```
 
-### 11.2 モック API 設計
+### 4.2 ローカル状態
 
-- エンドポイント: [一覧]
-- レスポンス形式: [JSON 構造]
-- エラーケース: [想定されるエラーパターン]
+- Form state: React Hook Form
+- UI state: useState/useReducer
+- Server state: TanStack Query
 
+## 5. API設計
+
+### 5.1 エンドポイント設計
+
+```typescript
+// API Route Handler Example
+// app/api/users/route.ts
+export async function GET(request: Request) {
+  // Implementation
+}
+
+export async function POST(request: Request) {
+  // Implementation
+}
 ```
 
-### 4. Next Steps
+### 5.2 データモデル
 
-**Automatically proceed to implementation planning phase**
+```typescript
+// Type Definitions
+interface User {
+  id: string;
+  email: string;
+  profile: UserProfile;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-Execute efficiently while ensuring design is scalable, maintainable, and secure.
+interface UserProfile {
+  name: string;
+  avatar?: string;
+  preferences: UserPreferences;
+}
 ```
+
+## 6. モックデータ戦略
+
+### 6.1 Mock Service Worker設定
+
+```typescript
+// mocks/handlers.ts
+export const handlers = [
+  rest.get("/api/users", (req, res, ctx) => {
+    return res(ctx.json(mockUsers));
+  }),
+];
+```
+
+### 6.2 開発用モックデータ
+
+```typescript
+// mocks/data/users.ts
+export const mockUsers: User[] = [
+  {
+    id: "1",
+    email: "test@example.com",
+    profile: {
+      name: "Test User",
+      preferences: defaultPreferences,
+    },
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01"),
+  },
+];
+```
+
+## 7. セキュリティ設計
+
+### 7.1 認証フロー
+
+```mermaid
+sequenceDiagram
+    User->>Frontend: Login request
+    Frontend->>API: POST /api/auth/login
+    API->>Auth Service: Validate credentials
+    Auth Service->>API: Return JWT
+    API->>Frontend: Set httpOnly cookie
+    Frontend->>User: Redirect to dashboard
+```
+
+### 7.2 セキュリティ対策
+
+- CSRF Protection: Next.js built-in
+- XSS Prevention: React escaping
+- Input Validation: Zod schemas
+- Rate Limiting: API middleware
+
+## 8. パフォーマンス最適化
+
+### 8.1 フロントエンド最適化
+
+- Code splitting: Dynamic imports
+- Image optimization: next/image
+- Font optimization: next/font
+- Bundle analysis: @next/bundle-analyzer
+
+### 8.2 キャッシング戦略
+
+```typescript
+// Cache configuration
+const cacheConfig = {
+  static: 31536000, // 1 year
+  api: 300, // 5 minutes
+  ssr: 60, // 1 minute
+};
+```
+
+## 9. エラーハンドリング
+
+### 9.1 エラー境界
+
+```typescript
+// Error Boundary Component
+class ErrorBoundary extends React.Component {
+  // Implementation
+}
+```
+
+### 9.2 APIエラー処理
+
+```typescript
+// Standardized error response
+interface APIError {
+  code: string;
+  message: string;
+  details?: Record<string, any>;
+}
+```
+
+## 10. テスト設計
+
+### 10.1 テスト戦略
+
+| Type        | Tool            | Coverage Target |
+| ----------- | --------------- | --------------- |
+| Unit        | Vitest          | 80%             |
+| Integration | Testing Library | Critical paths  |
+| E2E         | Playwright      | User journeys   |
+
+### 10.2 テストパターン
+
+```typescript
+// Component test example
+describe("FeatureComponent", () => {
+  it("should render correctly", () => {
+    // Test implementation
+  });
+});
+```
+
+## 11. デプロイメント設計
+
+### 11.1 環境構成
+
+| Environment | Purpose   | URL                 |
+| ----------- | --------- | ------------------- |
+| Development | Local dev | localhost:3000      |
+| Staging     | Testing   | staging.example.com |
+| Production  | Live      | example.com         |
+
+### 11.2 CI/CDパイプライン
+
+```yaml
+# GitHub Actions workflow
+name: Deploy
+on:
+  push:
+    branches: [main]
+jobs:
+  test:
+    # Test steps
+  deploy:
+    # Deploy steps
+```
+
+## 12. 実装優先順位
+
+### Phase 1: Core Features (MVP)
+
+1. Basic UI structure
+2. Authentication
+3. Core functionality
+
+### Phase 2: Enhanced Features
+
+1. Advanced features
+2. Performance optimizations
+3. Analytics integration
+
+## 13. リスクと対策
+
+| Risk                  | Impact | Mitigation              |
+| --------------------- | ------ | ----------------------- |
+| API delays            | High   | Use mock data           |
+| Browser compatibility | Medium | Progressive enhancement |
+| Performance issues    | High   | Early optimization      |
+````
+
+## 🚀 実行プロセス
+
+1. **要件分析**
+   - 要件書を詳細に読み込む
+   - 技術的課題を特定
+
+2. **アーキテクチャ設計**
+   - システム全体の構造を設計
+   - コンポーネント間の関係を定義
+
+3. **詳細設計**
+   - 各コンポーネントの仕様を定義
+   - インターフェースを明確化
+
+4. **検証**
+   - 要件との整合性確認
+   - 実装可能性の検証
+
+## 💡 設計原則
+
+- **SOLID原則**: 保守性の高い設計
+- **DRY原則**: 重複を避ける
+- **KISS原則**: シンプルに保つ
+- **YAGNI原則**: 必要になるまで作らない

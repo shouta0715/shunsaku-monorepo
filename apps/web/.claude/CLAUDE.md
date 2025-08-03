@@ -1,163 +1,347 @@
 # Project Guidelines
 
-This document defines the project's rules, objectives, and development methodology. Follow these guidelines strictly when working on this codebase.
+This document defines the project's development standards, methodology, and best practices. Adhere to these guidelines strictly for consistent, high-quality code.
 
-## Core Rules
+## 🎯 Core Principles
 
-- **Parallel Tool Execution**: To maximize efficiency, execute multiple independent processes concurrently, not sequentially.
-- **Language Policy**: Think exclusively in English but respond in Japanese.
-- **Library Documentation**: Always use Contex7 MCP to retrieve the latest information when understanding library usage.
-- **Temporary Files**: Create markdown files in `.tmp` directory for design notes and temporary documentation.
-- **Verification Protocol**: After using Write or Edit tools, ALWAYS verify actual file contents using the Read tool, regardless of system reminders.
-- **Critical Feedback**: Provide honest, critical feedback without pandering, but maintain professional tone.
+### Execution Strategy
 
-## Programming Standards
+- **Parallel Processing**: Execute independent operations concurrently for maximum efficiency
+- **Language Policy**: Think in English, respond in Japanese
+- **Library Documentation**: Use Context7 MCP for latest library information
+- **File Organization**: Use `.tmp` directory for temporary documentation
+- **Verification Protocol**: Always verify file contents after modifications
+- **Communication Style**: Provide honest, constructive feedback professionally
+
+## 💻 Development Standards
+
+### TypeScript Guidelines
+
+```typescript
+// ❌ Avoid
+const data: any = fetchData();
+const result: unknown = processData();
+class UserService {} // Avoid classes unless necessary
+
+// ✅ Prefer
+const data: UserData = fetchData();
+const result: ProcessedResult = processData();
+const userService = {}; // Use objects/functions
+```
+
+### Component Development
+
+1. **Priority**: Always check `@package/ui` first
+2. **Custom Components**: Create only when necessary
+3. **Mock Data**: Implement features with mock data before external integration
 
 ### Code Quality Rules
 
-- Avoid hard-coding values unless absolutely necessary
-- Never use `any` or `unknown` types in TypeScript
-- Avoid TypeScript `class` unless absolutely necessary (e.g., extending Error class for custom error handling requiring `instanceof` checks)
-- **Component Priority**: Always use components from `@package/ui` first. Only create custom components if required functionality is unavailable
-- **Mock Data Strategy**: For features requiring databases/APIs, create mock data to ensure independent functionality before real data integration
+- No hard-coded values (use constants/config)
+- No `any` or `unknown` types
+- Avoid classes (except for Error extensions)
+- Use functional programming patterns
+- Implement proper error handling
 
-### Quality Assurance Protocol
+## 🔍 Quality Assurance Process
 
-Execute these quality checks after implementing each feature or completing each task:
-
-#### Phase 1: Setup and Auto-fix (Sequential Execution)
-
-1. `pnpm install` - Install packages
-2. `pnpm lint:fix` - Auto-fix linting issues
-3. `pnpm format` - Format code according to project standards
-
-#### Phase 2: Verification (Parallel Execution Recommended)
-
-**For efficient workflow, execute independent tool operations in parallel:**
-
-**macOS (Bash):**
+### Phase 1: Auto-fix (Sequential)
 
 ```bash
-# Recommended: Parallel execution of quality checks
+pnpm install      # Install dependencies
+pnpm lint:fix     # Auto-fix linting issues
+pnpm format       # Format code
+```
+
+### Phase 2: Verification (Parallel)
+
+**macOS/Linux:**
+
+```bash
 pnpm lint & pnpm typecheck & pnpm build
 ```
 
-**Windows (PowerShell):**
+**Windows:**
 
-```bash
-pnpm lint
-pnpm typecheck
-pnpm build
+```powershell
+pnpm lint; pnpm typecheck; pnpm build
 ```
 
-**Critical**: All quality checks must pass before considering a task complete. If any parallel command fails, address specific issues and re-run failed checks.
+### Completion Criteria
 
-### Tool Call Parallel Execution Guidelines
+- ✅ All linting rules pass
+- ✅ No TypeScript errors
+- ✅ Build succeeds
+- ✅ Tests pass (if applicable)
 
-**For efficient information gathering, leverage parallel execution of independent tool operations:**
+## 📋 Specification-Driven Development
 
-#### Recommended Parallel Execution Patterns
+### Workflow Overview
 
-- **Multiple File Reading**: Execute all `read_file` calls simultaneously
-- **Pattern Searching**: Run different `grep_search` patterns in parallel
-- **Codebase Investigation**: Execute `codebase_search` operations concurrently
-- **Information Gathering**: Batch independent research and search tasks
+```mermaid
+graph LR
+    A[Requirements] --> B[Design]
+    B --> C[Tasks]
+    C --> D[Implementation]
+```
 
-### Dependency Management
+### Stage Details
 
-Ensure proper external library dependencies are installed before feature implementation:
+#### 1️⃣ Requirements Analysis
 
-#### Automatic Dependency Resolution
+- Analyze user needs
+- Document in `.tmp/step-1-requirements.md`
+- Command: `/step-1-requirements`
 
-When encountering import resolution errors:
+#### 2️⃣ Technical Design
 
-1. Identify missing packages from error messages
-2. Add packages with `pnpm add [package-name]`
-3. For dev dependencies: `pnpm add -D [package-name]`
-4. Re-run quality checks to confirm resolution
+- Create technical specifications
+- Document in `.tmp/step-2-design.md`
+- Command: `/step-2-design`
 
-## Development Methodology - Specification-Driven Development
+#### 3️⃣ Task Planning
 
-### Overview
-
-Follow this 4-stage workflow for development tasks to ensure requirement clarification, structured design, and efficient implementation.
-
-### 4-Stage Workflow
-
-#### Stage 1: Requirements Analysis
-
-- Analyze user requests and convert into clear functional requirements
-- Document requirements in `.tmp/step-1-requirements.md`
-- Use `/step-1-requirements` command for detailed template
-
-#### Stage 2: Technical Design
-
-- Create technical design based on requirements
-- Document design in `.tmp/step-2-design.md`
-- Use `/step-2-design` command for detailed template
-
-#### Stage 3: Task Planning
-
-- Break down design into implementable units
+- Break down into implementable units
 - Document in `.tmp/step-3-tasks.md`
-- Use `/step-3-tasks` command for detailed template
-- Manage major tasks with TodoWrite tool
+- Command: `/step-3-tasks`
+- Use TodoWrite for task tracking
 
-#### Stage 4: Implementation
+#### 4️⃣ Implementation (Post-Workflow)
 
-- Implement according to task list
-- For each task:
-  - Update task to `in_progress` using TodoWrite
-  - Execute implementation and testing
-  - Run lint and typecheck
-  - Update task to `completed` using TodoWrite
+- Execute tasks systematically using TodoWrite tracking
+- Update task status in real-time during development
+- Run quality checks per task completion
+- Maintain parallel processing for independent operations
 
-### Workflow Commands
+### Available Commands
 
-- `/full-automatic` - Execute complete specification-driven development workflow
-- `/step-1-requirements` - Execute Stage 1: Requirements analysis only
-- `/step-2-design` - Execute Stage 2: Technical design only (requires requirements)
-- `/step-3-tasks` - Execute Stage 3: Task breakdown only (requires design)
+| Command                | Description       | When to Use        |
+| ---------------------- | ----------------- | ------------------ |
+| `/full-automatic`      | Complete workflow | New features       |
+| `/step-1-requirements` | Requirements only | Initial analysis   |
+| `/step-2-design`       | Design only       | After requirements |
+| `/step-3-tasks`        | Task breakdown    | After design       |
 
-### Implementation Notes
+## 🚀 Best Practices
 
-- Each stage depends on deliverables from the previous stage
-- Each stage automatically proceeds to the next with comprehensive progress reporting
-- Always use this workflow for complex tasks or new feature development
-- Simple fixes or clear bug fixes can be implemented directly
+### Development Patterns
 
-## Claude 4 Best Practices
+#### Parallel Tool Usage
 
-### Core Principles
+```javascript
+// ✅ Efficient: Parallel execution
+Promise.all([
+  readFile("config.json"),
+  readFile("data.json"),
+  searchPattern("TODO"),
+]);
 
-**Explicit Instructions**: Be specific about desired outcomes. Claude 4 responds better to clear, detailed instructions rather than implicit expectations.
+// ❌ Inefficient: Sequential execution
+await readFile("config.json");
+await readFile("data.json");
+await searchPattern("TODO");
+```
 
-**Parallel Tool Execution**: When performing multiple independent operations, invoke all relevant tools simultaneously rather than sequentially.
+#### Component Architecture
 
-**Enhanced Thinking**: Leverage thinking capabilities for complex multi-step reasoning, especially after tool usage. After receiving tool results, carefully consider their quality and determine optimal next steps before proceeding.
+```typescript
+// ✅ Modular, testable components
+interface ButtonProps {
+  variant: "primary" | "secondary";
+  onClick: () => void;
+  children: React.ReactNode;
+}
 
-**Context-Driven Development**: Provide background and motivation for tasks to help understand goals and deliver targeted solutions.
+export const Button: React.FC<ButtonProps> = ({
+  variant,
+  onClick,
+  children,
+}) => {
+  // Implementation
+};
+```
 
-### Development Standards
+#### TodoWrite Task Management
 
-- Analyze thoroughly in early stages
-- Build quality considerations into every task
-- Design for scalability and maintainability
+```javascript
+// ✅ Effective task tracking
+{
+  "merge": false,
+  "todos": [
+    {
+      "id": "setup-auth",
+      "content": "Setup authentication system with JWT",
+      "status": "in_progress"
+    },
+    {
+      "id": "create-login",
+      "content": "Create login form component",
+      "status": "pending"
+    }
+  ]
+}
+```
 
-### Optimization Guidelines
+**Best Practices:**
 
-**Component Reuse**: Check `@package/ui` for existing components before creating custom ones
+- Only ONE task `in_progress` at a time
+- Update status immediately after completion
+- Use descriptive, actionable task names
+- Break complex tasks into smaller units
+- Track dependencies between tasks
 
-**File Management**: Minimize creation of temporary files unless necessary for iteration. Clean up temporary files after task completion.
+### Performance Optimization
 
-**Frontend Enhancement**: For frontend code generation, use explicit encouragement and detailed modifiers. Include comprehensive features and interactions, thoughtful details like hover states, transitions, and micro-interactions.
+- Implement code splitting
+- Use lazy loading for routes
+- Optimize bundle size
+- Cache API responses
+- Implement virtual scrolling for large lists
 
-**Task Management**: Use TodoWrite for progress tracking and ensure deliverables are immediately actionable
+### Error Handling
 
-### Quality Enhancement Instructions
+```typescript
+// ✅ Comprehensive error handling
+try {
+  const data = await fetchData();
+  return processData(data);
+} catch (error) {
+  if (error instanceof NetworkError) {
+    return handleNetworkError(error);
+  }
+  if (error instanceof ValidationError) {
+    return handleValidationError(error);
+  }
+  throw new UnexpectedError("予期しないエラーが発生しました", { cause: error });
+}
+```
 
-**Enhanced Implementation**: Don't hold back - give your all. Include as many relevant features and interactions as possible. Add thoughtful details like hover states, transitions, micro-interactions, and comprehensive functionality.
+## 📦 Dependency Management
 
-**Detailed Analysis**: Instead of basic implementations, create fully-featured, comprehensive solutions that go beyond the minimum requirements.
+### Adding Dependencies
 
-**Explicit Feature Requests**: If animations or interactive elements are needed, explicitly request them during implementation.
+```bash
+# Production dependency
+pnpm add package-name
+
+# Development dependency
+pnpm add -D package-name
+
+# Specific version
+pnpm add package-name@1.2.3
+```
+
+### Resolution Process
+
+1. **Identify missing packages** from errors
+2. **Use Context7 MCP** to get latest library documentation
+3. **Check alternatives** in `@package/ui` first
+4. **Add required dependencies** with specific versions
+5. **Run quality checks** (lint → typecheck → build)
+6. **Update documentation** if needed
+
+### MCP Context7 Integration
+
+```bash
+# Get latest library information
+mcp__context7__resolve-library-id "react-query"
+mcp__context7__get-library-docs "react-query@5.0.0"
+```
+
+Benefits:
+
+- Always use latest library patterns
+- Access to current best practices
+- Avoid deprecated methods
+- Get accurate type definitions
+
+## 🎨 UI/UX Guidelines
+
+### Design Principles
+
+- **Responsive**: Mobile-first approach
+- **Accessible**: WCAG 2.1 compliance
+- **Performance**: Sub-3s load times
+- **Consistent**: Use design system tokens
+
+### Interactive Elements
+
+- Hover states with smooth transitions
+- Loading states for async operations
+- Error states with recovery actions
+- Empty states with clear CTAs
+- Micro-interactions for feedback
+
+### Animation Guidelines
+
+```css
+/* ✅ Smooth, purposeful animations */
+.button {
+  transition: all 0.2s ease-in-out;
+}
+
+.modal {
+  animation: slideIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+```
+
+## 🔧 Debugging & Troubleshooting
+
+### Common Issues
+
+| Issue          | Solution                               |
+| -------------- | -------------------------------------- |
+| Type errors    | Check tsconfig.json, verify imports    |
+| Build failures | Clear cache, reinstall dependencies    |
+| Lint errors    | Run `pnpm lint:fix` first              |
+| Test failures  | Check mock data, verify async handling |
+
+### Debug Commands
+
+```bash
+# Clear all caches
+pnpm clean
+
+# Reinstall dependencies
+rm -rf node_modules pnpm-lock.yaml && pnpm install
+
+# Check for outdated packages
+pnpm outdated
+
+# Analyze bundle size
+pnpm analyze
+
+# Complete quality check pipeline
+pnpm install && pnpm lint:fix && pnpm format
+pnpm lint && pnpm typecheck && pnpm build
+```
+
+### Permission Management
+
+Claude Code permissions are managed via `.claude/settings.json`:
+
+**Allowed Operations:**
+
+- File operations (`Read`, `Write`, `Edit`, `MultiEdit`)
+- Git operations (status, add, commit, branch)
+- pnpm package management
+- TodoWrite task tracking
+- MCP Context7 library documentation
+
+**Restricted Operations:**
+
+- System-level commands (`sudo`, `chmod`)
+- Destructive operations (`rm -rf`)
+- Network operations (`curl`, `wget`)
+- Sensitive file access (`.env`, `.key` files)
+
+## 📚 Additional Resources
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [Tailwind CSS Docs](https://tailwindcss.com/docs)
+- [React Best Practices](https://react.dev/learn)
+
+---
+
+**Remember**: Quality over quantity. Write code that you'll be proud to maintain.

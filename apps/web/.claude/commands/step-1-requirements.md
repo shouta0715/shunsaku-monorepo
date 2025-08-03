@@ -1,125 +1,233 @@
 ---
 allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*)
-description: Create requirements specification for the given task (Stage 1 of Spec-Driven Development)
+description: Stage 1 - Requirements Analysis for Specification-Driven Development
 ---
 
-## Context
+# Requirements Analysis Stage
 
-- Task description: $ARGUMENTS
+Transform user requests into comprehensive requirements documentation.
 
-## Your task
+## 📋 Input
 
-**Execute requirements analysis**. Create clear, accurate requirements.
+- User request: `$ARGUMENTS`
+- Output: `.tmp/step-1-requirements.md`
 
-### 1. Setup
+## 🎯 Objectives
 
-- Create `.tmp` directory if it doesn't exist
+### Core Analysis Areas
 
-### 2. Requirements Analysis
+1. **Problem Definition**
+   - What problem are we solving?
+   - Why is this solution needed?
+   - Who are the stakeholders?
 
-**Extract and document**:
+2. **Functional Requirements**
+   - Explicit requirements (stated by user)
+   - Implicit requirements (industry standards)
+   - User workflows and interactions
 
-- **Core problem definition**: What specific business/technical problem are we solving?
-- **Explicit functional requirements**: What the system must do (stated requirements)
-- **Implicit functional requirements**: What the system should do (unstated but expected)
-- **Non-functional requirements**: Performance, security, usability, maintainability expectations
-- **Integration requirements**: How this fits with existing systems
-- **Component requirements**: Identify which `@package/ui` components can be leveraged
-- **Data requirements**: Specify what data/APIs are needed and plan for mock data during development
-- **Edge cases and error scenarios**: What could go wrong and how to handle it
-- **Success criteria**: Measurable, specific completion conditions
-- **Future considerations**: Extensibility and scalability needs
+3. **Non-Functional Requirements**
+   - Performance targets
+   - Security requirements
+   - Accessibility standards
+   - Browser compatibility
 
-### 3. Create Requirements Document
+4. **Integration Points**
+   - Existing system dependencies
+   - API requirements
+   - Data sources needed
 
-Create `.tmp/step-1-requirements.md` with the following sections:
+## 📝 Requirements Template
 
-```markdown
-# 要件定義書 - [タスク名]
+````markdown
+# 要件定義書 - [プロジェクト名]
 
-作成日: [YYYY-MM-DD]
-更新日: [YYYY-MM-DD]
-バージョン: 1.0
+**作成日**: YYYY-MM-DD  
+**バージョン**: 1.0  
+**ステータス**: Draft
 
-## 1. 目的
+## 1. エグゼクティブサマリー
 
-[このタスク/プロジェクトの目的を明確に記述]
+### 1.1 目的
+
+[プロジェクトの目的と背景]
+
+### 1.2 スコープ
+
+[プロジェクトの範囲と境界]
+
+### 1.3 ステークホルダー
+
+- プライマリユーザー: [詳細]
+- セカンダリユーザー: [詳細]
+- 管理者: [詳細]
 
 ## 2. 機能要件
 
-### 2.1 必須機能
+### 2.1 ユーザーストーリー
 
-- [ ] [機能 1 の詳細説明]
-- [ ] [機能 2 の詳細説明]
-      ...
+| ID   | As a... | I want to... | So that... | Priority |
+| ---- | ------- | ------------ | ---------- | -------- |
+| US01 | [Role]  | [Action]     | [Benefit]  | High     |
 
-### 2.2 オプション機能
+### 2.2 機能一覧
 
-- [ ] [将来的に実装可能な機能]
-      ...
+#### 必須機能 (MVP)
+
+- [ ] 機能1: [詳細説明]
+- [ ] 機能2: [詳細説明]
+
+#### 拡張機能 (Phase 2)
+
+- [ ] 機能A: [詳細説明]
+- [ ] 機能B: [詳細説明]
 
 ## 3. 非機能要件
 
 ### 3.1 パフォーマンス
 
-- [応答時間、処理速度などの要件]
+- ページロード時間: < 3秒
+- API レスポンス: < 200ms
+- 同時接続数: 1000ユーザー
 
 ### 3.2 セキュリティ
 
-- [セキュリティに関する要件]
+- 認証方式: [JWT/OAuth/etc]
+- データ暗号化: [要件]
+- セキュリティヘッダー: [CSP, CORS等]
 
-### 3.3 保守性
+### 3.3 ユーザビリティ
 
-- [コードの保守性に関する要件]
+- レスポンシブデザイン対応
+- キーボードナビゲーション
+- スクリーンリーダー対応
 
-### 3.4 互換性
+### 3.4 技術要件
 
-- [既存システムとの互換性要件]
+- ブラウザサポート: Chrome 90+, Firefox 88+, Safari 14+
+- Node.js: 18.x以上
+- フレームワーク: Next.js 15+
 
-### 3.5 コンポーネント要件
+## 4. UI/UXコンポーネント要件
 
-- 使用可能な @package/ui コンポーネント: [一覧]
-- カスタムコンポーネントが必要な箇所: [理由とともに記載]
+### 4.1 @package/ui 利用可能コンポーネント
 
-### 3.6 データ要件
+- Button, Card, Modal等の既存コンポーネント
+- [利用予定のコンポーネントリスト]
 
-- 必要な API エンドポイント: [一覧]
-- データベーススキーマ要件: [説明]
-- モックデータ仕様: [開発段階で使用するテストデータ]
+### 4.2 カスタムコンポーネント要件
 
-## 4. 制約事項
+- [コンポーネント名]: [必要な理由と仕様]
 
-### 4.1 技術的制約
+### 4.3 デザインシステム
 
-- [使用技術、ライブラリの制約]
+- カラーパレット: [定義]
+- タイポグラフィ: [定義]
+- スペーシング: [定義]
 
-### 4.2 ビジネス制約
+## 5. データ要件
 
-- [納期、予算などの制約]
+### 5.1 データモデル
 
-## 5. 成功基準
-
-### 5.1 完了の定義
-
-- [ ] [明確な完了条件 1]
-- [ ] [明確な完了条件 2]
-      ...
-
-### 5.2 受け入れテスト
-
-- [ユーザーが満足する条件]
-
-## 6. 想定されるリスク
-
-- [実装上のリスクと対策]
-
-## 7. 今後の検討事項
-
-- [設計フェーズで詳細化すべき事項]
+```typescript
+interface User {
+  id: string;
+  email: string;
+  // ...
+}
 ```
+````
 
-### 4. Next Steps
+### 5.2 API エンドポイント
 
-**Automatically proceed to technical design phase**
+| Method | Endpoint   | Description  | Request | Response |
+| ------ | ---------- | ------------ | ------- | -------- |
+| GET    | /api/users | ユーザー一覧 | -       | User[]   |
 
-Execute efficiently while ensuring requirements are clear, measurable, and implementable.
+### 5.3 モックデータ戦略
+
+- 開発フェーズでは静的JSONファイルを使用
+- MSW (Mock Service Worker) でAPIモック
+
+## 6. 制約事項
+
+### 6.1 技術的制約
+
+- TypeScript必須（any型禁止）
+- 関数型プログラミング優先
+- クラスベースコンポーネント禁止
+
+### 6.2 リソース制約
+
+- 開発期間: [期間]
+- チームサイズ: [人数]
+- 予算: [該当する場合]
+
+## 7. 成功基準
+
+### 7.1 定量的指標
+
+- [ ] 全機能テストのパス率 100%
+- [ ] Lighthouse スコア 90以上
+- [ ] TypeScript エラー 0件
+
+### 7.2 定性的指標
+
+- [ ] ユーザビリティテストの完了
+- [ ] アクセシビリティ監査のパス
+- [ ] セキュリティ監査のパス
+
+## 8. リスクと軽減策
+
+| リスク    | 影響度 | 発生確率 | 軽減策 |
+| --------- | ------ | -------- | ------ |
+| [リスク1] | High   | Medium   | [対策] |
+
+## 9. 依存関係
+
+### 9.1 外部依存
+
+- 外部API: [詳細]
+- サードパーティライブラリ: [詳細]
+
+### 9.2 内部依存
+
+- 既存システム: [詳細]
+- 共有コンポーネント: [詳細]
+
+## 10. 次のステップ
+
+- [ ] ステークホルダーレビュー
+- [ ] 技術設計フェーズへ移行
+- [ ] プロトタイプ作成
+
+````
+
+## 🚀 実行手順
+
+1. **ディレクトリ作成**
+   ```bash
+   mkdir -p .tmp
+````
+
+2. **要件分析**
+   - ユーザーの要求を詳細に分析
+   - 暗黙の要件を明確化
+   - 技術的実現可能性を検討
+
+3. **ドキュメント生成**
+   - テンプレートに基づいて作成
+   - 具体的で測定可能な要件を記載
+   - レビュー可能な形式で出力
+
+4. **品質チェック**
+   - 要件の完全性
+   - 実現可能性
+   - 測定可能性
+
+## 💡 ベストプラクティス
+
+- **SMART原則**: Specific, Measurable, Achievable, Relevant, Time-bound
+- **ユーザー中心**: 技術ではなくユーザー価値に焦点
+- **段階的詳細化**: MVPと将来の拡張を明確に分離
+- **トレーサビリティ**: 各要件に一意のIDを付与

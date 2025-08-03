@@ -1,42 +1,110 @@
 ---
 allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit, Bash(mkdir:*)
-description: Start Specification-Driven Development workflow for the given task
+description: Execute complete Specification-Driven Development workflow
 ---
 
-## Context
+# Full Automatic Workflow
 
-- Task requirements: $ARGUMENTS
+Execute the complete 4-stage Specification-Driven Development process.
 
-## Your task
+## 📋 Prerequisites
 
-Execute the complete Specification-Driven Development workflow:
+- Task description: `$ARGUMENTS`
+- Working directory: Current project root
+- Output location: `.tmp/` directory
 
-### 1. Setup
+## 🚀 Workflow Execution
 
-- Create `.tmp` directory if it doesn't exist
+### Stage 1: Requirements Analysis
 
-### 2. Stage 1: Requirements Analysis
+Create comprehensive requirements specification from user input.
 
-Execute `/step-1-requirements` command to create detailed requirements specification.
+**Actions:**
 
-**Output**: `.tmp/step-1-requirements.md`
+1. Create `.tmp` directory if needed
+2. Analyze user requirements
+3. Generate `.tmp/step-1-requirements.md`
 
-### 3. Stage 2: Technical Design
+**Success Criteria:**
 
-Execute `/step-2-design` command to create technical design based on requirements.
+- Clear functional requirements
+- Non-functional requirements defined
+- Success metrics established
 
-**Output**: `.tmp/step-2-design.md`
+### Stage 2: Technical Design
 
-### 4. Stage 3: Implementation Planning
+Transform requirements into technical architecture.
 
-Execute `/step-3-tasks` command to break down design into implementable tasks.
+**Actions:**
 
-**Output**: `.tmp/step-3-tasks.md`
+1. Read requirements document
+2. Design technical solution
+3. Generate `.tmp/step-2-design.md`
 
-## Execution Guidelines
+**Success Criteria:**
 
-- Use parallel tool calls for independent operations
-- Execute efficiently with minimal dependencies
-- Prioritize @package/ui components in all design and implementation phases
-- Implement mock data strategy for features requiring external data sources
-- Ensure quality assurance (lint, format, typecheck, build) is integrated into each stage
+- Component architecture defined
+- Data flow documented
+- Integration points identified
+
+### Stage 3: Task Planning
+
+Break down design into executable tasks.
+
+**Actions:**
+
+1. Read design document
+2. Create task breakdown
+3. Generate `.tmp/step-3-tasks.md`
+4. Register tasks in TodoWrite
+
+**Success Criteria:**
+
+- Tasks are atomic and testable
+- Dependencies clearly mapped
+- Time estimates provided
+
+### Stage 4: Implementation Ready
+
+Prepare for implementation phase.
+
+**Final Outputs:**
+
+- Requirements: `.tmp/step-1-requirements.md`
+- Design: `.tmp/step-2-design.md`
+- Tasks: `.tmp/step-3-tasks.md`
+- Todo list populated and ready
+
+## 💡 Execution Guidelines
+
+### Efficiency Principles
+
+- Execute independent operations in parallel
+- Minimize round trips with batch operations
+- Use existing components from `@package/ui`
+
+### Quality Standards
+
+- Each document must be complete and actionable
+- Include quality checks in task definitions
+- Design for testability and maintainability
+
+### Best Practices
+
+- Mock external dependencies initially
+- Design API contracts early
+- Consider error handling from the start
+- Plan for accessibility and i18n
+
+## 🎯 Command Usage
+
+```bash
+/full-automatic "Create a user authentication system with email/password login"
+```
+
+This will generate:
+
+1. Requirements document with auth specifications
+2. Technical design with component architecture
+3. Task list with implementation steps
+4. Populated todo list ready for development

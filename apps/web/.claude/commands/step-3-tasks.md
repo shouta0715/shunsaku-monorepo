@@ -1,168 +1,402 @@
 ---
 allowed-tools: TodoWrite, TodoRead, Read, Write, MultiEdit
-description: Break down design into implementable tasks (Stage 3 of Spec-Driven Development)
+description: Stage 3 - Task Planning for Specification-Driven Development
 ---
 
-## Context
+# Task Planning Stage
 
-- Requirements: @.tmp/step-1-requirements.md
-- Design document: @.tmp/step-2-design.md
+Break down technical design into actionable, atomic tasks with clear dependencies and quality gates.
 
-## Your task
+## 📋 Prerequisites
 
-**Execute task breakdown**. Transform technical design into manageable implementation units.
+- Input: `.tmp/step-1-requirements.md`, `.tmp/step-2-design.md`
+- Output: `.tmp/step-3-tasks.md`
 
-### 1. Prerequisites
+## 🎯 Planning Objectives
 
-- Check that `.tmp/step-1-requirements.md` and `.tmp/step-2-design.md` exist
+### Task Characteristics
 
-### 2. Task Analysis
+1. **Atomic**: Each task completes one specific outcome
+2. **Measurable**: Clear completion criteria
+3. **Independent**: Minimize dependencies
+4. **Testable**: Verifiable results
+5. **Time-boxed**: Realistic estimates
 
-- Read design document and map to implementation tasks
-- Identify dependencies and parallel execution opportunities
-- Plan @package/ui component usage for each task
-- Design mock data strategy for features requiring external data
+## 📝 Task List Template
 
-### 3. Optimized Task Breakdown
+````markdown
+# タスクリスト - [プロジェクト名]
 
-Create `.tmp/step-3-tasks.md` with the following structure:
+**作成日**: YYYY-MM-DD  
+**バージョン**: 1.0  
+**基準文書**:
 
-```markdown
-# タスクリスト - [タスク名]
+- 要件: `.tmp/step-1-requirements.md`
+- 設計: `.tmp/step-2-design.md`
 
-作成日: [YYYY-MM-DD]
-更新日: [YYYY-MM-DD]
-バージョン: 1.0
-基盤要件: @.tmp/step-1-requirements.md
-基盤設計: @.tmp/step-2-design.md
+## エグゼクティブサマリー
 
-## 概要
+| Metric           | Value     |
+| ---------------- | --------- |
+| 総タスク数       | XX        |
+| 推定工数         | XX 時間   |
+| 並列実行可能     | XX%       |
+| クリティカルパス | XX タスク |
 
-- 総タスク数: [数]
-- 推定作業時間: [時間/日数]
-- 優先度: [高/中/低]
+## タスク依存関係図
 
-## タスク一覧
+```mermaid
+gantt
+    title Implementation Timeline
+    dateFormat  YYYY-MM-DD
+    section Phase 1
+    Environment Setup    :a1, 2024-01-01, 1d
+    Project Structure    :a2, after a1, 1d
+    section Phase 2
+    Core Components      :b1, after a2, 3d
+    API Integration      :b2, after a2, 2d
+    section Phase 3
+    Testing             :c1, after b1 b2, 2d
+```
+````
 
-### Phase 1: 準備・調査
+## Phase 1: 基盤構築
 
-#### Task 1.1: [タスク名]
+### Task 1.1: 開発環境セットアップ
 
-- [ ] [具体的な作業項目 1]
-- [ ] [具体的な作業項目 2]
-- **完了条件**: [明確な完了条件]
-- **依存**: [依存するタスク または なし]
-- **推定時間**: [時間]
+**目的**: プロジェクトの基盤を構築
 
-#### Task 1.2: [タスク名]
+**実装内容**:
 
-- [ ] [具体的な作業項目 1]
-- [ ] [具体的な作業項目 2]
-- **完了条件**: [明確な完了条件]
-- **依存**: [依存するタスク]
-- **推定時間**: [時間]
+- [ ] プロジェクト初期化
+- [ ] 必要な依存関係のインストール
+- [ ] 開発ツールの設定
+- [ ] 環境変数の設定
 
-### Phase 2: 実装
+**技術詳細**:
 
-#### Task 2.1: [機能名]の実装
-
-- [ ] [実装項目 1]
-- [ ] [実装項目 2]
-- [ ] @package/ui コンポーネントの選定と実装
-- [ ] モックデータの作成（必要に応じて）
-- [ ] 品質チェック実行（lint:fix, format, lint, typecheck, build）
-- **完了条件**: [明確な完了条件] + 全品質チェックがパス
-- **依存**: [依存するタスク]
-- **推定時間**: [時間]
-
-#### Task 2.2: [機能名]の実装
-
-- [ ] [実装項目 1]
-- [ ] [実装項目 2]
-- **完了条件**: [明確な完了条件]
-- **依存**: [依存するタスク]
-- **推定時間**: [時間]
-
-### Phase 3: 検証・テスト
-
-#### Task 3.1: [検証項目]
-
-- [ ] [テスト項目 1]
-- [ ] [テスト項目 2]
-- **完了条件**: [明確な完了条件]
-- **依存**: [依存するタスク]
-- **推定時間**: [時間]
-
-### Phase 4: 仕上げ
-
-#### Task 4.1: [仕上げ項目]
-
-- [ ] [仕上げ作業 1]
-- [ ] [仕上げ作業 2]
-- **完了条件**: [明確な完了条件]
-- **依存**: [依存するタスク]
-- **推定時間**: [時間]
-
-## 実装順序
-
-1. Phase 1 から順次実行
-2. 並行実行可能なタスクは並行で実行
-3. 依存関係を考慮した実装順序
-
-## リスクと対策
-
-- [特定されたリスク]: [対策方法]
-
-## 注意事項
-
-- 各タスクはコミット単位で完結させる
-- タスク完了時は必要に応じて品質チェックを実行
-- 不明点は実装前に確認する
+```bash
+# 実行コマンド例
+pnpm create next-app@latest
+pnpm add zustand @tanstack/react-query
 ```
 
-### 4. Task Registration
+**品質保証**:
 
-Register key tasks using TodoWrite tool
+- [ ] `pnpm install` - 依存関係インストール
+- [ ] `pnpm lint:fix` - コード自動修正
+- [ ] `pnpm format` - コードフォーマット
+- [ ] `pnpm lint` - Lintチェック
+- [ ] `pnpm typecheck` - 型チェック
+- [ ] `pnpm build` - ビルド確認
 
-### 5. Implementation Guide
+**完了条件**:
 
-Add implementation guide to tasks.md:
+- ビルドが成功する
+- 開発サーバーが起動する
+- 全ての品質チェックがパス
 
-```markdown
-## 実装開始ガイド
+**依存**: なし  
+**推定時間**: 2時間  
+**担当**: -
 
-### 基本方針
+### Task 1.2: プロジェクト構造の実装
 
-1. 並列実行可能なタスクは同時に実行
-2. 各タスク開始時に TodoWrite で in_progress に更新
-3. 完了時は completed に更新
+**目的**: 設計書に基づくディレクトリ構造の作成
 
-### コンポーネント使用方針
+**実装内容**:
 
-1. まず @package/ui で利用可能なコンポーネントを確認
-2. 必要な機能が見つからない場合のみカスタムコンポーネントを作成
-3. カスタムコンポーネントは @package/ui の設計パターンに従う
+- [ ] srcディレクトリ構造の作成
+- [ ] 基本的な設定ファイルの作成
+- [ ] TypeScript設定の最適化
+- [ ] パスエイリアスの設定
 
-### データ実装方針
+**技術詳細**:
 
-1. 外部 API/データベースが必要な機能はまずモックデータで実装
-2. モックデータで動作確認後、実際のデータソースに接続
-3. エラーハンドリングも含めてモックで検証
-
-### 品質保証プロセス
-
-各タスク完了時に以下を順次実行：
-
-1. `pnpm install` - パッケージインストール
-2. `pnpm lint:fix` - 自動修正
-3. `pnpm format` - コード整形
-4. `pnpm lint` - リント確認（エラーがあれば修正）
-5. `pnpm typecheck` - 型チェック（エラーがあれば修正）
-6. `pnpm build` - ビルド確認（エラーがあれば修正）
-
-**重要**: 全ての品質チェックがパスするまでタスクは完了とみなさない
+```typescript
+// tsconfig.json paths設定
+{
+  "paths": {
+    "@/*": ["./src/*"],
+    "@/components/*": ["./src/components/*"]
+  }
+}
 ```
 
-### 6. Completion
+**品質保証**: [同上]
 
-**Ready to begin implementation** with clear, commit-sized tasks and parallel execution.
+**完了条件**:
+
+- 全てのディレクトリが作成される
+- インポートパスが正しく解決される
+
+**依存**: Task 1.1  
+**推定時間**: 1時間
+
+## Phase 2: コア機能実装
+
+### Task 2.1: UIコンポーネントの実装
+
+**目的**: 基本的なUIコンポーネントの構築
+
+**実装内容**:
+
+- [ ] @package/ui の既存コンポーネント調査
+- [ ] 必要なカスタムコンポーネントの特定
+- [ ] コンポーネントの実装
+- [ ] Storybookでのドキュメント化
+
+**@package/ui活用計画**:
+| Component | Usage | Customization |
+|-----------|-------|---------------|
+| Button | Primary actions | Theme colors |
+| Card | Content display | Shadows |
+| Modal | Dialogs | Animations |
+
+**品質保証**: [同上]
+
+**完了条件**:
+
+- 全コンポーネントが正しくレンダリング
+- Props型定義が完備
+- アクセシビリティ基準を満たす
+
+**依存**: Task 1.2  
+**推定時間**: 4時間
+
+### Task 2.2: 状態管理の実装
+
+**目的**: グローバル状態管理の構築
+
+**実装内容**:
+
+- [ ] Zustand storeの作成
+- [ ] 状態の型定義
+- [ ] アクションの実装
+- [ ] DevToolsの設定
+
+**技術詳細**:
+
+```typescript
+// store/useAppStore.ts
+interface AppState {
+  // State definition
+}
+```
+
+**品質保証**: [同上]
+
+**完了条件**:
+
+- 状態の読み書きが正常動作
+- TypeScript型が正しく推論
+- DevToolsで状態確認可能
+
+**依存**: Task 1.2  
+**推定時間**: 3時間
+
+## Phase 3: API・データ層
+
+### Task 3.1: モックデータの実装
+
+**目的**: 開発用モックデータの準備
+
+**実装内容**:
+
+- [ ] モックデータ構造の定義
+- [ ] MSW (Mock Service Worker) のセットアップ
+- [ ] APIハンドラーの実装
+- [ ] エラーケースのモック
+
+**モックデータ例**:
+
+```typescript
+// mocks/data/users.ts
+export const mockUsers = [{ id: "1", name: "Test User" }];
+```
+
+**品質保証**: [同上]
+
+**完了条件**:
+
+- 全APIエンドポイントがモック化
+- レスポンスが仕様通り
+- エラーケースも網羅
+
+**依存**: Task 2.2  
+**推定時間**: 3時間
+
+### Task 3.2: API統合レイヤーの実装
+
+**目的**: フロントエンドとAPIの接続層構築
+
+**実装内容**:
+
+- [ ] API clientの作成
+- [ ] React Query hooksの実装
+- [ ] エラーハンドリング
+- [ ] キャッシュ戦略の実装
+
+**品質保証**: [同上]
+
+**完了条件**:
+
+- APIコールが正常動作
+- エラーが適切にハンドリング
+- キャッシュが効いている
+
+**依存**: Task 3.1  
+**推定時間**: 4時間
+
+## Phase 4: 機能実装
+
+### Task 4.1: [具体的な機能名]の実装
+
+**目的**: ユーザー向け機能の実装
+
+**実装内容**:
+
+- [ ] UIの実装
+- [ ] ビジネスロジックの実装
+- [ ] 状態管理との接続
+- [ ] テストの作成
+
+**品質保証**: [同上]
+
+**完了条件**:
+
+- 機能が仕様通り動作
+- エッジケースも考慮
+- パフォーマンス基準を満たす
+
+**依存**: Task 3.2  
+**推定時間**: 6時間
+
+## Phase 5: 品質保証・最適化
+
+### Task 5.1: テストの実装
+
+**目的**: 自動テストによる品質保証
+
+**実装内容**:
+
+- [ ] ユニットテストの作成
+- [ ] 統合テストの作成
+- [ ] E2Eテストの作成
+- [ ] カバレッジ目標達成
+
+**テスト戦略**:
+| Type | Tool | Target Coverage |
+|------|------|-----------------|
+| Unit | Vitest | 80% |
+| Integration | Testing Library | Critical paths |
+| E2E | Playwright | User journeys |
+
+**品質保証**: [同上]
+
+**完了条件**:
+
+- カバレッジ目標達成
+- 全テストがパス
+- CI/CDで自動実行
+
+**依存**: Task 4.1  
+**推定時間**: 4時間
+
+### Task 5.2: パフォーマンス最適化
+
+**目的**: アプリケーションの最適化
+
+**実装内容**:
+
+- [ ] バンドルサイズ分析
+- [ ] コード分割の実装
+- [ ] 画像最適化
+- [ ] Lighthouse監査
+
+**品質保証**: [同上]
+
+**完了条件**:
+
+- Lighthouseスコア90以上
+- FCP < 1.8s
+- TTI < 3.8s
+
+**依存**: Task 5.1  
+**推定時間**: 3時間
+
+## 実装ガイドライン
+
+### 並列実行戦略
+
+```mermaid
+graph LR
+    A[Task 1.1] --> B[Task 1.2]
+    B --> C[Task 2.1]
+    B --> D[Task 2.2]
+    C --> E[Task 3.1]
+    D --> E
+    E --> F[Task 3.2]
+    F --> G[Task 4.1]
+    G --> H[Task 5.1]
+    G --> I[Task 5.2]
+```
+
+### タスク実行手順
+
+1. **タスク開始時**
+   - TodoWriteでステータスを`in_progress`に更新
+   - 関連ドキュメントを確認
+
+2. **実装中**
+   - コミットは小さく頻繁に
+   - 品質チェックを定期実行
+
+3. **タスク完了時**
+   - 全品質チェックを実行
+   - TodoWriteでステータスを`completed`に更新
+   - 次のタスクの準備
+
+### リスク管理
+
+| Risk           | Impact | Mitigation         |
+| -------------- | ------ | ------------------ |
+| 依存関係の遅延 | High   | 並列タスクを優先   |
+| 技術的課題     | Medium | 早期のスパイク実施 |
+| 仕様変更       | High   | 段階的な実装       |
+
+## まとめ
+
+**次のアクション**:
+
+1. Task 1.1から開始
+2. 並列実行可能なタスクは同時進行
+3. 日次で進捗確認
+
+```
+
+## 🚀 実行プロセス
+
+1. **設計書分析**
+   - 技術設計を詳細に確認
+   - 実装単位を特定
+
+2. **タスク分解**
+   - 大きなタスクを小さく分割
+   - 依存関係を明確化
+
+3. **優先順位付け**
+   - クリティカルパスを特定
+   - 並列実行機会を最大化
+
+4. **TodoList登録**
+   - 主要タスクをTodoWriteに登録
+   - 進捗管理の準備
+
+## 💡 タスク設計原則
+
+- **1-2-4-8ルール**: 1日以内、理想は2-4時間、最大8時間
+- **INVEST原則**: Independent, Negotiable, Valuable, Estimable, Small, Testable
+- **完了の定義**: 明確で測定可能な完了条件
+- **品質ゲート**: 各タスクに品質保証ステップを含める
+```
