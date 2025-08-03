@@ -8,7 +8,7 @@ output: ".tmp/step-2-design.md"
 
 # 🏗️ 技術設計ステージ
 
-**既存apps/webプロジェクトのメインページ上書きを前提とし、要件仕様書からlayout.tsx・page.tsx直接置換設計、@package/ui活用、API仕様を含む技術仕様書を作成します。**
+**既存apps/webプロジェクトのメインページ上書きを前提とし、要件仕様書からsrc/app/layout.tsx・page.tsx直接置換設計、@package/ui活用、src/内正しいディレクトリ構造でのAPI仕様を含む技術仕様書を作成します。**
 
 ## 📝 使用法
 

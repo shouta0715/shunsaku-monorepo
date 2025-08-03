@@ -7,7 +7,7 @@ output: "Complete specification set"
 
 # 🚀 仕様駆動開発 完全自動ワークフロー
 
-**既存apps/webプロジェクトのメインページ上書きを前提とし、要件分析→layout.tsx・page.tsx置換設計→タスク計画を自動実行して完全仕様書を生成します。**
+**既存apps/webプロジェクトのメインページ上書きを前提とし、要件分析→src/app/layout.tsx・page.tsx置換設計→src/内正しいディレクトリ構造でのタスク計画を自動実行して完全仕様書を生成します。**
 
 ## 📝 使用法
 

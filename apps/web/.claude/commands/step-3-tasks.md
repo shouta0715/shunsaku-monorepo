@@ -8,7 +8,7 @@ output: ".tmp/step-3-tasks.md + TodoList"
 
 # 📝 タスク計画ステージ
 
-**既存apps/webプロジェクトのメインページ上書きを前提とし、技術設計からlayout.tsx・page.tsx置換タスクを作成し、並列実行可能な作業計画を策定します。**
+**既存apps/webプロジェクトのメインページ上書きを前提とし、技術設計からsrc/app/layout.tsx・page.tsx置換タスクを作成し、src/内正しいディレクトリ構造での並列実行可能な作業計画を策定します。**
 
 ## 📝 使用法
 

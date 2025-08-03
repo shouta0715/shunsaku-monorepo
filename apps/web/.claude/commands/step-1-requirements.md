@@ -7,7 +7,7 @@ output: ".tmp/step-1-requirements.md"
 
 # 📋 要件分析ステージ
 
-**既存apps/webプロジェクトのメインページ（layout.tsx, page.tsx）上書き型実装を前提とし、ユーザー要求を@package/ui活用・ルートページ統合の要件仕様書に変換します。**
+**既存apps/webプロジェクトのメインページ（src/app/layout.tsx, page.tsx）上書き型実装を前提とし、ユーザー要求を@package/ui活用・src/内正しいディレクトリ構造での要件仕様書に変換します。**
 
 ## 📝 使用法
 

@@ -20,10 +20,14 @@ shunsaku-monorepo/
 ├── apps/
 │   └── web/                    # メインアプリケーション
 │       ├── src/
-│       │   └── app/           # Next.js App Router
-│       │       ├── layout.tsx # ルートレイアウト
-│       │       ├── page.tsx   # ホームページ
-│       │       └── globals.css # グローバルスタイル
+│       │   ├── app/           # Next.js App Router
+│       │   │   ├── layout.tsx # ルートレイアウト
+│       │   │   ├── page.tsx   # ホームページ
+│       │   │   └── globals.css # グローバルスタイル
+│       │   ├── components/    # Reactコンポーネント
+│       │   ├── hooks/         # カスタムフック
+│       │   ├── lib/           # ユーティリティ・ビジネスロジック
+│       │   └── types/         # TypeScript型定義
 │       ├── .claude/           # Specification-Driven Development
 │       │   ├── CLAUDE.md      # プロジェクトガイドライン
 │       │   ├── settings.json  # Claude設定
@@ -44,6 +48,10 @@ shunsaku-monorepo/
 ### 開発ディレクトリ
 
 - **`src/app/`**: Next.js 15 App Router（ページ・レイアウト）
+- **`src/components/`**: Reactコンポーネント（@package/ui活用）
+- **`src/hooks/`**: カスタムフック（状態管理・ユーティリティ）
+- **`src/lib/`**: ユーティリティ・ビジネスロジック・API処理
+- **`src/types/`**: TypeScript型定義・インターフェース
 - **`.claude/`**: 仕様駆動開発環境（コマンド・設定）
 - **`.tmp/`**: 自動生成仕様書（requirements・design・tasks）
 - **`@package/ui`**: 28種類のUIコンポーネント統合済み
@@ -80,7 +88,8 @@ shunsaku-monorepo/
 
 1. **既存構造活用**: `src/app/layout.tsx`, `page.tsx`を基盤として拡張
 2. **@package/ui優先**: カスタムコンポーネント作成前に28種類の既存コンポーネントを確認
-3. **モックデータ**: 外部統合前にモックデータで機能実装
+3. **正しいディレクトリ構造**: `src/components/`, `src/hooks/`, `src/lib/`, `src/types/`に配置
+4. **モックデータ**: 外部統合前にモックデータで機能実装
 
 ### Quality Assurance Process
 
@@ -101,7 +110,7 @@ pnpm build
 
 ### メインページ上書き型ワークフロー (8-11分で実装仕様生成)
 
-**`apps/web/src/app/layout.tsx`・`page.tsx`の直接置換を前提とした仕様駆動開発（README.md自動生成含む）**
+**`apps/web/src/app/layout.tsx`・`page.tsx`の直接置換を前提とし、`src/`内正しいディレクトリ構造での仕様駆動開発（README.md自動生成含む）**
 
 ```mermaid
 graph LR
@@ -115,19 +124,20 @@ graph LR
 ### 開発コンテキスト
 
 - **ベースプロジェクト**: `apps/web` (Next.js 15 + @package/ui)
-- **実装方法**: **メインページ上書き型** - `layout.tsx`・`page.tsx`を直接置換
+- **実装方法**: **メインページ上書き型** - `src/app/layout.tsx`・`page.tsx`を直接置換
+- **ディレクトリ構造**: `src/components/`, `src/hooks/`, `src/lib/`, `src/types/`に適切配置
 - **既存活用**: `@package/ui`コンポーネント、Geistフォント、既存スタイリング
 - **出力先**: トップページ（/）への機能統合
 - **最終成果物**: 完全実装 + 包括的README.md
 
 ### Available Commands
 
-| Command                | Description                                    | Output                            |
-| ---------------------- | ---------------------------------------------- | --------------------------------- |
-| `/full-automatic`      | メインページ上書き型仕様書一括生成             | 完全実装仕様セット                |
-| `/step-1-requirements` | 機能要件定義（layout.tsx・page.tsx上書き前提） | `.tmp/step-1-requirements.md`     |
-| `/step-2-design`       | メインページ置換設計（@package/ui活用）        | `.tmp/step-2-design.md`           |
-| `/step-3-tasks`        | 実装タスク分解（トップページ統合）             | `.tmp/step-3-tasks.md` + TodoList |
+| Command                | Description                                            | Output                            |
+| ---------------------- | ------------------------------------------------------ | --------------------------------- |
+| `/full-automatic`      | メインページ上書き型仕様書一括生成                     | 完全実装仕様セット                |
+| `/step-1-requirements` | 機能要件定義（src/app/layout.tsx・page.tsx上書き前提） | `.tmp/step-1-requirements.md`     |
+| `/step-2-design`       | メインページ置換設計（@package/ui活用・src/内構造）    | `.tmp/step-2-design.md`           |
+| `/step-3-tasks`        | 実装タスク分解（トップページ統合・src/内構造）         | `.tmp/step-3-tasks.md` + TodoList |
 
 ### 開発フロー
 
@@ -148,7 +158,8 @@ rm -rf .tmp/step-*
 
 ### メインページ上書き型パターン
 
-- **直接置換**: `layout.tsx`・`page.tsx`を機能専用ページに完全上書き
+- **直接置換**: `src/app/layout.tsx`・`page.tsx`を機能専用ページに完全上書き
+- **正しいディレクトリ構造**: `src/components/`, `src/hooks/`, `src/lib/`, `src/types/`に適切配置
 - **既存基盤継承**: Geistフォント・スタイリング・メタデータ設定を活用
 - **@package/ui最大活用**: 28種類のコンポーネント優先、カスタム作成は最小限
 - **App Router最適化**: ルートページ（/）での最高パフォーマンス実現
@@ -158,13 +169,17 @@ rm -rf .tmp/step-*
 ### メインページ上書き型実装構造
 
 ```typescript
-// 上書き後のディレクトリ構造（apps/web/src/app/）
-src/app/
-├── layout.tsx          // 機能専用レイアウト（Geistフォント継承・メタデータ更新）
-├── page.tsx           // 機能メインページ（@package/ui活用・完全置換）
-├── globals.css        // グローバルスタイル（@package/ui・Tailwind）
-├── favicon.ico        // ファビコン
-└── [feature]/         // 必要に応じた追加ディレクトリ（hooks、lib等）
+// 上書き後のディレクトリ構造（apps/web/src/）
+src/
+├── app/
+│   ├── layout.tsx      // 機能専用レイアウト（Geistフォント継承・メタデータ更新）
+│   ├── page.tsx        // 機能メインページ（@package/ui活用・完全置換）
+│   ├── globals.css     // グローバルスタイル（@package/ui・Tailwind）
+│   └── favicon.ico     // ファビコン
+├── components/         // 機能固有コンポーネント（@package/ui活用）
+├── hooks/             // カスタムフック（状態管理・ユーティリティ）
+├── lib/               // ユーティリティ・ビジネスロジック
+└── types/             // TypeScript型定義
 ```
 
 ### 自動README生成
