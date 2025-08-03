@@ -179,10 +179,10 @@ Components Styling (統一):
 
 ### 避ける要素（メイン仕様準拠）
 
-- 強い色 (red-500, blue-500、zinc系の強いコントラスト)
+- 強い色 (red-500, blue-500、zinc 系の強いコントラスト)
 - 鋭いコントラスト
 - 複雑なグラデーション
-- shadow-lg, shadow-xl等の強い影
+- shadow-lg, shadow-xl 等の強い影
 - 不統一な色使い
 
 ---
