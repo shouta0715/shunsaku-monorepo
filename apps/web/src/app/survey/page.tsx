@@ -143,7 +143,9 @@ export default function SurveyPage() {
             <Text className="mt-4 text-lg font-semibold text-gray-900">
               読み込み中...
             </Text>
-            <Text className="text-gray-600">心の天気をチェックする準備をしています</Text>
+            <Text className="text-gray-600">
+              心の天気をチェックする準備をしています
+            </Text>
           </motion.div>
         </div>
       </DashboardLayout>
@@ -170,7 +172,11 @@ export default function SurveyPage() {
                 animate={{ scale: [1, 1.1, 1] }}
                 className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500 to-blue-600 text-3xl text-white shadow-xl"
                 initial={{ scale: 1 }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 🌤️
               </motion.div>

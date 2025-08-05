@@ -6,9 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DashboardLayout } from "@/components/layout";
-import {
-  LoadingSpinner,
-} from "@/components/ui";
+import { LoadingSpinner } from "@/components/ui";
 import { initializeSession } from "@/lib/mock-auth";
 import { getCurrentUserSurveys, mockQuestions } from "@/lib/mock-data";
 import type { Survey, SurveyResponse } from "@/types";
@@ -82,22 +80,22 @@ export default function SurveyHistoryPage() {
 
   const getRiskBadge = (level: "low" | "medium" | "high") => {
     const config = {
-      low: { 
-        color: "green" as const, 
+      low: {
+        color: "green" as const,
         label: "低リスク",
         emoji: "☀️",
         bgGradient: "from-green-50 to-emerald-50",
         borderColor: "border-green-200",
       },
-      medium: { 
-        color: "yellow" as const, 
+      medium: {
+        color: "yellow" as const,
         label: "中リスク",
         emoji: "🌤️",
         bgGradient: "from-yellow-50 to-amber-50",
         borderColor: "border-yellow-200",
       },
-      high: { 
-        color: "red" as const, 
+      high: {
+        color: "red" as const,
         label: "高リスク",
         emoji: "⛈️",
         bgGradient: "from-red-50 to-pink-50",
@@ -214,7 +212,7 @@ export default function SurveyHistoryPage() {
                 <span className="text-gray-600">{session.user.department}</span>
               </motion.div>
             )}
-            
+
             <motion.div
               className="mt-6 inline-block"
               whileHover={{ scale: 1.02 }}
@@ -322,7 +320,7 @@ export default function SurveyHistoryPage() {
                   <div className="text-center">
                     <motion.div
                       animate={{ scale: [1, 1.05, 1] }}
-                      className="mb-2 text-3xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-800 bg-clip-text text-transparent"
+                      className="mb-2 bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-800 bg-clip-text text-3xl font-bold text-transparent"
                       transition={{ duration: 2, repeat: Infinity }}
                     >
                       {stats.average.toFixed(1)}
@@ -369,7 +367,9 @@ export default function SurveyHistoryPage() {
                       </span>
                       {stats.trend !== "stable" && (
                         <motion.div
-                          animate={{ y: stats.trend === "up" ? [0, -3, 0] : [0, 3, 0] }}
+                          animate={{
+                            y: stats.trend === "up" ? [0, -3, 0] : [0, 3, 0],
+                          }}
                           className={`flex items-center ${
                             stats.trend === "up"
                               ? "text-green-500"
@@ -579,16 +579,14 @@ export default function SurveyHistoryPage() {
                               transition={{ duration: 2, repeat: Infinity }}
                             >
                               <div>
-                                <div className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-indigo-800 to-purple-800 bg-clip-text text-transparent">
+                                <div className="bg-gradient-to-r from-gray-900 via-indigo-800 to-purple-800 bg-clip-text text-3xl font-bold text-transparent">
                                   {survey.totalScore.toFixed(1)}
                                 </div>
                                 <Badge className="mt-1" color={badge.color}>
                                   {badge.label}
                                 </Badge>
                               </div>
-                              <div className="text-3xl">
-                                {badge.emoji}
-                              </div>
+                              <div className="text-3xl">{badge.emoji}</div>
                             </motion.div>
                           </div>
                         </div>
@@ -597,7 +595,10 @@ export default function SurveyHistoryPage() {
                           animate={{ opacity: 1 }}
                           className="mt-4 space-y-3"
                           initial={{ opacity: 0 }}
-                          transition={{ duration: 0.3, delay: 0.9 + index * 0.1 }}
+                          transition={{
+                            duration: 0.3,
+                            delay: 0.9 + index * 0.1,
+                          }}
                         >
                           {survey.responses.map((response, responseIndex) => (
                             <motion.div
@@ -605,7 +606,10 @@ export default function SurveyHistoryPage() {
                               animate={{ opacity: 1, x: 0 }}
                               className="flex items-center justify-between border-b border-gray-200/50 py-3 last:border-b-0"
                               initial={{ opacity: 0, x: -10 }}
-                              transition={{ duration: 0.2, delay: 1 + index * 0.1 + responseIndex * 0.05 }}
+                              transition={{
+                                duration: 0.2,
+                                delay: 1 + index * 0.1 + responseIndex * 0.05,
+                              }}
                             >
                               <span className="text-sm font-medium text-gray-700">
                                 {(
@@ -620,7 +624,9 @@ export default function SurveyHistoryPage() {
                                 </span>
                                 <div className="relative h-2 w-20 overflow-hidden rounded-full bg-gray-200/70 shadow-inner">
                                   <motion.div
-                                    animate={{ width: `${(response.score / 5) * 100}%` }}
+                                    animate={{
+                                      width: `${(response.score / 5) * 100}%`,
+                                    }}
                                     className={`h-2 rounded-full shadow-sm ${
                                       response.score >= 4
                                         ? "bg-gradient-to-r from-green-400 to-emerald-500"
@@ -629,11 +635,21 @@ export default function SurveyHistoryPage() {
                                           : "bg-gradient-to-r from-red-400 to-red-500"
                                     }`}
                                     initial={{ width: 0 }}
-                                    transition={{ duration: 0.5, delay: 1.1 + index * 0.1 + responseIndex * 0.05 }}
+                                    transition={{
+                                      duration: 0.5,
+                                      delay:
+                                        1.1 +
+                                        index * 0.1 +
+                                        responseIndex * 0.05,
+                                    }}
                                   />
                                 </div>
                                 <span className="text-lg">
-                                  {response.score >= 4 ? "☀️" : response.score >= 3 ? "🌤️" : "⛈️"}
+                                  {response.score >= 4
+                                    ? "☀️"
+                                    : response.score >= 3
+                                      ? "🌤️"
+                                      : "⛈️"}
                                 </span>
                               </div>
                             </motion.div>
