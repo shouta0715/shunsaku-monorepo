@@ -1,10 +1,14 @@
-# 離職リスク予測ダッシュボード
+# やめどき予報（離職リスク予測ダッシュボード）
 
 > 「日々の声から、未来の離職をゼロへ。」
 
-社員の日々の満足度を可視化し、離職リスクを早期発見する次世代HRダッシュボード
+社員の日々の満足度を天気メタファーで可視化し、離職リスクを早期発見する次世代HRダッシュボード
 
 ![Dashboard Preview](./docs/images/dashboard-preview.png)
+
+## 🌟 プロジェクトの特徴
+
+**やめどき予報**は、従業員の満足度を天気（⛈️🌧️🌤️🌞☀️）で表現し、直感的に理解できるHRダッシュボードです。日々の5問アンケートから離職リスクを予測し、早期のフォローアップを可能にします。
 
 ## ✨ 主要機能
 
@@ -28,64 +32,47 @@
 
 ```bash
 # 1. リポジトリクローン
-git clone https://github.com/your-org/employee-satisfaction-dashboard.git
-cd employee-satisfaction-dashboard
+git clone https://github.com/your-org/shunsaku-monorepo.git
+cd shunsaku-monorepo/apps/web
 
 # 2. 依存関係インストール
 npm install
 
-# 3. 環境変数設定
-cp .env.example .env.local
-# 必要な環境変数を設定（詳細は下記参照）
+# 3. 環境変数設定（現在はモック実装のため不要）
+# cp .env.example .env.local
 
-# 4. データベースセットアップ
-npm run db:setup
-npm run db:migrate
-npm run db:seed
-
-# 5. 開発サーバー起動
+# 4. 開発サーバー起動
 npm run dev
 ```
 
 アプリケーションは http://localhost:3000 で起動します。
 
+**デモユーザー（モック認証）**:
+
+- 一般社員: `tanaka@example.com` (田中太郎)
+- マネージャー: `sato@example.com` (佐藤次郎)
+- HR: `suzuki@example.com` (鈴木美咲)
+- 管理者: `takahashi@example.com` (高橋健一)
+
 ### 初期セットアップ
 
-```bash
-# 管理者ユーザー作成
-npm run create-admin
-# Email: admin@company.com
-# Password: Admin123!
+現在はモック実装のため、初期セットアップは不要です。上記のデモユーザーでログインできます。
 
-# テストデータ生成（開発環境のみ）
-npm run generate-test-data
-```
+### 環境変数設定（将来実装予定）
 
-### 環境変数設定
-
-`.env.local` ファイルに以下を設定してください:
+現在はモック実装のため環境変数設定は不要です。将来的に以下の環境変数が必要になります:
 
 ```bash
-# データベース
-DATABASE_URL=postgresql://user:password@localhost:5432/employee_satisfaction
+# データベース（将来実装）
+DATABASE_URL=postgresql://user:password@localhost:5432/yamefoki
 
-# 認証
+# 認証（将来実装）
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-32-character-secret-key
-JWT_SECRET=your-jwt-secret-key
 
-# 暗号化
-ENCRYPTION_KEY=your-32-character-hex-encryption-key
-
-# メール送信（Resend）
+# その他の外部サービス（将来実装）
 RESEND_API_KEY=your-resend-api-key
-
-# Redis（オプション）
-REDIS_URL=redis://localhost:6379
-
-# 外部連携（オプション）
 SLACK_WEBHOOK_URL=your-slack-webhook-url
-TEAMS_WEBHOOK_URL=your-teams-webhook-url
 ```
 
 ## 🏗️ 技術スタック
@@ -95,148 +82,118 @@ TEAMS_WEBHOOK_URL=your-teams-webhook-url
 - **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript 5.x
 - **Styling**: Tailwind CSS 4.x
-- **State Management**: Zustand 4.x
-- **Charts**: Recharts 2.x
-- **Forms**: React Hook Form + Zod
-- **UI Components**: Headless UI + Lucide React
+- **State Management**: React State（Zustand導入予定）
+- **Animations**: Framer Motion
+- **UI Components**: Custom Components + Lucide React
+- **Forms**: Controlled Components（React Hook Form導入予定）
 
-### バックエンド
+### バックエンド（現在はモック実装）
 
 - **Runtime**: Node.js 20.x
-- **Database**: PostgreSQL 15.x
-- **ORM**: Native SQL with pg
-- **Authentication**: NextAuth.js
-- **Validation**: Zod 3.x
-- **Email**: Resend
-- **Cache**: Redis (オプション)
+- **API**: Next.js API Routes（モックAPI）
+- **Database**: モックデータ（PostgreSQL導入予定）
+- **Authentication**: モック認証（NextAuth.js導入予定）
+- **Validation**: 基本的なバリデーション（Zod導入予定）
 
 ### 開発・デプロイ
 
 - **Build Tool**: Next.js built-in
-- **Testing**: Jest + Testing Library + Playwright
 - **Linting**: ESLint + Prettier + TypeScript
-- **CI/CD**: GitHub Actions
-- **Hosting**: Vercel
-- **Monitoring**: Vercel Analytics + Sentry
+- **Package Manager**: npm
+- **Hosting**: Vercel対応
+- **Testing**: Jest導入予定
+- **CI/CD**: GitHub Actions導入予定
 
 ## 📁 プロジェクト構造
 
 ```
 src/
 ├── app/                      # Next.js App Router
-│   ├── (auth)/              # 認証ページグループ
-│   │   ├── login/           # ログインページ
-│   │   └── layout.tsx       # 認証レイアウト
-│   ├── (dashboard)/         # ダッシュボードページグループ
-│   │   ├── dashboard/       # ダッシュボード
-│   │   ├── survey/          # アンケート
-│   │   ├── analytics/       # 分析
-│   │   └── layout.tsx       # ダッシュボードレイアウト
-│   ├── api/                 # API Routes
-│   │   ├── auth/            # 認証API
-│   │   ├── survey/          # アンケートAPI
+│   ├── alerts/              # アラートページ
+│   ├── analytics/           # 分析ページ
+│   ├── api/mock/            # モックAPI
+│   │   ├── alerts/          # アラートAPI
 │   │   ├── analytics/       # 分析API
-│   │   └── alerts/          # アラートAPI
+│   │   ├── scoring/         # スコアリングAPI
+│   │   └── survey/          # アンケートAPI
+│   ├── dashboard/           # ダッシュボード
+│   ├── survey/              # アンケート
+│   │   ├── page.tsx         # アンケート回答
+│   │   └── history/         # 回答履歴
 │   ├── globals.css          # グローバルCSS
 │   ├── layout.tsx           # ルートレイアウト
-│   └── page.tsx             # ホームページ
+│   └── page.tsx             # ランディングページ
 ├── components/              # Reactコンポーネント
-│   ├── ui/                 # 基本UIコンポーネント
-│   ├── layout/             # レイアウトコンポーネント
-│   ├── dashboard/          # ダッシュボード専用
-│   ├── survey/             # アンケート専用
-│   ├── charts/             # チャートコンポーネント
-│   └── auth/               # 認証コンポーネント
-├── lib/                    # ユーティリティ・設定
-│   ├── auth.ts             # 認証ロジック
-│   ├── database.ts         # データベース接続
-│   ├── scoring.ts          # スコア計算
-│   ├── analytics.ts        # 分析ロジック
-│   └── validations/        # バリデーションスキーマ
-├── hooks/                  # カスタムReactフック
-├── store/                  # Zustand状態管理
-├── types/                  # TypeScript型定義
-└── scripts/                # ユーティリティスクリプト
+│   ├── alerts/              # アラート関連
+│   ├── layout/              # レイアウトコンポーネント
+│   │   ├── DashboardLayout.tsx
+│   │   ├── Header.tsx
+│   │   └── Sidebar.tsx
+│   ├── survey/              # アンケート関連
+│   └── ui/                  # 基本UIコンポーネント
+├── lib/                     # ユーティリティ
+│   ├── mock-auth.ts         # モック認証
+│   ├── mock-data.ts         # モックデータ
+│   ├── survey-utils.ts      # アンケートユーティリティ
+│   └── utils.ts             # 汎用ユーティリティ
+└── types/                   # TypeScript型定義
+    └── index.ts             # 全型定義
 ```
 
-## 🔌 API仕様
+## 🔌 API仕様（モック実装）
 
-### 認証エンドポイント
+現在はすべてモックAPIとして実装されています。
 
-```
-POST   /api/auth/login      # ログイン
-POST   /api/auth/logout     # ログアウト
-GET    /api/auth/me         # 現在のユーザー情報
-```
-
-### アンケートエンドポイント
+### アンケートAPI
 
 ```
-GET    /api/survey/daily    # 今日のアンケート取得
-POST   /api/survey          # アンケート回答送信
-GET    /api/survey/history  # 回答履歴
+GET    /api/mock/survey/questions    # アンケート質問取得
+GET    /api/mock/survey/status       # 本日の回答状況
+POST   /api/mock/survey/submit       # アンケート回答送信
 ```
 
-### 分析・統計エンドポイント
+### スコアリングAPI
 
 ```
-GET    /api/analytics/personal  # 個人分析データ
-GET    /api/analytics/team      # チーム分析データ
-GET    /api/analytics/company   # 全社分析データ
-GET    /api/analytics/trends    # トレンド分析
+GET    /api/mock/scoring/current     # 現在のリスクスコア
+GET    /api/mock/scoring/team        # チームメンバーのリスク分布
 ```
 
-### アラート・通知エンドポイント
+### 分析API
 
 ```
-GET    /api/alerts         # アラート一覧取得
-POST   /api/alerts         # アラート作成
-PUT    /api/alerts/[id]    # アラート更新（既読等）
-GET    /api/notifications  # 通知一覧
+GET    /api/mock/analytics          # 詳細分析データ取得
 ```
 
-### レポートエンドポイント
+### アラートAPI
 
 ```
-GET    /api/reports        # レポート一覧
-POST   /api/reports/generate  # レポート生成
-GET    /api/reports/[id]   # レポートダウンロード
+GET    /api/mock/alerts             # アラート一覧取得
 ```
 
-詳細なAPI仕様は [API Documentation](./docs/api.md) を参照してください。
+詳細なAPI仕様は [API Documentation](./docs/API.md) を参照してください。
 
-## 🧪 テスト
+## 🧪 テスト（今後実装予定）
 
-### ユニットテスト
+テストは今後実装予定です。以下のテスト戦略を計画しています:
+
+- **ユニットテスト**: Jest + Testing Library
+- **統合テスト**: API Routes のテスト
+- **E2Eテスト**: Playwright
+
+### 現在の品質管理
 
 ```bash
-# テスト実行
-npm run test                # 一回実行
-npm run test:watch         # ウォッチモード
-npm run test:coverage      # カバレッジ付き
+# リント実行
+npm run lint
+npm run lint:fix
 
-# 特定のテストファイル実行
-npm run test -- --testPathPattern=scoring
-npm run test -- components/Button
+# 型チェック
+npm run type-check
+
+# フォーマット
+npm run format
 ```
-
-### E2Eテスト
-
-```bash
-# E2Eテスト実行
-npm run test:e2e           # ヘッドレスモード
-npm run test:e2e:ui        # UIモード
-npm run test:e2e:debug     # デバッグモード
-
-# 特定のテスト実行
-npm run test:e2e -- --grep "survey flow"
-```
-
-### テストカバレッジ目標
-
-- **ユニットテスト**: 90%以上
-- **統合テスト**: 80%以上
-- **E2Eテスト**: 主要フロー100%
 
 ## 🚀 本番デプロイメント
 
@@ -268,15 +225,9 @@ RESEND_API_KEY=... # Resend API key
 REDIS_URL=... # Redis URL（本番用）
 ```
 
-### データベース移行
+### データベース設定（将来実装）
 
-```bash
-# 本番データベースマイグレーション
-DATABASE_URL=postgresql://prod-url npm run db:migrate
-
-# 初期データ投入（質問項目等）
-DATABASE_URL=postgresql://prod-url npm run db:seed:prod
-```
+現在はモックデータを使用しているため、データベース設定は不要です。
 
 ## 📊 監視・メトリクス
 
@@ -364,32 +315,15 @@ npm run start              # 本番サーバー起動
 # 品質管理
 npm run lint               # リント実行
 npm run lint:fix           # リント自動修正
-npm run type-check         # 型チェック
 npm run format             # コードフォーマット
 
-# データベース
-npm run db:migrate         # マイグレーション実行
-npm run db:rollback        # マイグレーション巻き戻し
-npm run db:seed            # シードデータ投入
-npm run db:studio          # データベースGUI
-
-# ユーティリティ
-npm run analyze            # バンドルサイズ分析
-npm run generate:types     # 型定義生成
-npm run check:deps         # 依存関係チェック
+# ビルド検証
+npm run type-check         # TypeScript型チェック
 ```
 
 ### トラブルシューティング
 
 #### よくある問題
-
-**問題**: データベース接続エラー
-
-```bash
-# 解決策
-npm run db:setup           # データベース再作成
-npm run db:migrate         # マイグレーション実行
-```
 
 **問題**: TypeScriptエラー
 
@@ -399,53 +333,47 @@ npm run type-check         # 型エラー確認
 npm run build              # ビルドで詳細確認
 ```
 
-**問題**: テスト失敗
+**問題**: ESLintエラー
 
 ```bash
 # 解決策
-npm run test:coverage      # カバレッジ確認
-npm run test:watch         # ウォッチモードで修正
+npm run lint               # エラー確認
+npm run lint:fix           # 自動修正
 ```
 
-**問題**: 本番デプロイ失敗
+**問題**: ビルドエラー
 
 ```bash
 # 解決策
-vercel logs                # ログ確認
-vercel env ls              # 環境変数確認
+rm -rf .next               # キャッシュクリア
+npm run build              # 再ビルド
 ```
 
-## 🔒 セキュリティ
+## 🔒 セキュリティ（今後強化予定）
 
-### セキュリティ対策実装済み
+### 現在のセキュリティ対策
 
-- **認証**: JWT + セッション管理
-- **認可**: ロールベースアクセス制御
-- **暗号化**: AES-256による機密データ暗号化
-- **入力検証**: Zodによる厳格なバリデーション
-- **CSRF対策**: CSRFトークン検証
-- **XSS対策**: サニタイゼーション実装
-- **SQL Injection対策**: パラメータ化クエリ
+- **認証**: モック認証（実装済み）
+- **認可**: ロールベースアクセス制御（実装済み）
+- **XSS対策**: React自動エスケープ（実装済み）
 
-### セキュリティ監査
+### 今後実装予定のセキュリティ機能
+
+- JWT認証
+- データ暗号化
+- CSRF対策
+- レート制限
+- 監査ログ
+
+### 依存関係の管理
 
 ```bash
-# 脆弱性スキャン
-npm audit                  # npm脆弱性チェック
-npm run security:scan      # セキュリティスキャン
+# 脆弱性チェック
+npm audit
 
 # 依存関係更新
-npm update                 # 安全な更新
-npm run deps:check         # 危険な依存関係チェック
+npm update
 ```
-
-### GDPR・個人情報保護
-
-- データの利用目的明示
-- 個人データの暗号化保存
-- データ削除権の実装
-- アクセスログの記録
-- データ保持期間の管理
 
 ## 🤝 コントリビューション
 
@@ -460,18 +388,15 @@ npm run deps:check         # 危険な依存関係チェック
 
 ```bash
 # 開発環境セットアップ
-git clone https://github.com/your-username/employee-satisfaction-dashboard.git
-cd employee-satisfaction-dashboard
+git clone https://github.com/your-username/shunsaku-monorepo.git
+cd shunsaku-monorepo/apps/web
 npm install
 npm run dev
-
-# pre-commitフック設定
-npm run prepare              # Huskyセットアップ
 ```
 
 ### Issue報告
 
-バグ報告や機能要望は[GitHub Issues](https://github.com/your-org/employee-satisfaction-dashboard/issues)で受け付けています。
+バグ報告や機能要望は[GitHub Issues](https://github.com/your-org/shunsaku-monorepo/issues)で受け付けています。
 
 **バグ報告テンプレート**:
 
@@ -481,34 +406,52 @@ npm run prepare              # Huskyセットアップ
 - 実際の動作
 - エラーメッセージ・スクリーンショット
 
-## 📋 ロードマップ
+## 📋 現在の実装状況とロードマップ
 
-### v1.0 - MVP（完了）
+### 実装済み機能 ✅
 
-- [x] 基本認証システム
-- [x] 日次アンケート機能
-- [x] 個人・管理者ダッシュボード
-- [x] 基本スコアリング・リスクレベル
+- **認証システム**: モック認証（7名のサンプルユーザー）
+- **ダッシュボード**: 個人・チーム統計表示
+- **日次アンケート**: 天気メタファーによる5段階評価
+- **アラート機能**: リスクレベル別通知
+- **分析機能**: トレンド分析とAI予測（モック）
+- **履歴機能**: 過去の回答履歴表示
+- **レスポンシブデザイン**: モバイル対応
+- **アニメーション**: Framer Motionによる滑らかなUI
 
-### v1.1 - 分析強化（開発中）
+### 未実装機能 ❌
 
-- [x] 詳細分析・比較機能
-- [x] アラート・通知システム
-- [x] レポート生成機能
-- [ ] モバイルアプリ最適化
+- **チーム管理ページ** (`/team`)
+- **管理者設定ページ** (`/admin`)
+- **ユーザープロフィール** (`/profile`)
+- **実データベース連携**
+- **本番認証システム**
+- **メール/Slack通知**
+- **レポート生成（PDF/Excel）**
+- **多言語対応**
 
-### v1.2 - AI機能（計画中）
+### 今後のロードマップ
 
-- [ ] 機械学習による離職予測
-- [ ] 自然言語処理によるフィードバック分析
-- [ ] 推奨アクションの自動提案
+#### Phase 1: 基盤強化（3ヶ月）
 
-### v2.0 - エンタープライズ機能（検討中）
+- [ ] PostgreSQLデータベース統合
+- [ ] NextAuth.js認証実装
+- [ ] Zustand状態管理導入
+- [ ] Jest/Playwrightテスト実装
 
+#### Phase 2: 機能拡張（6ヶ月）
+
+- [ ] チーム・管理者ページ実装
+- [ ] 通知システム（Email/Slack）
+- [ ] レポート生成機能
+- [ ] 多言語対応（日英）
+
+#### Phase 3: エンタープライズ対応（12ヶ月）
+
+- [ ] AI/ML統合（本格的な予測モデル）
+- [ ] 外部HRシステム連携
 - [ ] マルチテナント対応
-- [ ] 高度なカスタマイズ機能
-- [ ] 外部HRシステム連携強化
-- [ ] リアルタイム協業機能
+- [ ] モバイルアプリ開発
 
 ## 📞 サポート・連絡先
 
@@ -520,17 +463,18 @@ npm run prepare              # Huskyセットアップ
 
 ### サポート窓口
 
-- **バグ報告**: [GitHub Issues](https://github.com/your-org/employee-satisfaction-dashboard/issues)
-- **機能要望**: [GitHub Discussions](https://github.com/your-org/employee-satisfaction-dashboard/discussions)
+- **バグ報告**: [GitHub Issues](https://github.com/your-org/shunsaku-monorepo/issues)
+- **機能要望**: [GitHub Discussions](https://github.com/your-org/shunsaku-monorepo/discussions)
 - **技術サポート**: support@company.com
 - **緊急時**: emergency@company.com
 
 ### ドキュメント
 
-- [API仕様書](./docs/api.md)
-- [設計ドキュメント](./docs/architecture.md)
-- [デプロイガイド](./docs/deployment.md)
-- [セキュリティガイド](./docs/security.md)
+- [アーキテクチャ設計書](./docs/ARCHITECTURE.md)
+- [API仕様書](./docs/API.md)
+- [コンポーネントドキュメント](./docs/COMPONENTS.md)
+- [開発ガイド](./docs/DEVELOPMENT.md)
+- [デプロイメントガイド](./docs/DEPLOYMENT.md)
 
 ## 📄 ライセンス
 
