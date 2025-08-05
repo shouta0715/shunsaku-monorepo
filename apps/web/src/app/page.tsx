@@ -13,7 +13,7 @@ import {
 } from "@package/ui";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { mockUsers } from "@/lib/mock-data";
 
@@ -21,11 +21,21 @@ export default function Home() {
   const router = useRouter();
   const [selectedUser, setSelectedUser] = useState("");
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("currentUserId");
+    if (userId) {
+      setIsLoggedIn(true);
+      setCurrentUser(userId);
+    }
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-zinc-900 dark:to-zinc-800">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100">
       {/* Navigation */}
-      <header className="sticky top-0 z-50 border-b border-zinc-950/10 bg-white/80 backdrop-blur-sm dark:border-white/10 dark:bg-zinc-900/80">
+      <header className="sticky top-0 z-50 border-b border-zinc-950/10 bg-white/80 backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Navbar>
             <NavbarSection>
@@ -43,12 +53,33 @@ export default function Home() {
             </NavbarSection>
             <NavbarSpacer />
             <NavbarSection>
-              <button
-                className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
-                onClick={() => router.push("/dashboard")}
-              >
-                ダッシュボードへ
-              </button>
+              {isLoggedIn ? (
+                <div className="flex items-center space-x-3">
+                  <button
+                    className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                    onClick={() => router.push("/dashboard")}
+                  >
+                    ダッシュボードへ
+                  </button>
+                  <button
+                    className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                    onClick={() => {
+                      localStorage.removeItem("currentUserId");
+                      setIsLoggedIn(false);
+                      setCurrentUser(null);
+                    }}
+                  >
+                    ログアウト
+                  </button>
+                </div>
+              ) : (
+                <button
+                  className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                  onClick={() => setShowLoginModal(true)}
+                >
+                  ログイン
+                </button>
+              )}
             </NavbarSection>
           </Navbar>
         </div>
@@ -75,7 +106,7 @@ export default function Home() {
               </Strong>
               📊
             </Heading>
-            <Text className="mx-auto mb-10 max-w-2xl text-lg text-gray-600 sm:text-xl dark:text-gray-300">
+            <Text className="mx-auto mb-10 max-w-2xl text-lg text-gray-600 sm:text-xl">
               社員のモチベーションを天気のように可視化。
               <Strong>毎日のちょっとした気持ち</Strong>から、
               組織の雰囲気と離職リスクをリアルタイムで予測します。
@@ -83,48 +114,57 @@ export default function Home() {
 
             {/* Weather Icons */}
             <div className="mb-10 flex items-center justify-center space-x-6">
-              <motion.div 
+              <motion.div
                 className="text-center"
                 initial={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.15 }}
                 viewport={{ once: true }}
                 whileInView={{ opacity: 1, y: 0 }}
               >
-                <motion.div 
+                <motion.div
                   className="mb-2 text-4xl"
-                  whileHover={{ rotate: [0, -10, 10, 0], transition: { duration: 0.15 } }}
+                  whileHover={{
+                    rotate: [0, -10, 10, 0],
+                    transition: { duration: 0.15 },
+                  }}
                 >
                   ⛈️
                 </motion.div>
                 <Text className="text-sm font-medium text-red-600">嵐</Text>
                 <Text className="text-xs text-gray-500">とても辛い</Text>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="text-center"
                 initial={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.15 }}
                 viewport={{ once: true }}
                 whileInView={{ opacity: 1, y: 0 }}
               >
-                <motion.div 
+                <motion.div
                   className="mb-2 text-4xl"
-                  whileHover={{ rotate: [0, -10, 10, 0], transition: { duration: 0.15 } }}
+                  whileHover={{
+                    rotate: [0, -10, 10, 0],
+                    transition: { duration: 0.15 },
+                  }}
                 >
                   🌧️
                 </motion.div>
                 <Text className="text-sm font-medium text-orange-600">雨</Text>
                 <Text className="text-xs text-gray-500">少し辛い</Text>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="text-center"
                 initial={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.15 }}
                 viewport={{ once: true }}
                 whileInView={{ opacity: 1, y: 0 }}
               >
-                <motion.div 
+                <motion.div
                   className="mb-2 text-4xl"
-                  whileHover={{ rotate: [0, -10, 10, 0], transition: { duration: 0.15 } }}
+                  whileHover={{
+                    rotate: [0, -10, 10, 0],
+                    transition: { duration: 0.15 },
+                  }}
                 >
                   🌤️
                 </motion.div>
@@ -133,32 +173,38 @@ export default function Home() {
                 </Text>
                 <Text className="text-xs text-gray-500">普通</Text>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="text-center"
                 initial={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.15 }}
                 viewport={{ once: true }}
                 whileInView={{ opacity: 1, y: 0 }}
               >
-                <motion.div 
+                <motion.div
                   className="mb-2 text-4xl"
-                  whileHover={{ rotate: [0, -10, 10, 0], transition: { duration: 0.15 } }}
+                  whileHover={{
+                    rotate: [0, -10, 10, 0],
+                    transition: { duration: 0.15 },
+                  }}
                 >
                   🌞
                 </motion.div>
                 <Text className="text-sm font-medium text-blue-600">晴れ</Text>
                 <Text className="text-xs text-gray-500">良い感じ</Text>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="text-center"
                 initial={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.15 }}
                 viewport={{ once: true }}
                 whileInView={{ opacity: 1, y: 0 }}
               >
-                <motion.div 
+                <motion.div
                   className="mb-2 text-4xl"
-                  whileHover={{ rotate: [0, -10, 10, 0], transition: { duration: 0.15 } }}
+                  whileHover={{
+                    rotate: [0, -10, 10, 0],
+                    transition: { duration: 0.15 },
+                  }}
                 >
                   ☀️
                 </motion.div>
@@ -187,7 +233,7 @@ export default function Home() {
               </Heading>
             </div>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-lg border border-purple-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg dark:border-purple-800 dark:bg-zinc-800">
+              <div className="rounded-lg border border-purple-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg">
                 <Subheading className="mb-3 text-purple-600">
                   🌤️ 日次気持ちチェック
                 </Subheading>
@@ -196,7 +242,7 @@ export default function Home() {
                   わずか2分で完了する直感的なUIで毎日の心のコンディションを把握。
                 </Text>
               </div>
-              <div className="rounded-lg border border-green-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg dark:border-green-800 dark:bg-zinc-800">
+              <div className="rounded-lg border border-green-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg">
                 <Subheading className="mb-3 text-green-600">
                   📊 天気予報ダッシュボード
                 </Subheading>
@@ -205,7 +251,7 @@ export default function Home() {
                   晴れ・くもり・雨・嵐の4段階で組織の健康状態を即座に把握。
                 </Text>
               </div>
-              <div className="rounded-lg border border-red-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg dark:border-red-800 dark:bg-zinc-800">
+              <div className="rounded-lg border border-red-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg">
                 <Subheading className="mb-3 text-red-600">
                   🌩️ 嵐警報アラート
                 </Subheading>
@@ -214,7 +260,7 @@ export default function Home() {
                   早期サポートで離職を未然に防止。
                 </Text>
               </div>
-              <div className="rounded-lg border border-blue-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg dark:border-blue-800 dark:bg-zinc-800">
+              <div className="rounded-lg border border-blue-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg">
                 <Subheading className="mb-3 text-blue-600">
                   📈 週間天気予報
                 </Subheading>
@@ -223,7 +269,7 @@ export default function Home() {
                   週次・月次の詳細分析レポートで組織改善をサポート。
                 </Text>
               </div>
-              <div className="rounded-lg border border-indigo-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg dark:border-indigo-800 dark:bg-zinc-800">
+              <div className="rounded-lg border border-indigo-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg">
                 <Subheading className="mb-3 text-indigo-600">
                   🔮 やめどき予測AI
                 </Subheading>
@@ -232,7 +278,7 @@ export default function Home() {
                   機械学習により個人の行動パターンを分析し、離職リスクを数値化。
                 </Text>
               </div>
-              <div className="rounded-lg border border-teal-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg dark:border-teal-800 dark:bg-zinc-800">
+              <div className="rounded-lg border border-teal-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg">
                 <Subheading className="mb-3 text-teal-600">
                   🔐 プライバシー保護
                 </Subheading>
@@ -248,7 +294,7 @@ export default function Home() {
         <Divider />
 
         {/* Benefits Section */}
-        <section className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 px-4 py-24 sm:px-6 lg:px-8 dark:from-blue-900/20 dark:to-purple-900/20">
+        <section className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 px-4 py-24 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="mb-16 text-center">
               <Badge className="mb-6" color="blue">
@@ -260,11 +306,9 @@ export default function Home() {
                 </Strong>
                 で
                 <br />
-                <Strong className="text-gray-800 dark:text-gray-200">
-                  未来の離職を予防
-                </Strong>
+                <Strong className="text-gray-800">未来の離職を予防</Strong>
               </Heading>
-              <Text className="mx-auto max-w-3xl text-lg text-gray-600 dark:text-gray-300">
+              <Text className="mx-auto max-w-3xl text-lg text-gray-600">
                 天気予報のように組織の健康状態を可視化し、問題が深刻化する前に
                 <Strong className="text-purple-600">予防的な対策</Strong>
                 を実現します
@@ -406,10 +450,7 @@ export default function Home() {
                     >
                       {benefit.weather}
                     </motion.div>
-                    <motion.div
-                      className="mb-2 text-2xl"
-                      whileHover={{}}
-                    >
+                    <motion.div className="mb-2 text-2xl" whileHover={{}}>
                       {benefit.icon}
                     </motion.div>
                     <Subheading
@@ -633,15 +674,15 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-950/10 py-12 dark:border-white/10">
+      <footer className="border-t border-zinc-950/10 py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <Text className="mb-4 text-gray-600 dark:text-gray-400">
+            <Text className="mb-4 text-gray-600">
               © 2025 離職リスク予測ダッシュボード. Built with{" "}
               <Strong>Next.js 15</Strong>、<Strong>TypeScript</Strong>、
               <Strong>Tailwind CSS</Strong>.
             </Text>
-            <Text className="text-sm text-gray-500 dark:text-gray-500">
+            <Text className="text-sm text-gray-500">
               「日々の声から、未来の離職をゼロへ。」
             </Text>
           </div>
@@ -702,7 +743,10 @@ export default function Home() {
                   onClick={() => {
                     if (selectedUser) {
                       // ローカルストレージにユーザーIDを保存
-                      localStorage.setItem('currentUserId', selectedUser);
+                      localStorage.setItem("currentUserId", selectedUser);
+                      setIsLoggedIn(true);
+                      setCurrentUser(selectedUser);
+                      setShowLoginModal(false);
                       router.push("/dashboard");
                     }
                   }}
