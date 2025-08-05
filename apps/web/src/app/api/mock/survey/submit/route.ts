@@ -4,9 +4,9 @@ import { mockQuestions, mockUsers } from "@/lib/mock-data";
 export async function POST(request: NextRequest) {
   try {
     // リクエストヘッダーからユーザーIDを取得（フロントエンドから送信）
-    const userId = request.headers.get('x-user-id');
-    const currentUser = userId ? mockUsers.find(u => u.id === userId) : null;
-    
+    const userId = request.headers.get("x-user-id");
+    const currentUser = userId ? mockUsers.find((u) => u.id === userId) : null;
+
     if (!currentUser) {
       return NextResponse.json(
         {

@@ -139,8 +139,8 @@ const generateMockSurveys = () => {
     mockUsers.forEach((user) => {
       // 今日のデータは一部のユーザーのみ未回答にする
       const isToday = i === 0;
-      const shouldSkipToday = isToday && ['1', '3', '5'].includes(user.id); // 田中、鈴木、渡辺は今日未回答
-      
+      const shouldSkipToday = isToday && ["1", "3", "5"].includes(user.id); // 田中、鈴木、渡辺は今日未回答
+
       // 90%の確率でアンケートに回答（ただし今日は一部ユーザーは回答しない）
       if (!shouldSkipToday && Math.random() > 0.1) {
         const responses = mockQuestions.map((question) => ({

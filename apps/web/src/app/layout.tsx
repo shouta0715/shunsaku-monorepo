@@ -21,7 +21,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "やめどき予報",
-  description: "日々の声から、未来の離職をゼロへ。社員の満足度を可視化し、離職リスクを早期発見するHRダッシュボード",
+  description:
+    "日々の声から、未来の離職をゼロへ。社員の満足度を可視化し、離職リスクを早期発見するHRダッシュボード",
 };
 
 type RootLayoutProps = {

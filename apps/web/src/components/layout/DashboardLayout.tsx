@@ -390,7 +390,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       sidebar={
         <Sidebar>
           <SidebarHeader>
-            <button 
+            <button
               className="flex items-center space-x-2 text-left transition-colors hover:text-purple-600"
               onClick={() => router.push("/")}
             >

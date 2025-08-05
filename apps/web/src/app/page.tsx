@@ -22,7 +22,7 @@ export default function Home() {
   const [selectedUser, setSelectedUser] = useState("");
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState<string | null>(null);
+  const [_currentUser, setCurrentUser] = useState<string | null>(null);
 
   useEffect(() => {
     const userId = localStorage.getItem("currentUserId");
