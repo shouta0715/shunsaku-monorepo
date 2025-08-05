@@ -1,19 +1,11 @@
 "use client";
 
-import { Badge, Alert } from "@package/ui";
-import { motion, AnimatePresence } from "framer-motion";
+import { Badge, Divider, Heading, Text } from "@package/ui";
+import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DashboardLayout } from "@/components/layout";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  AlertDescription,
-  LoadingSpinner,
-} from "@/components/ui";
+import { LoadingSpinner } from "@/components/ui";
 import { initializeSession } from "@/lib/mock-auth";
 
 type SurveyStatus = {
@@ -141,10 +133,28 @@ export default function DashboardPage() {
     return (
       <DashboardLayout>
         <div className="flex min-h-64 items-center justify-center">
-          <div className="text-center">
+          <motion.div
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center"
+            initial={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-3xl text-white shadow-xl"
+              initial={{ rotate: 0 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            >
+              ☀️
+            </motion.div>
             <LoadingSpinner size="lg" />
-            <p className="mt-4 text-gray-600">読み込み中...</p>
-          </div>
+            <Text className="mt-4 text-lg font-semibold text-gray-900">
+              読み込み中...
+            </Text>
+            <Text className="text-gray-600">
+              ダッシュボードの準備をしています
+            </Text>
+          </motion.div>
         </div>
       </DashboardLayout>
     );
@@ -152,34 +162,156 @@ export default function DashboardPage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
-        {/* Welcome Header */}
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">
-            おかえりなさい、{session?.user?.name}さん ☀️
-          </h1>
-          <p className="text-gray-600">
-            今日のあなたの心の天気はいかがですか？現在の状況をお知らせします。
-          </p>
-        </div>
+      <div className="space-y-8">
+        {/* Header */}
+        <motion.div
+          animate={{ opacity: 1, y: 0 }}
+          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-50 via-purple-50/50 to-pink-50/30 p-8 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* Background Pattern */}
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-400/10 via-purple-400/10 to-pink-400/10 opacity-50"></div>
+          <div className="absolute -top-4 -left-4 h-32 w-32 rounded-full bg-indigo-200/20 blur-xl"></div>
+          <div className="absolute -right-4 -bottom-4 h-40 w-40 rounded-full bg-purple-200/20 blur-xl"></div>
+
+          <div className="relative z-10">
+            <motion.div
+              animate={{ scale: [1, 1.1, 1] }}
+              className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-3xl text-white shadow-xl"
+              initial={{ scale: 1 }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              ☀️
+            </motion.div>
+            <Heading className="mb-3 bg-gradient-to-r from-gray-900 via-indigo-800 to-purple-800 bg-clip-text text-transparent">
+              おかえりなさい、{session?.user?.name}さん
+            </Heading>
+            <Text className="mx-auto max-w-2xl text-gray-600">
+              今日のあなたの心の天気はいかがですか？現在の状況をお知らせします。
+            </Text>
+
+            {session?.user && (
+              <motion.div
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-4 inline-flex items-center space-x-2 rounded-full bg-white/80 px-4 py-2 text-sm font-medium text-gray-700 backdrop-blur-sm"
+                initial={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.3, delay: 0.3 }}
+              >
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-xs text-white">
+                  👤
+                </div>
+                <span>{session.user.name}</span>
+                <span className="text-gray-500">•</span>
+                <span className="text-gray-600">{session.user.department}</span>
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
 
         {error && (
-          <Alert open={Boolean(error)} onClose={() => setError(null)}>
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
+          <motion.div
+            animate={{ opacity: 1, x: 0 }}
+            className="overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-gray-900/5 backdrop-blur-sm"
+            initial={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="bg-gradient-to-r from-red-50 to-pink-50 px-8 py-6">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10">
+                    <svg
+                      className="h-6 w-6 text-red-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-red-800">
+                      エラーが発生しました
+                    </h3>
+                    <p className="text-sm text-red-700">{error}</p>
+                  </div>
+                </div>
+                <motion.button
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-red-400 backdrop-blur-sm transition-colors hover:bg-white hover:text-red-600"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setError(null)}
+                >
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M6 18L18 6M6 6l12 12"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                    />
+                  </svg>
+                </motion.button>
+              </div>
+            </div>
+          </motion.div>
         )}
 
         {/* Daily Survey Alert */}
         {surveyStatus && !surveyStatus.completed && (
-          <Alert
-            open={Boolean(surveyStatus && !surveyStatus.completed)}
-            onClose={() => setSurveyStatus(null)}
+          <motion.div
+            animate={{ opacity: 1, x: 0 }}
+            className="overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-gray-900/5 backdrop-blur-sm"
+            initial={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
           >
-            <AlertDescription>
-              今日の気持ちチェックがまだです 🌤️
-              あなたの心の天気を教えてください！
-            </AlertDescription>
-          </Alert>
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-8 py-6">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10">
+                    <div className="text-2xl">🌤️</div>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-blue-800">
+                      今日の気持ちチェック
+                    </h3>
+                    <p className="text-sm text-blue-700">
+                      あなたの心の天気を教えてください！
+                    </p>
+                  </div>
+                </div>
+                <motion.button
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-blue-400 backdrop-blur-sm transition-colors hover:bg-white hover:text-blue-600"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setSurveyStatus(null)}
+                >
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M6 18L18 6M6 6l12 12"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                    />
+                  </svg>
+                </motion.button>
+              </div>
+            </div>
+          </motion.div>
         )}
 
         {/* Stats Cards */}
@@ -188,70 +320,96 @@ export default function DashboardPage() {
           <motion.div
             animate={{ opacity: 1, y: 0 }}
             initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.15 }}
-            whileHover={{ y: -2, scale: 1.02 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
+            whileHover={{ y: -5 }}
           >
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">
-                  あなたのリスクレベル
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {currentRisk ? (
-                  <div className="flex items-center space-x-2">
-                    <Badge color={getRiskBadge(currentRisk.riskLevel).color}>
-                      {getRiskBadge(currentRisk.riskLevel).label}
-                    </Badge>
-                    <span
-                      className={`text-2xl font-bold ${getRiskBadge(currentRisk.riskLevel).textColor}`}
-                    >
-                      {currentRisk.score.toFixed(1)}
-                    </span>
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-blue-500/25">
+              <div className="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-blue-200/30 blur-2xl transition-all duration-300 group-hover:bg-blue-300/40"></div>
+              <div className="relative z-10">
+                <div className="mb-4 flex items-center justify-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 backdrop-blur-sm">
+                    <div className="text-2xl">
+                      {currentRisk?.riskLevel === "low"
+                        ? "☀️"
+                        : currentRisk?.riskLevel === "medium"
+                          ? "🌤️"
+                          : "⛈️"}
+                    </div>
                   </div>
-                ) : (
-                  <div className="py-4 text-center">
-                    <p className="text-sm text-gray-500">
-                      まだデータがありません
-                    </p>
-                    <p className="text-xs text-gray-400">
-                      アンケートに回答してください
-                    </p>
-                  </div>
-                )}
-                {currentRisk && (
-                  <p className="mt-1 text-xs text-gray-500">
-                    最終更新:{" "}
-                    {new Date(currentRisk.date).toLocaleDateString("ja-JP")}
-                  </p>
-                )}
-              </CardContent>
-            </Card>
+                </div>
+                <div className="text-center">
+                  <Text className="text-sm font-medium text-gray-600">
+                    あなたのリスクレベル
+                  </Text>
+                  {currentRisk ? (
+                    <div className="mt-2 space-y-2">
+                      <motion.div
+                        animate={{ scale: [1, 1.05, 1] }}
+                        className="bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-800 bg-clip-text text-3xl font-bold text-transparent"
+                        transition={{ duration: 2, repeat: Infinity }}
+                      >
+                        {currentRisk.score.toFixed(1)}
+                      </motion.div>
+                      <Badge color={getRiskBadge(currentRisk.riskLevel).color}>
+                        {getRiskBadge(currentRisk.riskLevel).label}
+                      </Badge>
+                    </div>
+                  ) : (
+                    <div className="mt-2 text-center">
+                      <Text className="text-sm text-gray-500">
+                        まだデータがありません
+                      </Text>
+                      <Text className="text-xs text-gray-400">
+                        アンケートに回答してください
+                      </Text>
+                    </div>
+                  )}
+                  {currentRisk && (
+                    <Text className="mt-3 text-xs text-gray-500">
+                      最終更新:{" "}
+                      {new Date(currentRisk.date).toLocaleDateString("ja-JP")}
+                    </Text>
+                  )}
+                </div>
+              </div>
+            </div>
           </motion.div>
 
           {/* Survey Status */}
           <motion.div
             animate={{ opacity: 1, y: 0 }}
             initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.15 }}
-            whileHover={{ y: -2, scale: 1.02 }}
+            transition={{ duration: 0.3, delay: 0.5 }}
+            whileHover={{ y: -5 }}
           >
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">
-                  アンケート進捗
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center space-x-2">
-                  <span className="text-2xl font-bold text-blue-600">
-                    {surveyStatus?.completed ? "5" : "0"}/5
-                  </span>
-                  <span className="text-sm text-gray-500">完了</span>
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 to-green-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-emerald-500/25">
+              <div className="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-emerald-200/30 blur-2xl transition-all duration-300 group-hover:bg-emerald-300/40"></div>
+              <div className="relative z-10">
+                <div className="mb-4 flex items-center justify-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 backdrop-blur-sm">
+                    <div className="text-2xl">📝</div>
+                  </div>
                 </div>
-                <p className="mt-1 text-xs text-gray-500">締切: 18:00</p>
-              </CardContent>
-            </Card>
+                <div className="text-center">
+                  <Text className="text-sm font-medium text-gray-600">
+                    アンケート進捗
+                  </Text>
+                  <div className="mt-2">
+                    <div className="mb-2 flex items-center justify-center space-x-2">
+                      <span className="text-3xl font-bold text-emerald-600">
+                        {surveyStatus?.completed ? "5" : "0"}/5
+                      </span>
+                    </div>
+                    <Badge color="green">
+                      {surveyStatus?.completed ? "完了" : "未回答"}
+                    </Badge>
+                  </div>
+                  <Text className="mt-3 text-xs text-gray-500">
+                    締切: 18:00
+                  </Text>
+                </div>
+              </div>
+            </div>
           </motion.div>
 
           {/* Team Stats (for managers and above) */}
@@ -259,49 +417,75 @@ export default function DashboardPage() {
             ["manager", "hr", "admin"].includes(session.user.role) &&
             teamStats && (
               <>
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium text-gray-600">
-                      チームメンバー
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-2xl font-bold text-gray-900">
-                        {teamStats.totalMembers}
-                      </span>
-                      <span className="text-sm text-gray-500">人</span>
+                <motion.div
+                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.3, delay: 0.6 }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 to-violet-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-purple-500/25">
+                    <div className="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-purple-200/30 blur-2xl transition-all duration-300 group-hover:bg-purple-300/40"></div>
+                    <div className="relative z-10">
+                      <div className="mb-4 flex items-center justify-center">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/10 backdrop-blur-sm">
+                          <div className="text-2xl">👥</div>
+                        </div>
+                      </div>
+                      <div className="text-center">
+                        <Text className="text-sm font-medium text-gray-600">
+                          チームメンバー
+                        </Text>
+                        <div className="mt-2">
+                          <div className="mb-2 flex items-center justify-center space-x-2">
+                            <span className="text-3xl font-bold text-purple-600">
+                              {teamStats.totalMembers}
+                            </span>
+                            <span className="text-sm text-gray-500">人</span>
+                          </div>
+                          <div className="flex justify-center space-x-2">
+                            <Badge color="red">高: {teamStats.highRisk}</Badge>
+                            <Badge color="yellow">
+                              中: {teamStats.mediumRisk}
+                            </Badge>
+                            <Badge color="green">低: {teamStats.lowRisk}</Badge>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="mt-2 flex space-x-2">
-                      <span className="text-xs text-red-600">
-                        高: {teamStats.highRisk}
-                      </span>
-                      <span className="text-xs text-yellow-600">
-                        中: {teamStats.mediumRisk}
-                      </span>
-                      <span className="text-xs text-green-600">
-                        低: {teamStats.lowRisk}
-                      </span>
-                    </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </motion.div>
 
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium text-gray-600">
-                      高リスクメンバー
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-2xl font-bold text-red-600">
-                        {teamStats.highRisk}
-                      </span>
-                      <span className="text-sm text-gray-500">人</span>
+                <motion.div
+                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.3, delay: 0.7 }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-pink-100 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-red-500/25">
+                    <div className="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-red-200/30 blur-2xl transition-all duration-300 group-hover:bg-red-300/40"></div>
+                    <div className="relative z-10">
+                      <div className="mb-4 flex items-center justify-center">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10 backdrop-blur-sm">
+                          <div className="text-2xl">⚠️</div>
+                        </div>
+                      </div>
+                      <div className="text-center">
+                        <Text className="text-sm font-medium text-gray-600">
+                          高リスクメンバー
+                        </Text>
+                        <div className="mt-2">
+                          <div className="mb-2 flex items-center justify-center space-x-2">
+                            <span className="text-3xl font-bold text-red-600">
+                              {teamStats.highRisk}
+                            </span>
+                            <span className="text-sm text-gray-500">人</span>
+                          </div>
+                          <Badge color="red">要注意</Badge>
+                        </div>
+                      </div>
                     </div>
-                    <p className="mt-1 text-xs text-gray-500">要注意</p>
-                  </CardContent>
-                </Card>
+                  </div>
+                </motion.div>
               </>
             )}
         </div>
@@ -310,149 +494,191 @@ export default function DashboardPage() {
         <AnimatePresence>
           {teamStats && teamStats.highRisk > 0 && (
             <motion.div
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              transition={{ duration: 0.15 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-gray-900/5 backdrop-blur-sm"
+              exit={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-red-600">
-                    高リスクメンバー
-                  </CardTitle>
-                  <CardDescription>
-                    注意が必要なメンバーがいます
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {teamStats.members
-                      .filter((member) => member.riskLevel === "high")
-                      .slice(0, 5) // 最大5人まで表示
-                      .map((member) => (
-                        <div
-                          key={member.id}
-                          className="flex items-center justify-between rounded-lg border border-red-200 bg-red-50 p-3"
-                        >
+              <div className="bg-gradient-to-r from-red-50 to-pink-50 px-8 py-6">
+                <div className="flex items-center space-x-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10">
+                    <div className="text-2xl">⚠️</div>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-red-800">
+                      高リスクメンバー
+                    </h3>
+                    <p className="text-sm text-red-600">
+                      注意が必要なメンバーがいます
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-8">
+                <div className="space-y-4">
+                  {teamStats.members
+                    .filter((member) => member.riskLevel === "high")
+                    .slice(0, 5) // 最大5人まで表示
+                    .map((member, index) => (
+                      <motion.div
+                        key={member.id}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="group relative overflow-hidden rounded-2xl border-2 border-red-200 bg-gradient-to-r from-red-50 to-pink-50/30 p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
+                        initial={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                        whileHover={{ scale: 1.02 }}
+                      >
+                        <div className="flex items-center justify-between">
                           <div>
-                            <p className="font-medium text-gray-900">
+                            <h4 className="text-lg font-bold text-gray-900">
                               {member.name}
-                            </p>
+                            </h4>
                             <p className="text-sm text-gray-600">
                               {member.department}
                             </p>
                           </div>
                           <div className="text-right">
-                            <Badge color="red">高リスク</Badge>
-                            <p className="mt-1 text-xs text-gray-500">
-                              スコア: {member.score.toFixed(1)}
-                            </p>
+                            <motion.div
+                              animate={{ scale: [1, 1.05, 1] }}
+                              className="flex items-center space-x-3"
+                              transition={{ duration: 2, repeat: Infinity }}
+                            >
+                              <div>
+                                <div className="bg-gradient-to-r from-gray-900 via-red-800 to-pink-800 bg-clip-text text-2xl font-bold text-transparent">
+                                  {member.score.toFixed(1)}
+                                </div>
+                                <Badge color="red">高リスク</Badge>
+                              </div>
+                              <div className="text-2xl">⛈️</div>
+                            </motion.div>
                           </div>
                         </div>
-                      ))}
-                  </div>
-                </CardContent>
-              </Card>
+                      </motion.div>
+                    ))}
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
+
+        <Divider />
 
         {/* Quick Actions */}
         <motion.div
           animate={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: 30 }}
-          transition={{ duration: 0.15 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <Card>
-            <CardHeader>
-              <CardTitle>クイックアクション</CardTitle>
-              <CardDescription>
-                よく使用する機能へのショートカット
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-gray-50 via-gray-50/50 to-white/90 shadow-xl ring-1 ring-gray-900/5 backdrop-blur-sm">
+            <div className="relative overflow-hidden bg-gradient-to-r from-indigo-50 via-purple-50/50 to-pink-50/30 px-8 py-6">
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-400/10 via-purple-400/10 to-pink-400/10 opacity-50"></div>
+              <div className="absolute -top-4 -left-4 h-32 w-32 rounded-full bg-indigo-200/20 blur-xl"></div>
+              <div className="absolute -right-4 -bottom-4 h-40 w-40 rounded-full bg-purple-200/20 blur-xl"></div>
+              <div className="relative z-10 flex items-center space-x-4">
+                <motion.div
+                  animate={{ rotate: [0, 5, -5, 0] }}
+                  className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-2xl text-white shadow-lg"
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                  whileHover={{ scale: 1.1 }}
+                >
+                  ⚡
+                </motion.div>
+                <div>
+                  <h3 className="bg-gradient-to-r from-gray-900 via-indigo-800 to-purple-900 bg-clip-text text-xl font-bold text-transparent">
+                    クイックアクション
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    よく使用する機能へのショートカット
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="p-8">
+              <div className="flex flex-wrap gap-6">
                 <motion.button
                   animate={{ opacity: 1, y: 0 }}
-                  className="cursor-pointer rounded-lg border border-blue-200 bg-blue-50/30 p-4 text-left transition-colors hover:border-blue-300 hover:bg-blue-50"
+                  className="group relative min-w-[280px] flex-1 overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 via-blue-100/50 to-indigo-100/30 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/25"
                   initial={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.15 }}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.3, delay: 0.7 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
                   onClick={() => router.push("/survey")}
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-indigo-400/10 to-blue-400/10 opacity-50"></div>
+                  <div className="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-blue-200/30 blur-2xl transition-all duration-300 group-hover:bg-blue-300/40"></div>
+                  <div className="absolute -bottom-4 -left-4 h-24 w-24 rounded-full bg-indigo-200/30 blur-2xl transition-all duration-300 group-hover:bg-indigo-300/40"></div>
+                  <div className="relative z-10">
                     <motion.div
-                      className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100"
+                      animate={{ scale: [1, 1.1, 1] }}
+                      className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-2xl text-white shadow-lg"
+                      transition={{ duration: 2, repeat: Infinity }}
                       whileHover={{ scale: 1.1, rotate: 5 }}
                     >
-                      <div className="text-xl">🌤️</div>
+                      🌤️
                     </motion.div>
-                    <div>
-                      <h3 className="font-medium text-gray-900">
-                        今日の天気記録
-                      </h3>
-                      <p className="text-sm text-gray-500">
-                        心の天気を記録する
-                      </p>
-                    </div>
+                    <h3 className="bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-900 bg-clip-text font-medium text-transparent">
+                      今日の天気記録
+                    </h3>
+                    <p className="text-sm text-blue-600">心の天気を記録する</p>
                   </div>
                 </motion.button>
 
                 <motion.button
                   animate={{ opacity: 1, y: 0 }}
-                  className="cursor-pointer rounded-lg border border-green-200 bg-green-50/30 p-4 text-left transition-colors hover:border-green-300 hover:bg-green-50"
+                  className="group relative min-w-[280px] flex-1 overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 via-emerald-100/50 to-green-100/30 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/25"
                   initial={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.15 }}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.3, delay: 0.8 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
                   onClick={() => router.push("/survey/history")}
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/10 via-green-400/10 to-emerald-400/10 opacity-50"></div>
+                  <div className="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-emerald-200/30 blur-2xl transition-all duration-300 group-hover:bg-emerald-300/40"></div>
+                  <div className="absolute -bottom-4 -left-4 h-24 w-24 rounded-full bg-green-200/30 blur-2xl transition-all duration-300 group-hover:bg-green-300/40"></div>
+                  <div className="relative z-10">
                     <motion.div
-                      className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100"
+                      animate={{ scale: [1, 1.1, 1] }}
+                      className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 text-2xl text-white shadow-lg"
+                      transition={{ duration: 2, repeat: Infinity }}
                       whileHover={{ scale: 1.1, rotate: -5 }}
                     >
-                      <div className="text-xl">📊</div>
+                      📊
                     </motion.div>
-                    <div>
-                      <h3 className="font-medium text-gray-900">過去の天気</h3>
-                      <p className="text-sm text-gray-500">履歴を確認する</p>
-                    </div>
+                    <h3 className="bg-gradient-to-r from-gray-900 via-emerald-800 to-green-900 bg-clip-text font-medium text-transparent">
+                      過去の天気
+                    </h3>
+                    <p className="text-sm text-emerald-600">履歴を確認する</p>
                   </div>
                 </motion.button>
 
                 <motion.button
                   animate={{ opacity: 1, y: 0 }}
-                  className="cursor-pointer rounded-lg border border-purple-200 bg-purple-50/30 p-4 text-left transition-colors hover:border-purple-300 hover:bg-purple-50"
+                  className="group relative min-w-[280px] flex-1 overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 via-purple-100/50 to-violet-100/30 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/25"
                   initial={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.15 }}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.3, delay: 0.9 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
                   onClick={() => router.push("/analytics")}
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-400/10 via-violet-400/10 to-purple-400/10 opacity-50"></div>
+                  <div className="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-purple-200/30 blur-2xl transition-all duration-300 group-hover:bg-purple-300/40"></div>
+                  <div className="absolute -bottom-4 -left-4 h-24 w-24 rounded-full bg-violet-200/30 blur-2xl transition-all duration-300 group-hover:bg-violet-300/40"></div>
+                  <div className="relative z-10">
                     <motion.div
-                      animate={{ rotate: [0, 5, -5, 0] }}
-                      className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100"
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        repeatDelay: 3,
-                      }}
-                      whileHover={{ scale: 1.1 }}
+                      animate={{ scale: [1, 1.1, 1] }}
+                      className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-violet-600 text-2xl text-white shadow-lg"
+                      transition={{ duration: 2, repeat: Infinity }}
+                      whileHover={{ scale: 1.1, rotate: 5 }}
                     >
-                      <div className="text-xl">🔮</div>
+                      🔮
                     </motion.div>
-                    <div>
-                      <h3 className="font-medium text-gray-900">分析・予報</h3>
-                      <p className="text-sm text-gray-500">データを分析する</p>
-                    </div>
+                    <h3 className="bg-gradient-to-r from-gray-900 via-purple-800 to-violet-900 bg-clip-text font-medium text-transparent">
+                      分析・予報
+                    </h3>
+                    <p className="text-sm text-purple-600">データを分析する</p>
                   </div>
                 </motion.button>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </motion.div>
       </div>
     </DashboardLayout>

@@ -1,5 +1,55 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/mock-auth";
+import { mockDailyScores, mockSurveys, mockUsers } from "@/lib/mock-data";
+
+// リスクレベル計算
+const calculateRiskLevel = (score: number): "low" | "medium" | "high" => {
+  if (score >= 4.0) return "low";
+  if (score >= 2.5) return "medium";
+
+  return "high";
+};
+
+// 回答率計算（過去30日）
+const calculateResponseRate = (userId: string): number => {
+  const userSurveys = mockSurveys.filter((s) => s.userId === userId);
+  const totalDays = 30;
+  const responseDays = userSurveys.length;
+
+  return Math.round((responseDays / totalDays) * 100);
+};
+
+// 最終回答日取得
+const getLastResponseDate = (userId: string): string => {
+  const userSurveys = mockSurveys
+    .filter((s) => s.userId === userId)
+    .sort(
+      (a, b) =>
+        new Date(b.surveyDate).getTime() - new Date(a.surveyDate).getTime(),
+    );
+
+  return (
+    userSurveys[0]?.surveyDate || new Date().toISOString().split("T")[0] || ""
+  );
+};
+
+// マネージャーメモ取得
+const getManagerNotes = (
+  userId: string,
+  riskLevel: string,
+): string | undefined => {
+  const notesMap: Record<string, string> = {
+    "1": "最近のプロジェクト負荷が高い",
+    "2": "チーム内でのコミュニケーションに改善が必要",
+    "3": "長期間低スコアが続いている",
+  };
+
+  if (riskLevel === "high") {
+    return notesMap[userId] || "要注意状態が継続している";
+  }
+
+  return undefined;
+};
 
 export async function GET(request: NextRequest) {
   try {
@@ -29,91 +79,34 @@ export async function GET(request: NextRequest) {
     const department = searchParams.get("department");
     const riskLevel = searchParams.get("risk_level");
 
-    // モックチームメンバーデータ
-    let teamMembers = [
-      {
-        id: "team-001",
-        name: "田中 太郎",
-        department: "開発部",
-        role: "エンジニア",
-        riskLevel: "high",
-        score: 2.3,
-        lastResponseDate: "2025-02-02",
-        responseRate: 85,
-        managerNotes: "最近のプロジェクト負荷が高い",
-      },
-      {
-        id: "team-002",
-        name: "佐藤 花子",
-        department: "開発部",
-        role: "シニアエンジニア",
-        riskLevel: "medium",
-        score: 3.2,
-        lastResponseDate: "2025-02-02",
-        responseRate: 92,
-      },
-      {
-        id: "team-003",
-        name: "鈴木 一郎",
-        department: "営業部",
-        role: "営業",
-        riskLevel: "low",
-        score: 4.1,
-        lastResponseDate: "2025-02-01",
-        responseRate: 98,
-      },
-      {
-        id: "team-004",
-        name: "高橋 美咲",
-        department: "人事部",
-        role: "人事",
-        riskLevel: "low",
-        score: 4.5,
-        lastResponseDate: "2025-02-02",
-        responseRate: 100,
-      },
-      {
-        id: "team-005",
-        name: "渡辺 健太",
-        department: "総務部",
-        role: "総務",
-        riskLevel: "high",
-        score: 2.1,
-        lastResponseDate: "2025-01-30",
-        responseRate: 76,
-        managerNotes: "長期間低スコアが続いている",
-      },
-      {
-        id: "team-006",
-        name: "伊藤 まゆみ",
-        department: "マーケティング部",
-        role: "マーケター",
-        riskLevel: "medium",
-        score: 3.4,
-        lastResponseDate: "2025-02-02",
-        responseRate: 88,
-      },
-      {
-        id: "team-007",
-        name: "山田 大輔",
-        department: "開発部",
-        role: "テックリード",
-        riskLevel: "medium",
-        score: 3.6,
-        lastResponseDate: "2025-02-01",
-        responseRate: 94,
-      },
-      {
-        id: "team-008",
-        name: "小林 恵美",
-        department: "営業部",
-        role: "営業マネージャー",
-        riskLevel: "low",
-        score: 4.2,
-        lastResponseDate: "2025-02-02",
-        responseRate: 96,
-      },
-    ];
+    // mockUsersを基にチームメンバーデータを生成
+    let teamMembers = mockUsers
+      .filter((user) => user.isActive)
+      .map((user) => {
+        // 最新スコアを取得
+        const userScores = mockDailyScores
+          .filter((score) => score.userId === user.id)
+          .sort(
+            (a, b) =>
+              new Date(b.scoreDate).getTime() - new Date(a.scoreDate).getTime(),
+          );
+
+        const latestScore = userScores[0];
+        const score = latestScore?.totalScore || 3.0;
+        const calculatedRiskLevel = calculateRiskLevel(score);
+
+        return {
+          id: user.id,
+          name: user.name,
+          department: user.department,
+          role: user.position,
+          riskLevel: calculatedRiskLevel,
+          score: Math.round(score * 10) / 10,
+          lastResponseDate: getLastResponseDate(user.id),
+          responseRate: calculateResponseRate(user.id),
+          managerNotes: getManagerNotes(user.id, calculatedRiskLevel),
+        };
+      });
 
     // フィルタリング
     if (department && department !== "all") {
