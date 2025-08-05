@@ -17,7 +17,9 @@ import {
 } from "@package/ui";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+
 import { LoadingSpinner } from "@/components/ui";
+import { useUnreadAlertCount } from "@/hooks/use-unread-alert-count";
 import { getCurrentSession, initializeSession } from "@/lib/mock-auth";
 
 type DashboardLayoutProps = {
@@ -33,6 +35,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const [session, setSession] = useState<ReturnType<
     typeof getCurrentSession
   > | null>(null);
+
+  // 未読アラート数を取得
+  const { unreadCount } = useUnreadAlertCount();
 
   useEffect(() => {
     const currentSession = initializeSession();
@@ -180,7 +185,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           />
         </svg>
       ),
-      roles: ["manager", "hr", "admin"],
     },
     {
       href: "/admin",
@@ -294,9 +298,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     {item.icon}
                     <SidebarLabel>{item.label}</SidebarLabel>
                   </div>
-                  {item.href === "/alerts" && (
+                  {item.href === "/alerts" && unreadCount > 0 && (
                     <div className="ml-auto">
-                      <Badge color="red">3</Badge>
+                      <Badge color="red">{unreadCount}</Badge>
                     </div>
                   )}
                 </SidebarItem>
@@ -305,7 +309,31 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           </SidebarBody>
 
           <SidebarFooter>
-            <div className="space-y-1 text-xs text-gray-500">
+            <SidebarItem
+              className="hover:cursor-paointer cursor-pointer rounded-lg border border-transparent transition-colors duration-200 hover:border-red-200 hover:bg-red-50 hover:text-red-700"
+              onClick={() => {
+                localStorage.removeItem("currentUserId");
+                router.push("/");
+              }}
+            >
+              <div className="flex items-center space-x-3 text-gray-600 transition-colors duration-200 hover:text-red-700">
+                <svg
+                  className="h-5 w-5 text-red-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                  />
+                </svg>
+                <SidebarLabel className="font-medium">ログアウト</SidebarLabel>
+              </div>
+            </SidebarItem>
+            <div className="mt-4 space-y-1 text-xs text-gray-500">
               <p>© 2025 やめどき予報</p>
               <p>Version 1.0.0</p>
             </div>

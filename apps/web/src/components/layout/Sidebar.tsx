@@ -3,6 +3,7 @@
 import { Badge } from "@package/ui";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useUnreadAlertCount } from "@/hooks/use-unread-alert-count";
 import { getCurrentSession } from "@/lib/mock-auth";
 import { cn } from "@/lib/utils";
 
@@ -23,6 +24,9 @@ type NavItem = {
 export function Sidebar({ isOpen = true, onClose, className }: SidebarProps) {
   const session = getCurrentSession();
   const pathname = usePathname();
+
+  // 未読アラート数を取得
+  const { unreadCount } = useUnreadAlertCount();
 
   const navItems: NavItem[] = [
     {
@@ -128,8 +132,6 @@ export function Sidebar({ isOpen = true, onClose, className }: SidebarProps) {
           />
         </svg>
       ),
-      badge: "3",
-      roles: ["manager", "hr", "admin"],
     },
     {
       href: "/admin",
@@ -250,10 +252,17 @@ export function Sidebar({ isOpen = true, onClose, className }: SidebarProps) {
                   </span>
                   <span>{item.label}</span>
                 </div>
-                {item.badge && (
+                {/* アラートの場合は動的な未読数を表示、それ以外は固定バッジ */}
+                {item.href === "/alerts" && unreadCount > 0 ? (
                   <Badge className="text-xs" color="red">
-                    {item.badge}
+                    {unreadCount}
                   </Badge>
+                ) : (
+                  item.badge && (
+                    <Badge className="text-xs" color="red">
+                      {item.badge}
+                    </Badge>
+                  )
                 )}
               </Link>
             ))}
