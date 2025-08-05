@@ -26,7 +26,7 @@ export function Legend({
       data-slot="legend"
       {...props}
       className={cn(
-        "text-base/6 font-semibold text-zinc-950 data-disabled:opacity-50 sm:text-sm/6 dark:text-white",
+        "text-base/6 font-semibold text-zinc-950 data-disabled:opacity-50 sm:text-sm/6",
         className,
       )}
     />
@@ -75,7 +75,7 @@ export function Label({
       data-slot="label"
       {...props}
       className={cn(
-        "text-base/6 text-zinc-950 select-none data-disabled:opacity-50 sm:text-sm/6 dark:text-white",
+        "text-base/6 text-zinc-950 select-none data-disabled:opacity-50 sm:text-sm/6",
         className,
       )}
     />
@@ -94,7 +94,7 @@ export function Description({
       data-slot="description"
       {...props}
       className={cn(
-        "text-base/6 text-zinc-500 data-disabled:opacity-50 sm:text-sm/6 dark:text-zinc-400",
+        "text-base/6 text-zinc-500 data-disabled:opacity-50 sm:text-sm/6",
         className,
       )}
     />
@@ -113,7 +113,7 @@ export function ErrorMessage({
       data-slot="error"
       {...props}
       className={cn(
-        "text-base/6 text-red-600 data-disabled:opacity-50 sm:text-sm/6 dark:text-red-500",
+        "text-base/6 text-red-600 data-disabled:opacity-50 sm:text-sm/6",
         className,
       )}
     />

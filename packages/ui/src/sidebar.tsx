@@ -24,7 +24,7 @@ export function SidebarHeader({
     <div
       {...props}
       className={cn(
-        "flex flex-col border-b border-zinc-950/5 p-4 dark:border-white/5 [&>[data-slot=section]+[data-slot=section]]:mt-2.5",
+        "flex flex-col border-b border-zinc-950/5 p-4 [&>[data-slot=section]+[data-slot=section]]:mt-2.5",
         className,
       )}
     />
@@ -54,7 +54,7 @@ export function SidebarFooter({
     <div
       {...props}
       className={cn(
-        "flex flex-col border-t border-zinc-950/5 p-4 dark:border-white/5 [&>[data-slot=section]+[data-slot=section]]:mt-2.5",
+        "flex flex-col border-t border-zinc-950/5 p-4 [&>[data-slot=section]+[data-slot=section]]:mt-2.5",
         className,
       )}
     />
@@ -86,7 +86,7 @@ export function SidebarDivider({
     <hr
       {...props}
       className={cn(
-        "my-4 border-t border-zinc-950/5 lg:-mx-4 dark:border-white/5",
+        "my-4 border-t border-zinc-950/5 lg:-mx-4",
         className,
       )}
     />
@@ -115,7 +115,7 @@ export function SidebarHeading({
     <h3
       {...props}
       className={cn(
-        "mb-1 px-2 text-xs/6 font-medium text-zinc-500 dark:text-zinc-400",
+        "mb-1 px-2 text-xs/6 font-medium text-zinc-500",
         className,
       )}
     >
@@ -152,17 +152,17 @@ export const SidebarItem = forwardRef(function SidebarItem(
     // Current
     "data-current:*:data-[slot=icon]:fill-zinc-950",
     // Dark mode
-    "dark:text-white dark:*:data-[slot=icon]:fill-zinc-400",
-    "dark:data-hover:bg-white/5 dark:data-hover:*:data-[slot=icon]:fill-white",
-    "dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white",
-    "dark:data-current:*:data-[slot=icon]:fill-white",
+    "*:data-[slot=icon]:fill-zinc-400",
+    "data-hover:bg-white/5 data-hover:*:data-[slot=icon]:fill-white",
+    "data-active:bg-white/5 data-active:*:data-[slot=icon]:fill-white",
+    "data-current:*:data-[slot=icon]:fill-white",
   );
 
   return (
     <span className={cn("relative", className)}>
       {current && (
         <motion.span
-          className="absolute inset-y-2 -left-4 w-0.5 rounded-full bg-zinc-950 dark:bg-white"
+          className="absolute inset-y-2 -left-4 w-0.5 rounded-full bg-zinc-950"
           layoutId="current-indicator"
         />
       )}

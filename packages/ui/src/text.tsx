@@ -10,7 +10,7 @@ export function Text({
       data-slot="text"
       {...props}
       className={cn(
-        "text-base/6 text-zinc-500 sm:text-sm/6 dark:text-zinc-400",
+        "text-base/6 text-zinc-500 sm:text-sm/6",
         className,
       )}
     />
@@ -25,7 +25,7 @@ export function TextLink({
     <Link
       {...props}
       className={cn(
-        "text-zinc-950 underline decoration-zinc-950/50 data-hover:decoration-zinc-950 dark:text-white dark:decoration-white/50 dark:data-hover:decoration-white",
+        "text-zinc-950 underline decoration-zinc-950/50 data-hover:decoration-zinc-950",
         className,
       )}
     />
@@ -39,7 +39,7 @@ export function Strong({
   return (
     <strong
       {...props}
-      className={cn("font-medium text-zinc-950 dark:text-white", className)}
+      className={cn("font-medium text-zinc-950", className)}
     />
   );
 }
@@ -52,7 +52,7 @@ export function Code({
     <code
       {...props}
       className={cn(
-        "rounded-sm border border-zinc-950/10 bg-zinc-950/2.5 px-0.5 text-sm font-medium text-zinc-950 sm:text-[0.8125rem] dark:border-white/20 dark:bg-white/5 dark:text-white",
+        "rounded-sm border border-zinc-950/10 bg-zinc-950/2.5 px-0.5 text-sm font-medium text-zinc-950 sm:text-[0.8125rem]",
         className,
       )}
     />

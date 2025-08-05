@@ -27,7 +27,7 @@ export function Avatar({
       className={cn(
         // Basic layout
         "inline-grid shrink-0 align-middle [--avatar-radius:20%] *:col-start-1 *:row-start-1",
-        "outline -outline-offset-1 outline-black/10 dark:outline-white/10",
+        "outline -outline-offset-1 outline-black/10",
         // Border radius
         square
           ? "rounded-(--avatar-radius) *:rounded-(--avatar-radius)"

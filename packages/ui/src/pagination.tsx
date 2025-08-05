@@ -109,7 +109,7 @@ export function PaginationPage({
       aria-label={`Page ${children}`}
       className={cn(
         "min-w-9 before:absolute before:-inset-px before:rounded-lg",
-        current && "before:bg-zinc-950/5 dark:before:bg-white/10",
+        current && "before:bg-zinc-950/5",
         className,
       )}
       href={href}
@@ -129,7 +129,7 @@ export function PaginationGap({
       aria-hidden="true"
       {...props}
       className={cn(
-        "w-9 text-center text-sm/6 font-semibold text-zinc-950 select-none dark:text-white",
+        "w-9 text-center text-sm/6 font-semibold text-zinc-950 select-none",
         className,
       )}
     >
